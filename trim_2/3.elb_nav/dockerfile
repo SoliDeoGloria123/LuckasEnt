@@ -1,19 +1,21 @@
 FROM python:3.12
 
 # Establece el directorio de trabajo en la raíz del contenedor
-WORKDIR / 
+WORKDIR / .
 
 # Instalar python and pip
-RUN apk add --update py3-pip
+RUN apt-get update && apt-get install -y python3-pip
 
 # instalar módulos Python necesarios para la aplicación Python
-COPY requirements.txt SRC/requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt.
+COPY SRC/requirements.txt ./requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copia el resto del código
 COPY . .
 
+EXPOSE 5001
+
 # Comando para ejecutar la aplicación
-CMD ["./start.sh"]
+CMD ["./start.sh", "uvicorn", "--reload", "--host", "0.0.0.0", "--port", "5001"]
 
 #https://www.youtube.com/watch?v=DoZZiSxXLJs
