@@ -2,6 +2,7 @@ FROM python:3.12
 
 # Establece el directorio de trabajo en la raíz del contenedor
 WORKDIR /app
+<<<<<<< HEAD
 
 # instalar módulos Python necesarios para la aplicación Python
 COPY requirements.txt ./requirements.txt
@@ -10,6 +11,16 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Instalar python and pip
 RUN apt-get update && apt-get install -y python3-pip
 
+=======
+
+# instalar módulos Python necesarios para la aplicación Python
+COPY requirements.txt ./requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Instalar python and pip
+RUN apt-get update && apt-get install -y python3-pip 
+
+>>>>>>> temp-branch
 # Copia el resto del código
 COPY . .
 
