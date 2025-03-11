@@ -1,0 +1,83 @@
+.lista-container {
+    width: 400px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  
+  .header h2 {
+    margin: 0;
+  }
+  
+  .contador-productos {
+    margin: 10px 0;
+    color: #555;
+  }
+  
+  .producto-item {
+    display: flex;
+    align-items: center;
+    background: #f9f9f9;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    position: relative;
+  }
+  
+  .producto-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 6px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  .producto-info h3 {
+    margin: 0 0 5px 0;
+    font-size: 16px;
+  }
+  
+  .btn-opciones {
+    background-color: #0033ff;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .btn-eliminar {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #e74c3c;
+    margin-left: auto;
+  }
+  
+  .precio-total {
+    margin-top: 15px;
+    font-size: 16px;
+    text-align: right;
+  }
+  
+  .btn-descargar {
+    width: 100%;
+    background-color: #0033ff;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .btn-descargar:hover {
+    background-color: #001faa;
+  }
+  
