@@ -16,7 +16,7 @@ COPY . .
 EXPOSE 5001
 
 # Comando para ejecutar la aplicación
-CMD ["uvicorn", "SRC.front_end.main:app", "--reload", "--host", "localhost", "--port", "5001"]
+CMD ["uvicorn", "SRC.front_end.home:app", "--reload", "--host", "localhost", "--port", "5001"]
 
 
 #https://www.youtube.com/watch?v=DoZZiSxXLJs
