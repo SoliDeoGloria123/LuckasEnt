@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+</head>
+
+<body>
+    <nav class="nav-bar">
+        <div class="logo">
+            <p class="logo-title">LUCKAS</p>
+            <p class="logo-subtitle">ENT</p>
+        </div>
+        <div class="menu-container">
+            <ul class="menu-links">
+                <li class="menu-item">
+                    <a href="index.html" class="menu-link">Inicio</a>
+                </li>
+                <li class="menu-item">
+                    <a href="{{ url_for('login') }}" class="login-button">Comparar prodctos</a>
+                </li>
+                <li class="menu-item">
+                    <a href="ofertas.html" class="menu-link">Ofertas</a>
+                </li>
+                <li class="menu-item dropdown">
+                    <a href="#" class="menu-link">Más Opciones</a>
+                    <ul class="submenu">
+                        <li><a href="contacto.html" class="submenu-link">Contacto</a></li>
+                        <li><a href="nosotros.html" class="submenu-link">Nosotros</a></li>
+                        <li><a href="ayuda.html" class="submenu-link">Ayuda</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="button-group">
+                <a href="buscar.html" class="btn btn-outline">Buscar</a>
+                <a href="login.py" class="btn btn-solid">Iniciar</a>
+            </div>
+        </div>
+    </nav>
+    <div class="header-30">
+
+        <div class="column">
+            <div class="content">
+                <div class="medium-length-hero-headline-goes-here">
+                    <span>
+                        <span class="medium-length-hero-headline-goes-here-span">
+                            Compara precios y
+                        </span>
+                        <span class="medium-length-hero-headline-goes-here-span2">
+                            ahorra
+                        </span>
+                        <span class="medium-length-hero-headline-goes-here-span3">
+                            en tus compras
+                        </span>
+                    </span>
+                </div>
+                <div
+                    class="lorem-ipsum-dolor-sit-amet-consectetur-adipiscing-elit-suspendisse-varius-enim-in-eros-elementum-tristique-duis-cursus-mi-quis-viverra-ornare-eros-dolor-interdum-nulla-ut-commodo-diam-libero-vitae-erat">
+                    LuckasEnt te permite comparar precios de productos de la canasta
+                    familiar en diferentes supermercados de Colombia. Toma decisiones
+                    informadas y ahorra dinero en tus compras diarias.
+                </div>
+            </div>
+            <a href="pagina-destino.html" class="button-primary1">
+                <button class="button">Descubre</button>
+            </a>            
+            
+        </div>
+    </div>
+
+    <div class="layout-24">
+        <div class="container">
+            <div class="content">
+                <img src="{{ url_for('static', path='img/Vector.png') }}" alt="Logo">
+                <div class="l-ogo-proyecto-luckas-ent-de-kent-1"></div>
+                <div class="content2">
+                    <div class="heading">
+                        Conectando a los consumidores con las mejores ofertas en
+                        supermercados.
+                    </div>
+                    <div class="text">
+                        En LuckasEnt, nuestra misión es empoderar a los compradores para que
+                        tomen decisiones informadas y ahorren en sus compras. Nuestra visión
+                        es ser la plataforma líder en comparación de precios, promoviendo la
+                        transparencia y el ahorro en el mercado colombiano.
+                    </div>
+                </div>
+            </div>
+            <img class="unsplash-h-yzv-nr-yw-z-10" src="{{ url_for('static', path='img/descarga.jpeg') }}" />
+        </div>
+    </div>
+    <div class="logo-3">
+        <div class="heading2">Nuestros Partners</div>
+        <div class="carousel-container">
+            <div class="carousel-track">
+                <div class="partner"><img src="{{ url_for('static', path='img/makro.jpg') }}" alt="Makro"></div>
+                <div class="partner"><img src="{{ url_for('static', path='img/image 4.png') }}" alt="Calima"></div>
+                <div class="partner"><img src="{{ url_for('static', path='img/image 5.png') }}" alt="Éxito"></div>
+                <div class="partner"><img src="{{ url_for('static', path='img/image 6.png') }}" alt="Ísimo"></div>
+                <div class="partner"><img src="{{ url_for('static', path='img/image 7.png') }}" alt="Ara"></div>
+            </div>
+        </div>
+        <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="next" onclick="moveSlide(1)">&#10095;</button>
+        <div class="carousel-indicators">
+            <span class="dot active" onclick="goToSlide(0)"></span>
+            <span class="dot" onclick="goToSlide(1)"></span>
+            <span class="dot" onclick="goToSlide(2)"></span>
+            <span class="dot" onclick="goToSlide(3)"></span>
+            <span class="dot" onclick="goToSlide(4)"></span>
+        </div>
+    </div>
+    <script src="{{ url_for('static', path='js/carrusel.js') }}"></script>
+
+    <div class="cta-5">
+        <div class="column">
+            <div class="content1">
+                <div class="heading1">¡Compara precios y ahorra hoy!</div>
+                <div class="text1">
+                    Regístrate ahora y descubre las mejores ofertas en tu supermercado
+                    favorito al instante.
+                </div>
+            </div>
+            <div class="actions">
+                <a href="registro.html" class="button-primary3">
+                    <div class="button5">Registrarse</div>
+                </a>
+                <a href="informacion.html" class="button-primary4">
+                    <div class="m-s-informaci-n">Más información</div>
+                </a>
+            </div>            
+        </div>
+    </div>
+    <div class="layout-240">
+        <h2 class="heading4">Explora las mejores opciones para tus compras</h2>
+        <div class="content4">
+            <div class="row">
+
+                <!-- Tarjeta 1 -->
+                <div class="column4">
+                    <img src="{{ url_for('static', path='img/image 9.png') }}" alt="Supermercado" class="image-9">
+                    <div class="column2">
+                        <div class="content3">
+                            <div class="heading0">Accede a supermercados en un solo lugar</div>
+                            <div class="text0">Compara precios de diferentes tiendas y ahorra en tus compras.</div>
+                        </div>
+                        <a href="descubre.html" class="hyperlink">
+                            <span class="comienza">Descubre</span>
+                            <span class="arrow">➜</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 2 -->
+                <div class="column4">
+                    <img src="{{ url_for('static', path='img/image 10.png') }}" alt="Comparación de precios" class="image-9">
+                    <div class="column2">
+                        <div class="content3">
+                            <div class="heading0">Interfaz amigable y fácil de usar</div>
+                            <div class="text0">Navega sin complicaciones y encuentra lo que necesitas.</div>
+                        </div>
+                        <a href="comienza.html" class="hyperlink">
+                            <span class="comienza">Comienza</span>
+                            <span class="arrow">➜</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 3 -->
+                <div class="column4">
+                    <img src="{{ url_for('static', path='img/image 12.png') }}" alt="Productos frescos" class="image-9">
+                    <div class="column2">
+                        <div class="content3">
+                            <div class="heading0">Explora las mejores ofertas</div>
+                            <div class="text0">Descubre descuentos exclusivos en tus productos favoritos.</div>
+                        </div>
+                        <a href="explora.html" class="hyperlink">
+                            <span class="comienza">Explora</span>
+                            <span class="arrow">➜</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+                     
+
+    <div class="layout-6">
+        <div class="container2">
+            <div class="content4">
+                <div class="content5">
+                    <div class="heading5">
+                        Descubre los beneficios de comparar precios con LuckasEnt en
+                        supermercados.
+                    </div>
+                    <div class="text5 ">
+                        LuckasEnt te permite ahorrar tiempo y dinero al comparar precios de
+                        productos. Con nuestra herramienta, toma decisiones informadas y
+                        optimiza tus compras.
+                    </div>
+                </div>
+                <div class="content55">
+                    <div class="row55">
+                        <div class="list-item">
+                            <div class="subheading-one">Ahorra dinero</div>
+                            <div class="text55">
+                                Compara precios y elige la opción más económica para tus compras
+                                diarias.
+                            </div>
+                        </div>
+                        <div class="list-item">
+                            <div class="subheading-two">Ahorra tiempo</div>
+                            <div class="text2">
+                                Encuentra rápidamente las mejores ofertas sin tener que visitar
+                                múltiples supermercados.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img class="placeholder-image" src="{{ url_for('static', path='img/celular.jpg') }}" />
+        </div>
+    </div>
+    <div class="layout-84">
+        <div class="content6">
+            <div class="column6">
+                <div class="content66">
+                    <div class="row666">
+                        <div class="list-item">
+                            <div class="number">70%</div>
+                            <div class="text6666">Ahorra hasta un 30% en tus compras.</div>
+                        </div>
+                        <div class="list-item2">
+                            <div class="number">30%</div>
+                            <div class="text6">
+                                Más de 1000 productos analizados diariamente.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text66">
+                    El 70% de los colombianos compara precios antes de realizar sus compras.
+                    Nuestro servicio ha facilitado esta tarea, permitiendo a los usuarios
+                    ahorrar tiempo y dinero.
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<footer>
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <div class="footer-info">
+                    <div class="footer-heading">Comparte y ahorra en tus compras diarias</div>
+                    <div class="footer-text">
+                        Encuentra los mejores precios en supermercados y toma decisiones
+                        inteligentes para tu hogar.
+                    </div>
+                </div>
+                <div class="footer-actions">
+                    <button class="footer-btn-primary">
+                        <span class="footer-btn-text-primary">Explorar</span>
+                    </button>
+
+                    <button class="footer-btn-secondary">
+                        <span class="footer-btn-text-secondary">Ayuda</span>
+                    </button>
+                </div>
+            </div>
+            <div class="footer-links-column">
+                <div class="footer-link-list">
+                    <div class="footer-link-item">
+                        <a href="#" class="footer-link">Inicio</a>
+                    </div>
+                    <div class="footer-link-item">
+                        <a href="#" class="footer-link">Contáctanos</a>
+                    </div>
+                    <div class="footer-link-item">
+                        <a href="#" class="footer-link">Ayuda Online</a>
+                    </div>
+                    <div class="footer-link-item">
+                        <a href="#" class="footer-link">Política de Privacidad</a>
+                    </div>
+                    <div class="footer-link-item">
+                        <a href="#" class="footer-link">Términos de Uso</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-credits">
+            <div class="footer-logo-row">
+                <div class="footer-logo-container">
+                    <img class="footer-logo" src="{{ url_for('static', path='img/lOGO PROYECTO LuckasEnt.png') }}" />
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom-row">
+                <div class="footer-copyright">
+                    © 2024 LuckasEnt. Todos los derechos reservados.
+                </div>
+                <div class="footer-social-links">
+                    <a href="https://facebook.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}" alt="Facebook" />
+                    </a>
+                    <a href="https://twitter.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/X.png') }}" alt="Twitter" />
+                    </a>
+                    <a href="https://instagram.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Instagram.png') }}" alt="Instagram" />
+                    </a>
+                    <a href="https://linkedin.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/LinkedIn.png') }}" alt="LinkedIn" />
+                    </a>
+                    <a href="https://youtube.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Youtube.png') }}" alt="YouTube" />
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</footer>
+
+</html>

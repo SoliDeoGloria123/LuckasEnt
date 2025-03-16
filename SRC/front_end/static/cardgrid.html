@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card</title>
+    <link rel="stylesheet" href="cardgrid.css">
+</head>
+<body>
+    <div class="lista-container">
+        <div class="header">
+          <h2>Tu Lista</h2>
+          <p>Personaliza tu lista como más te guste</p>
+          <div class="contador-productos">Tienes <span id="contador">3</span> productos en tu lista</div>
+        </div>
+      
+        <!-- Producto 1 -->
+        <div class="producto-item">
+          <img src="img/images.webp" alt="Lechuga" class="producto-img">
+          <div class="producto-info">
+            <h3>Lechuga manojo Light</h3>
+            <p>Marca | $7200 | 2%</p>
+            <button class="btn-opciones">Buscar otras opciones</button>
+          </div>
+          <button class="btn-eliminar" onclick="eliminarProducto(this)">🗑️</button>
+        </div>
+      
+        <!-- Producto 2 -->
+        <div class="producto-item">
+          <img src="img/images.webp" alt="Papa" class="producto-img">
+          <div class="producto-info">
+            <h3>Papa Pastusa</h3>
+            <p>Nacional | $12000 | 1kg</p>
+            <button class="btn-opciones">Buscar otras opciones</button>
+          </div>
+          <button class="btn-eliminar" onclick="eliminarProducto(this)">🗑️</button>
+        </div>
+      
+        <!-- Producto 3 -->
+        <div class="producto-item">
+          <img src="img/images.webp" alt="Carne" class="producto-img">
+          <div class="producto-info">
+            <h3>Carne para asar</h3>
+            <p>500g | $17000</p>
+            <button class="btn-opciones">Buscar otras opciones</button>
+          </div>
+          <button class="btn-eliminar" onclick="eliminarProducto(this)">🗑️</button>
+        </div>
+      
+        <!-- Precio Total -->
+        <div class="precio-total">
+          <strong>Total estimado:</strong> <span id="precioTotal">$36.200</span>
+        </div>
+      
+        <!-- Botón PDF -->
+        <button class="btn-descargar">
+          📄 Descargar Lista PDF
+        </button>
+      </div>
+      
+</body>
+</html>
