@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
+
 app = FastAPI()
 
 # Servir archivos estáticos
@@ -21,3 +22,7 @@ async def login(request: Request):
 @app.get("/registro", name="registro")
 async def registro(request: Request):
     return templates.TemplateResponse("registro.html", {"request": request})
+
+@app.get("/page", name="page")
+async def page(request: Request):
+    return templates.TemplateResponse("page.html", {"request": request})
