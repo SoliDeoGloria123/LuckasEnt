@@ -1,0 +1,171 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+}
+
+.logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    text-align: left; /* Alinea el texto a la derecha */
+}
+
+.logo-title {
+    color: rgb(0, 0, 0);
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.logo-subtitle {
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: relative;
+    letter-spacing: 3px;
+    display: block; /* Asegura que esté debajo del título */
+}
+
+.login-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;  /* Se agranda un poco */
+}
+.login-box h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.login-box p {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los elementos */
+}
+label {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+    align-self: flex-start; /* Alinea los labels a la izquierda */
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.btn-primary {
+    background-color: #335CFF;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #2649c4;
+}
+
+.btn-google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.btn-google:hover {
+    background-color: #f0f0f0;
+}
+
+.btn-google img {
+    width: 20px;
+    margin-right: 10px;
+}
+
+.forgot-password {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #335CFF;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.register-link {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 14px;
+    color: black;
+    text-decoration: none;
+}
+
+.register-link span {
+    color: blue;
+    text-decoration: none;
+}
+
+footer {
+    position: absolute;
+    right: 116px;
+    bottom: 10px;
+    font-size: 12px;
+    color: #666;
+}

@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" media="all" href="style.cssx">
+    <title>HOME</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
 </head>
 
 <body>
     <nav class="nav-bar">
         <div class="logo">
-            <img src="../home LuckasEnt/Img/Logo.png" />
+            <p class="logo-title">LUCKAS</p>
+            <p class="logo-subtitle">ENT</p>
         </div>
         <div class="menu-container">
             <ul class="menu-links">
@@ -19,7 +19,7 @@
                     <a href="index.html" class="menu-link">Inicio</a>
                 </li>
                 <li class="menu-item">
-                    <a href="comparar.html" class="menu-link">Comparar Productos</a>
+                    <a href="{{ url_for('login') }}" class="login-button">Comparar prodctos</a>
                 </li>
                 <li class="menu-item">
                     <a href="ofertas.html" class="menu-link">Ofertas</a>
@@ -35,7 +35,7 @@
             </ul>
             <div class="button-group">
                 <a href="buscar.html" class="btn btn-outline">Buscar</a>
-                <a href="login.html" class="btn btn-solid">Iniciar</a>
+                <a href="login.py" class="btn btn-solid">Iniciar</a>
             </div>
         </div>
     </nav>
@@ -63,16 +63,17 @@
                     informadas y ahorra dinero en tus compras diarias.
                 </div>
             </div>
-            <div class="button-primary1">
-                <div class="button">Descubre</div>
-            </div>
+            <a href="pagina-destino.html" class="button-primary1">
+                <button class="button">Descubre</button>
+            </a>            
+            
         </div>
     </div>
 
     <div class="layout-24">
         <div class="container">
             <div class="content">
-                <img class="icon-relume" src="Img/Ico.png" />
+                <img src="{{ url_for('static', path='img/Vector.png') }}" alt="Logo">
                 <div class="l-ogo-proyecto-luckas-ent-de-kent-1"></div>
                 <div class="content2">
                     <div class="heading">
@@ -87,35 +88,32 @@
                     </div>
                 </div>
             </div>
-            <img class="unsplash-h-yzv-nr-yw-z-10" src="Img/contedor2.png" />
+            <img class="unsplash-h-yzv-nr-yw-z-10" src="{{ url_for('static', path='img/descarga.jpeg') }}" />
         </div>
     </div>
     <div class="logo-3">
         <div class="heading2">Nuestros Partners</div>
-        <div class="frame-427320319">
-            <div class="partners-makro">
-                <img class="image-3" src="Img/makro.png" />
-            </div>
-            <div class="partners-carulla">
-                <img class="image-4" src="Img/calima.png" />
-            </div>
-            <div class="partners-exito">
-                <img class="image-5" src="Img/exito.png" />
-            </div>
-            <div class="partners-exito">
-                <img class="image-6" src="Img/isimo.png" />
-            </div>
-            <div class="partners-exito2">
-                <img class="image-7" src="Img/Ara.png" />
+        <div class="carousel-container">
+            <div class="carousel-track">
+                <div class="partner"><img src="{{ url_for('static', path='img/makro.jpg') }}" alt="Makro"></div>
+                <div class="partner"><img src="{{ url_for('static', path='img/image 4.png') }}" alt="Calima"></div>
+                <div class="partner"><img src="{{ url_for('static', path='img/image 5.png') }}" alt="Éxito"></div>
+                <div class="partner"><img src="{{ url_for('static', path='img/image 6.png') }}" alt="Ísimo"></div>
+                <div class="partner"><img src="{{ url_for('static', path='img/image 7.png') }}" alt="Ara"></div>
             </div>
         </div>
-        <div class="frame-427320318">
-            <div class="ellipse-102"></div>
-            <div class="ellipse-99"></div>
-            <div class="ellipse-100"></div>
-            <div class="ellipse-101"></div>
+        <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="next" onclick="moveSlide(1)">&#10095;</button>
+        <div class="carousel-indicators">
+            <span class="dot active" onclick="goToSlide(0)"></span>
+            <span class="dot" onclick="goToSlide(1)"></span>
+            <span class="dot" onclick="goToSlide(2)"></span>
+            <span class="dot" onclick="goToSlide(3)"></span>
+            <span class="dot" onclick="goToSlide(4)"></span>
         </div>
     </div>
+    <script src="{{ url_for('static', path='js/carrusel.js') }}"></script>
+
     <div class="cta-5">
         <div class="column">
             <div class="content1">
@@ -126,87 +124,69 @@
                 </div>
             </div>
             <div class="actions">
-                <div class="button-primary3">
+                <a href="registro.html" class="button-primary3">
                     <div class="button5">Registrarse</div>
-                </div>
-                <div class="button-primary4">
+                </a>
+                <a href="informacion.html" class="button-primary4">
                     <div class="m-s-informaci-n">Más información</div>
-                </div>
-            </div>
+                </a>
+            </div>            
         </div>
     </div>
     <div class="layout-240">
-        <div class="heading4">
-            Comparativas precisas para que tomes decisiones informadas en tus compras.
-        </div>
+        <h2 class="heading4">Explora las mejores opciones para tus compras</h2>
         <div class="content4">
             <div class="row">
+
+                <!-- Tarjeta 1 -->
                 <div class="column4">
-                    <img class="image-9" src="Img/image 9.png" />
+                    <img src="{{ url_for('static', path='img/image 9.png') }}" alt="Supermercado" class="image-9">
                     <div class="column2">
-                        <div class="content2">
-                            <div class="content3">
-                                <div class="heading0">
-                                    Actualización de precios
-                                    <br />
-                                    en tiempo real.
-                                </div>
-                                <div class="text0">
-                                    Nuestro servicio es intuitivo y
-                                    <br />
-                                    fácil de usar, diseñado para todos.
-                                </div>
-                            </div>
+                        <div class="content3">
+                            <div class="heading0">Accede a supermercados en un solo lugar</div>
+                            <div class="text0">Compara precios de diferentes tiendas y ahorra en tus compras.</div>
                         </div>
-                        <div class="hyperlink">
-                            <div class="hyperlink2">Descubre</div>
-                            <img class="keyboard-arrow-right" src="Img/ico2.png" />
-                        </div>
+                        <a href="descubre.html" class="hyperlink">
+                            <span class="comienza">Descubre</span>
+                            <span class="arrow">➜</span>
+                        </a>
                     </div>
                 </div>
+
+                <!-- Tarjeta 2 -->
                 <div class="column4">
-                    <img class="image-12" src="Img/image 12.png" />
+                    <img src="{{ url_for('static', path='img/image 10.png') }}" alt="Comparación de precios" class="image-9">
                     <div class="column2">
-                        <div class="content2">
-                            <div class="content3">
-                                <div class="heading0">
-                                    Acceso a una amplia variedad de supermercados en un solo lugar
-                                </div>
-                                <div class="text0">
-                                    Compara precios de diferentes tiendas y ahorrra en tus compras
-                                    diarias
-                                </div>
-                            </div>
+                        <div class="content3">
+                            <div class="heading0">Interfaz amigable y fácil de usar</div>
+                            <div class="text0">Navega sin complicaciones y encuentra lo que necesitas.</div>
                         </div>
-                        <div class="hyperlink">
-                            <div class="comienza">Comienza</div>
-                            <img class="keyboard-arrow-right2" src="Img/ico2.png" />
-                        </div>
+                        <a href="comienza.html" class="hyperlink">
+                            <span class="comienza">Comienza</span>
+                            <span class="arrow">➜</span>
+                        </a>
                     </div>
                 </div>
+
+                <!-- Tarjeta 3 -->
                 <div class="column4">
-                    <img class="image-10" src="Img/image 10.png" />
+                    <img src="{{ url_for('static', path='img/image 12.png') }}" alt="Productos frescos" class="image-9">
                     <div class="column2">
-                        <div class="content2">
-                            <div class="content3">
-                                <div class="heading0">
-                                    Interfaz amigable que simplifica la comparación de productos.
-                                </div>
-                                <div class="text00">
-                                    Navega sin complicaciones y encuentra lo que necesitas
-                                    rápidamente.
-                                </div>
-                            </div>
+                        <div class="content3">
+                            <div class="heading0">Explora las mejores ofertas</div>
+                            <div class="text0">Descubre descuentos exclusivos en tus productos favoritos.</div>
                         </div>
-                        <div class="hyperlink">
-                            <div class="explora">Explora</div>
-                            <img class="keyboard-arrow-right3" src="Img/ico2.png" />
-                        </div>
+                        <a href="explora.html" class="hyperlink">
+                            <span class="comienza">Explora</span>
+                            <span class="arrow">➜</span>
+                        </a>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
+                     
 
     <div class="layout-6">
         <div class="container2">
@@ -241,7 +221,7 @@
                     </div>
                 </div>
             </div>
-            <img class="placeholder-image" src="Img/celular.png" />
+            <img class="placeholder-image" src="{{ url_for('static', path='img/celular.jpg') }}" />
         </div>
     </div>
     <div class="layout-84">
@@ -316,7 +296,7 @@
         <div class="footer-credits">
             <div class="footer-logo-row">
                 <div class="footer-logo-container">
-                    <img class="footer-logo" src="Img/lOGO PROYECTO LuckasEnt.png" />
+                    <img class="footer-logo" src="{{ url_for('static', path='img/lOGO PROYECTO LuckasEnt.png') }}" />
                 </div>
             </div>
             <div class="footer-divider"></div>
@@ -325,12 +305,23 @@
                     © 2024 LuckasEnt. Todos los derechos reservados.
                 </div>
                 <div class="footer-social-links">
-                    <img class="footer-social-icon" src="../Luckas_Ent/img/Facebook.png" />
-                    <img class="footer-social-icon" src="../Luckas_Ent/img/instagram.png" />
-                    <img class="footer-social-icon" src="../Luckas_Ent/img/x.png" />
-                    <img class="footer-social-icon" src="../Luckas_Ent/img/LinkedIn.png" />
-                    <img class="footer-social-icon" src="../Luckas_Ent/img/Youtube.png" />
+                    <a href="https://facebook.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}" alt="Facebook" />
+                    </a>
+                    <a href="https://twitter.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/X.png') }}" alt="Twitter" />
+                    </a>
+                    <a href="https://instagram.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Instagram.png') }}" alt="Instagram" />
+                    </a>
+                    <a href="https://linkedin.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/LinkedIn.png') }}" alt="LinkedIn" />
+                    </a>
+                    <a href="https://youtube.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Youtube.png') }}" alt="YouTube" />
+                    </a>
                 </div>
+                
             </div>
         </div>
     </div>
