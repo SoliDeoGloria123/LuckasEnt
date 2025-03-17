@@ -1,15 +1,19 @@
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-
+from pathlib import Path
 
 app = FastAPI()
 
-# Servir archivos estáticos
-app.mount("/static", StaticFiles(directory="front_end/static"), name="static")
+# 📂 Base directory dinámico (donde está este archivo)
+BASE_DIR = Path(__file__).resolve().parent
 
-# Configurar templates
-templates = Jinja2Templates(directory="front_end/templates")
+# ✅ Servir archivos estáticos con el path absoluto
+app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
+
+# ✅ Configurar templates con el path absoluto
+templates = Jinja2Templates(directory=BASE_DIR / "templates")
+
 
 @app.get("/")
 async def home(request: Request):
@@ -28,9 +32,9 @@ async def page(request: Request):
     return templates.TemplateResponse("page.html", {"request": request})
 
 @app.get("/cuenta", name="cuenta")
-async def page(request: Request):
+async def cuenta(request: Request):  # ✔️ Nombre correcto de la función
     return templates.TemplateResponse("Mi_Cuenta.html", {"request": request})
 
 @app.get("/perfil", name="perfil")
-async def page(request: Request):
+async def perfil(request: Request):  # ✔️ Nombre correcto de la función
     return templates.TemplateResponse("mi_informacion.html", {"request": request})

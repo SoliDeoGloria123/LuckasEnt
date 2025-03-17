@@ -1,22 +1,27 @@
-FROM python:3.12
+# Imagen base oficial de Python (versión slim para menos peso)
+FROM python:3.12-slim
 
-#Establece el directorio de trabajo en la raíz del contenedor
+# Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-#instalar módulos Python necesarios para la aplicación Python
-COPY requirements.txt ./requirements.txt
+# Copia el requirements.txt primero para aprovechar el cache de Docker en la instalación de dependencias
+COPY requirements.txt .
+
+# Instala dependencias sin cache para evitar imágenes gigantes
 RUN pip install --no-cache-dir -r requirements.txt
 
-#Instalar python and pip
-RUN apt-get update && apt-get install -y python3-pip 
-
-#Copia el resto del código
+# Copia el resto del código al contenedor (asegúrate que esté en la raíz de tu proyecto)
 COPY . .
 
+# Agrega el directorio /app al PYTHONPATH para que Python encuentre bien tus módulos
+ENV PYTHONPATH=/app
+
+# Expone el puerto donde corre la app dentro del contenedor
 EXPOSE 5001
 
-#Comando para ejecutar la aplicación
-CMD ["uvicorn", "SRC.front_end.home:app", "--reload", "--host", "localhost", "--port", "5001"]
+# Comando para arrancar el server con uvicorn
+CMD ["uvicorn", "SRC.front_end.main:app", "--reload", "--host", "0.0.0.0", "--port", "5001"]
+
 
 
 #https://www.youtube.com/watch?v=DoZZiSxXLJs
