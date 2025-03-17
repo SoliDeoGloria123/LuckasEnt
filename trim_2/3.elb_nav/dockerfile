@@ -1,21 +1,21 @@
 FROM python:3.12
 
-# Establece el directorio de trabajo en la raíz del contenedor
+#Establece el directorio de trabajo en la raíz del contenedor
 WORKDIR /app
 
-# instalar módulos Python necesarios para la aplicación Python
+#instalar módulos Python necesarios para la aplicación Python
 COPY requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Instalar python and pip
+#Instalar python and pip
 RUN apt-get update && apt-get install -y python3-pip 
 
-# Copia el resto del código
+#Copia el resto del código
 COPY . .
 
 EXPOSE 5001
 
-# Comando para ejecutar la aplicación
+#Comando para ejecutar la aplicación
 CMD ["uvicorn", "SRC.front_end.home:app", "--reload", "--host", "localhost", "--port", "5001"]
 
 
@@ -25,3 +25,4 @@ CMD ["uvicorn", "SRC.front_end.home:app", "--reload", "--host", "localhost", "--
 #docker run -p 5001:5001 --network=host luckasent                                         NOTA: PARA VERLO EN EL LOCAL UNA VEZ SIN RECARGAR
 #docker run -p 5001:5001 --network=host -v $(pwd)/SRC:/app/SRC luckasent                  NOTA:LO MISMO QUE EL ANTERIOR SOLO QUE CADA VEZ QUE SE HAGA CAMBIOS EN EL CODIGO SE ACTUALIZA
 #docker image rmi -f luckasent                                                            NOTA: se utiliza para eliminar una imagen de Docker de tu sistema
+#uvicorn front_end.main:app --reload

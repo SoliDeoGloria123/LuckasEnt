@@ -26,3 +26,11 @@ async def registro(request: Request):
 @app.get("/page", name="page")
 async def page(request: Request):
     return templates.TemplateResponse("page.html", {"request": request})
+
+@app.get("/cuenta", name="cuenta")
+async def page(request: Request):
+    return templates.TemplateResponse("Mi_Cuenta.html", {"request": request})
+
+@app.get("/perfil", name="perfil")
+async def page(request: Request):
+    return templates.TemplateResponse("mi_informacion.html", {"request": request})

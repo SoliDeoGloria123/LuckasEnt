@@ -78,9 +78,9 @@ body {
 .search-input {
   border: none;
   outline: none;
-  padding: 5px;
   font-size: 14px;
-  width: 180px;
+  width: 200px;
+  padding: 5px;
 }
 
 .search-button {

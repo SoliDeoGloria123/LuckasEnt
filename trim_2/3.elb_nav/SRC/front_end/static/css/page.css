@@ -50,30 +50,28 @@
    letter-spacing: 3px;
  }
  .search-bar {
-     display: flex;
-     flex: 1;
-     border: 1px solid #0b36f5;
-     max-width: 700px;
-     margin: 0 20px;
- }
- 
- .search-bar input {
-     flex: 1;
-     padding: 10px;
-     border: none;
-     border-radius: 5px 0 0 5px;
-     outline: none;
- }
- 
- .search-bar button {
-     padding: 10px 15px;
-     border: none;
-     background-color: #004bb5;
-     border: 1px solid #ccc;
-     color: rgb(255, 255, 255);
-     border-radius: 0 5px 5px 0;
-     cursor: pointer;
- }
+  display: flex;
+  flex: 1;
+  max-width: 500px;
+  margin: 0 20px;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+.search-bar button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #004bb5;
+  color: white;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
  
  .nav-menu {
      display: flex;
