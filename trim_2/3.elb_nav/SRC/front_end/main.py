@@ -37,4 +37,8 @@ async def cuenta(request: Request):  # ✔️ Nombre correcto de la función
 
 @app.get("/perfil", name="perfil")
 async def perfil(request: Request):  # ✔️ Nombre correcto de la función
+<<<<<<< HEAD
     return templates.TemplateResponse("mi_informacion.html", {"request": request})
+=======
+    return templates.TemplateResponse("mi_informacion.html", {"request": request})
+>>>>>>> 1252e90512bf085de5855cfddfd9a25189500979
