@@ -7,6 +7,7 @@
     <title>Document</title>
 
     <link rel="stylesheet" href="{{ url_for('static', path='css/mi_cuenta.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
@@ -15,10 +16,10 @@
         <img class="logo" src="rectangle-41370.png" alt="Logo" />
         <div class="nav-title">Perfil</div>
         <div class="navigation">
-            <a href="index.html" class="nav-link">Inicio</a>
-            <a href="categorias.html" class="nav-link">Categorías</a>
-            <a href="ofertas.html" class="nav-link">Ofertas</a>
-            <a href="mi-lista.html" class="nav-link">Mi Lista</a>
+            <a href="#" class="nav-link">Inicio</a>
+            <a href="#" class="nav-link">Categorías</a>
+            <a href="#" class="nav-link">Ofertas</a>
+            <a href="#" class="nav-link">Mi Lista</a>
             <a href="{{ url_for('perfil') }}" class="nav-link profile-link">
                 <img class="icon-profile" src="person-outline0.svg" alt="Perfil" />
                 Mi perfil
@@ -177,42 +178,49 @@
                 <h2>Tus favoritos <span>💙</span></h2>
               
                 <div class="carousel-container">
-                    <!-- Flecha izquierda -->
-                    <button class="arrow left">❮</button>
+                  <!-- Flecha izquierda -->
+                  <button class="arrow left" id="leftArrow">&lt;</button>
               
-                    <!-- Carrusel de productos -->
-                    <div class="favoritos-carousel">
-                        <!-- Producto 1 -->
-                        <div class="favorito-card">
-                            <div class="heart">💙</div>
-                            <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Arándanos">
-                            <h3>Arándanos</h3>
-                            <button class="btn-ver">Ver</button>
-                        </div>
-              
-                        <!-- Producto 2 -->
-                        <div class="favorito-card">
-                            <div class="heart">💙</div>
-                            <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Lechuga crespa">
-                            <h3>Lechuga crespa</h3>
-                            <button class="btn-ver">Ver</button>
-                        </div>
-              
-                        <!-- Producto 3 -->
-                        <div class="favorito-card">
-                            <div class="heart">💙</div>
-                            <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Zanahorias">
-                            <h3>Zanahorias</h3>
-                            <button class="btn-ver">Ver</button>
-                        </div>
+                  <!-- Carrusel de productos -->
+                  <div class="favoritos-carousel" id="carousel">
+                    <!-- Producto 1 -->
+                    <div class="favorito-card">
+                      <div class="favorite"><i class="fas fa-heart"></i></div>
+                      <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Arándanos">
+                      <h3>Arándanos</h3>
+                      <button class="btn-ver">Ver</button>
                     </div>
               
-                    <!-- Flecha derecha -->
-                    <button class="arrow right">❯</button>
+                    <!-- Producto 2 -->
+                    <div class="favorito-card">
+                      <div class="favorite"><i class="fas fa-heart"></i></div>
+                      <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Lechuga crespa">
+                      <h3>Lechuga crespa</h3>
+                      <button class="btn-ver">Ver</button>
+                    </div>
+              
+                    <!-- Producto 3 -->
+                    <div class="favorito-card">
+                      <div class="favorite"><i class="fas fa-heart"></i></div>
+                      <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Zanahorias">
+                      <h3>Zanahorias</h3>
+                      <button class="btn-ver">Ver</button>
+                    </div>
+              
+                    <!-- Producto 4 -->
+                    <div class="favorito-card">
+                      <div class="favorite"><i class="fas fa-heart"></i></div>
+                      <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Zanahorias">
+                      <h3>Zanahorias</h3>
+                      <button class="btn-ver">Ver</button>
+                    </div>
+                  </div>
+              
+                  <!-- Flecha derecha -->
+                  <button class="arrow right" id="rightArrow">&gt;</button>
                 </div>
-            </section>
-
-            <!-- Banner promocional -->
+              </section>
+                       <!-- Banner promocional -->
             <div class="promo-banner">
                 <div class="promo-img-wrapper">
                     <div class="promo-img-box">
@@ -233,7 +241,7 @@
 
     
 
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', path='js/carousel2.js') }}"></script>
 </body>
 <footer>
     <div class="footer">

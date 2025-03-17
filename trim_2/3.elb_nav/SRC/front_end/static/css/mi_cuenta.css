@@ -603,48 +603,48 @@ body {
   gap: 10px;
   width: 100%;
   overflow: hidden;
+  position: relative;
 }
 
+/* Carrusel */
 .favoritos-carousel {
   display: flex;
   gap: 20px;
   overflow-x: auto;
   scroll-behavior: smooth;
+  scroll-snap-type: x mandatory; /* Para que las tarjetas encajen al hacer scroll */
   padding: 10px 0;
   max-width: 80%;
   margin: 0 auto;
 }
 
 .favoritos-carousel::-webkit-scrollbar {
-  display: none;
+  display: none; /* Oculta la barra de scroll */
 }
 
+/* Tarjetas */
 .favorito-card {
+  flex: 0 0 auto; /* Para que mantengan su tamaño */
+  scroll-snap-align: start;
+  width: 250px;
+  height: 300px;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  min-width: 180px;
-  flex: 0 0 auto;
-  padding: 10px;
-  text-align: center;
   position: relative;
+  overflow: hidden;
   transition: transform 0.3s ease;
+  text-align: center;
+  padding: 10px;
 }
 
 .favorito-card:hover {
   transform: translateY(-5px);
 }
 
-.heart {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 1.2rem;
-}
-
 .favorito-card img {
   width: 100%;
-  height: 120px;
+  height: 150px;
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 10px;
@@ -669,19 +669,32 @@ body {
   background-color: #0022cc;
 }
 
-.arrow {
-  background-color: transparent;
-  border: none;
-  font-size: 2rem;
-  color: #333;
+/* Corazón de favorito */
+.heart, .favorite {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
   cursor: pointer;
-  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   transition: color 0.3s;
 }
 
-.arrow:hover {
-  color: #0033ff;
+.favorite i {
+  color: gray;
+  transition: color 0.3s;
 }
+
+.favorite.active i {
+  color: rgb(0, 0, 255); /* Cuando se activa, el icono se pone rojo */
+} 
 
 /* ===== BANNER PROMOCIONAL ===== */
 .promo-banner {

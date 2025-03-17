@@ -242,7 +242,7 @@
  }
  
  .favorite.active i {
-     color: rgb(76, 0, 255); /* Cuando se activa, el icono se pone rojo */
+     color: rgb(0, 0, 255); /* Cuando se activa, el icono se pone rojo */
  }
  
  
