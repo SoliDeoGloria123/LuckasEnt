@@ -5,8 +5,6 @@ beautifulsoup4==4.13.3
 pandas==2.2.3
 playwright==1.50.0
 requests==2.32.3
-<<<<<<< HEAD
 pymongo==4.11.1
-=======
 pymongo==4.11.1
->>>>>>> 1252e90512bf085de5855cfddfd9a25189500979
+

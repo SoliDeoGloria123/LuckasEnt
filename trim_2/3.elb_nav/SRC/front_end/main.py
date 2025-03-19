@@ -27,6 +27,10 @@ async def login(request: Request):
 async def registro(request: Request):
     return templates.TemplateResponse("registro.html", {"request": request})
 
+@app.get("/olvidar", name="olvidar")
+async def olvidar(request: Request):  # ✔️ Nombre correcto de la función
+    return templates.TemplateResponse("olvidar_contraseña.html", {"request": request})
+
 @app.get("/page", name="page")
 async def page(request: Request):
     return templates.TemplateResponse("page.html", {"request": request})
@@ -37,8 +41,22 @@ async def cuenta(request: Request):  # ✔️ Nombre correcto de la función
 
 @app.get("/perfil", name="perfil")
 async def perfil(request: Request):  # ✔️ Nombre correcto de la función
-<<<<<<< HEAD
     return templates.TemplateResponse("mi_informacion.html", {"request": request})
-=======
-    return templates.TemplateResponse("mi_informacion.html", {"request": request})
->>>>>>> 1252e90512bf085de5855cfddfd9a25189500979
+
+@app.get("/precioproduc", name="precioproduc")
+async def precioproduc(request: Request):  # ✔️ Nombre correcto de la función
+    return templates.TemplateResponse("productoprecio.html", {"request": request})
+
+@app.get("/ubicacionproduc", name="ubicacionproduc")
+async def ubicacionproduc(request: Request):  # ✔️ Nombre correcto de la función
+    return templates.TemplateResponse("productoubica.html", {"request": request})
+
+@app.get("/reseñaproduc", name="reseñaproduc")
+async def reseñaproduc(request: Request):  # ✔️ Nombre correcto de la función
+    return templates.TemplateResponse("productoreseña.html", {"request": request})
+
+@app.get("/tulista", name="tulista")
+async def tulista(request: Request):  # ✔️ Nombre correcto de la función
+    return templates.TemplateResponse("cardgrid.html", {"request": request})
+
+

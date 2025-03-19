@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HOME</title>
     <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
-</head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&display=swap" /></head>
 
 <body>
     <nav class="nav-bar">
         <div class="logo">
-            <p class="logo-title">LUCKAS</p>
-            <p class="logo-subtitle">ENT</p>
+            <span class="luckas">Luckas</span>
+            <span class="ent">ent</span>
         </div>
         <div class="menu-container">
             <ul class="menu-links">
                 <li class="menu-item">
-                    <a href="{{ url_for('cuenta') }}" class="menu-link">Inicio</a>
+                    <a href="" class="menu-link">Inicio</a>
                 </li>
                 <li class="menu-item">
-                    <a href="{{ url_for('login') }}" class="login-button">Comparar prodctos</a>
+                    <a href="{{ url_for('login') }}" class="menu-link">Comparar prodctos</a>
                 </li>
                 <li class="menu-item">
                     <a href="ofertas.html" class="menu-link">Ofertas</a>
@@ -65,8 +66,8 @@
             </div>
             <a href="pagina-destino.html" class="button-primary1">
                 <button class="button">Descubre</button>
-            </a>            
-            
+            </a>
+
         </div>
     </div>
 
@@ -88,7 +89,7 @@
                     </div>
                 </div>
             </div>
-            <img class="unsplash-h-yzv-nr-yw-z-10" src="{{ url_for('static', path='img/descarga.jpeg') }}" />
+            <img class="unsplash-h-yzv-nr-yw-z-10" src="{{ url_for('static', path='img/paisaje.png') }}" />
         </div>
     </div>
     <div class="logo-3">
@@ -130,7 +131,7 @@
                 <a href="informacion.html" class="button-primary4">
                     <div class="m-s-informaci-n">Más información</div>
                 </a>
-            </div>            
+            </div>
         </div>
     </div>
     <div class="layout-240">
@@ -155,7 +156,8 @@
 
                 <!-- Tarjeta 2 -->
                 <div class="column4">
-                    <img src="{{ url_for('static', path='img/image 10.png') }}" alt="Comparación de precios" class="image-9">
+                    <img src="{{ url_for('static', path='img/image 10.png') }}" alt="Comparación de precios"
+                        class="image-9">
                     <div class="column2">
                         <div class="content3">
                             <div class="heading0">Interfaz amigable y fácil de usar</div>
@@ -186,7 +188,7 @@
             </div>
         </div>
     </div>
-                     
+
 
     <div class="layout-6">
         <div class="container2">
@@ -221,7 +223,7 @@
                     </div>
                 </div>
             </div>
-            <img class="placeholder-image" src="{{ url_for('static', path='img/celular.jpg') }}" />
+            <img class="placeholder-image" src="{{ url_for('static', path='img/celular.png') }}" />
         </div>
     </div>
     <div class="layout-84">
@@ -306,22 +308,26 @@
                 </div>
                 <div class="footer-social-links">
                     <a href="https://facebook.com" target="_blank">
-                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}" alt="Facebook" />
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}"
+                            alt="Facebook" />
                     </a>
                     <a href="https://twitter.com" target="_blank">
                         <img class="footer-social-icon" src="{{ url_for('static', path='img/X.png') }}" alt="Twitter" />
                     </a>
                     <a href="https://instagram.com" target="_blank">
-                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Instagram.png') }}" alt="Instagram" />
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Instagram.png') }}"
+                            alt="Instagram" />
                     </a>
                     <a href="https://linkedin.com" target="_blank">
-                        <img class="footer-social-icon" src="{{ url_for('static', path='img/LinkedIn.png') }}" alt="LinkedIn" />
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/LinkedIn.png') }}"
+                            alt="LinkedIn" />
                     </a>
                     <a href="https://youtube.com" target="_blank">
-                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Youtube.png') }}" alt="YouTube" />
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Youtube.png') }}"
+                            alt="YouTube" />
                     </a>
                 </div>
-                
+
             </div>
         </div>
     </div>

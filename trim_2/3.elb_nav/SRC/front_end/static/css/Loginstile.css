@@ -13,39 +13,69 @@ body {
     text-align: center;
 }
 
+:root {
+    --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+        "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
+        "Source Han Sans CN", sans-serif;
+}
+
+
 .logo {
     position: absolute;
+    /* Fijar el logo en la parte superior izquierda */
     top: 20px;
+    /* Distancia desde la parte superior */
     left: 20px;
-    text-align: left; /* Alinea el texto a la derecha */
+    /* Distancia desde la izquierda */
+    width: 167px;
+    height: auto;
+    font-size: 0px;
+    z-index: 10;
+    /* Asegurar que esté sobre otros elementos */
 }
 
-.logo-title {
-    color: rgb(0, 0, 0);
-    font-size: 50px;
-    font-weight: bold;
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-.logo-subtitle {
-    color: rgb(0, 0, 0);
-    font-size: 20px;
-    font-weight: bold;
-    text-transform: uppercase;
+.luckas {
+    display: block;
     position: relative;
-    letter-spacing: 3px;
-    display: block; /* Asegura que esté debajo del título */
+    height: 52px;
+    margin: 0 0 0 0;
+    color: #050505;
+    font-family: Bebas Neue, var(--default-font-family);
+    font-size: 56px;
+    font-weight: 400;
+    line-height: 52px;
+    text-align: left;
+    white-space: nowrap;
+    z-index: 6;
 }
+
+.ent {
+    display: block;
+    position: relative;
+    height: 14px;
+    margin: -2px 0 0 90px;
+    color: #0a0a0a;
+    font-family: Bebas Neue, var(--default-font-family);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    text-align: left;
+    white-space: nowrap;
+    letter-spacing: 0.96px;
+    z-index: 7;
+}
+
 
 .login-box {
     background-color: white;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    width: 400px;  /* Se agranda un poco */
+    width: 400px;
+    /* Se agranda un poco */
 }
+
 .login-box h2 {
     text-align: center;
     font-size: 24px;
@@ -62,13 +92,16 @@ body {
 form {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centra los elementos */
+    align-items: center;
+    /* Centra los elementos */
 }
+
 label {
     font-weight: bold;
     font-size: 14px;
     margin-bottom: 5px;
-    align-self: flex-start; /* Alinea los labels a la izquierda */
+    align-self: flex-start;
+    /* Alinea los labels a la izquierda */
 }
 
 input {
@@ -82,7 +115,7 @@ input {
 }
 
 .btn-primary {
-    background-color: #335CFF;
+    background-color: #0033FF;
     color: white;
     padding: 12px;
     border: none;
