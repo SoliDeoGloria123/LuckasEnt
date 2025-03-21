@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
@@ -58,5 +59,13 @@ async def reseñaproduc(request: Request):  # ✔️ Nombre correcto de la funci
 @app.get("/tulista", name="tulista")
 async def tulista(request: Request):  # ✔️ Nombre correcto de la función
     return templates.TemplateResponse("cardgrid.html", {"request": request})
+
+@app.get("/termino", name="termino")
+async def termino(request: Request):  # ✔️ Nombre correcto de la función
+    return templates.TemplateResponse("Termino_uso.html", {"request": request})
+
+
+
+
 
 

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/termino_uso.css') }}">
+
+
+    
+</head>
+
+<body>
+    <nav class="nav-bar">
+        <div class="logo">
+            <span class="luckas">Luckas</span>
+            <span class="ent">ent</span>
+        </div>
+        <div class="menu-container">
+            <ul class="menu-links">
+                <li class="menu-item">
+                    <a href="{{ url_for('home') }}" class="menu-link">Inicio</a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+    <div class="pdf-container">
+        <h2>Propuesta Tecnica</h2>
+        <div class="pdf-viewer">
+            <iframe src="{{ url_for('static', path='propuesta/Propuesta_tecnica.pdf') }}" ></iframe>
+        </div> 
+       
+    </div>
+</body>
+
+</html>
