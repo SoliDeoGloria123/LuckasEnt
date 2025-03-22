@@ -3,12 +3,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const carousels = document.querySelectorAll(".carousel-container");
 
     carousels.forEach((container) => {
-        const carousel = container.querySelector(".carousel");
+        const carousel = container.querySelector(".favoritos-carousel"); // Asegurar que se toma el carrusel correcto
         const leftArrow = container.querySelector(".arrow.left");
         const rightArrow = container.querySelector(".arrow.right");
 
         if (carousel && leftArrow && rightArrow) {
-            const scrollStep = 300; // Cantidad de píxeles que se moverá el carrusel
+            const cardWidth = carousel.querySelector(".favorito-card").offsetWidth + 20; // Ancho de tarjeta + margen
+            const visibleCards = 3;
+            const scrollStep = cardWidth * visibleCards; // Mueve 3 tarjetas a la vez
 
             leftArrow.addEventListener("click", function () {
                 carousel.scrollBy({ left: -scrollStep, behavior: "smooth" });
@@ -36,19 +38,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         stars.forEach(star => {
             star.addEventListener("mouseover", function () {
-                const rating = this.getAttribute("data-value");
-                highlightStars(stars, rating);
+                highlightStars(stars, this.getAttribute("data-value"));
             });
 
             star.addEventListener("click", function () {
-                const rating = this.getAttribute("data-value");
-                starsDiv.setAttribute("data-rating", rating);
-                highlightStars(stars, rating, true);
+                starsDiv.setAttribute("data-rating", this.getAttribute("data-value"));
+                highlightStars(stars, this.getAttribute("data-value"), true);
             });
 
             starsDiv.addEventListener("mouseleave", function () {
-                const selectedRating = starsDiv.getAttribute("data-rating");
-                highlightStars(stars, selectedRating);
+                highlightStars(stars, starsDiv.getAttribute("data-rating"));
             });
         });
     });
@@ -57,8 +56,8 @@ document.addEventListener("DOMContentLoaded", function () {
         stars.forEach(star => {
             if (star.getAttribute("data-value") <= rating) {
                 star.classList.add("active");
-            } else {
-                if (!permanent) star.classList.remove("active");
+            } else if (!permanent) {
+                star.classList.remove("active");
             }
         });
     }

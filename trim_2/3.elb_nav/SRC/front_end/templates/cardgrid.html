@@ -9,9 +9,10 @@
 
 </head>
 <body>
-  <div class="logo">
+  <a href="{{ url_for('home') }}" class="logo">
     <span class="luckas">Luckas</span><span class="ent">ent</span>
-</div>
+</a>
+<section>
     <div class="lista-container">
         <div class="header">
           <h2>Tu Lista</h2>
@@ -21,7 +22,7 @@
       
         <!-- Producto 1 -->
         <div class="producto-item">
-          <img src="img/images.webp" alt="Lechuga" class="producto-img">
+          <img src="{{ url_for('static', path='img/OIP_2.jpg') }}" alt="Lechuga" class="producto-img">
           <div class="producto-info">
             <h3>Lechuga manojo Light</h3>
             <p>Marca | $7200 | 2%</p>
@@ -32,7 +33,7 @@
       
         <!-- Producto 2 -->
         <div class="producto-item">
-          <img src="img/images.webp" alt="Papa" class="producto-img">
+          <img src="{{ url_for('static', path='img/OIP_2.jpg') }}" alt="Papa" class="producto-img">
           <div class="producto-info">
             <h3>Papa Pastusa</h3>
             <p>Nacional | $12000 | 1kg</p>
@@ -43,7 +44,7 @@
       
         <!-- Producto 3 -->
         <div class="producto-item">
-          <img src="img/images.webp" alt="Carne" class="producto-img">
+          <img src="{{ url_for('static', path='img/OIP_2.jpg') }}" alt="Carne" class="producto-img">
           <div class="producto-info">
             <h3>Carne para asar</h3>
             <p>500g | $17000</p>
@@ -62,6 +63,7 @@
           📄 Descargar Lista PDF
         </button>
       </div>
-      
+    </section>
+    <script src="{{ url_for('static', path='js/Eliminar.js') }}"></script>
 </body>
 </html>

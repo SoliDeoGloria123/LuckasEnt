@@ -1,220 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ubicacion</title>
+  <title>Ubicación</title>
   <link rel="stylesheet" href="{{ url_for('static', path='css/productoubi.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&display=swap" />
+  
+  <!-- Leaflet.js para el mapa -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <style>
+      .map-container {
+          width: 100%;
+          height: 500px;
+          margin-top: 20px;
+      }
+
+      #map {
+          width: 100%;
+          height: 100%;
+          border-radius: 10px;
+      }
+  </style>
 </head>
 
 <body>
   <nav class="nav-bar">
-    <div class="logo">
-      <span class="luckas">Luckas</span>
-      <span class="ent">ent</span>
-    </div>
-
-    <div class="search-bar">
-      <input type="text" placeholder="Busca un producto o tienda">
-      <button><i class="fas fa-search"></i></button>
-    </div>
-    <nav class="nav-menu">
-      <a href="#">Inicio</a>
-      <a href="#">Nosotros</a>
-      <a href="{{ url_for('cuenta') }}">Mi perfil</a>
-    </nav>
-    </div>
+      <div class="logo">
+          <a href="{{ url_for('home') }}">
+              <span class="luckas">Luckas</span><span class="ent">ent</span>
+          </a>
+      </div>
+      <div class="search-bar">
+          <input type="text" placeholder="Busca un producto o tienda">
+          <button><i class="fas fa-search"></i></button>
+      </div>
+      <nav class="nav-menu">
+          <a href="#">Inicio</a>
+          <a href="#">Nosotros</a>
+          <a href="{{ url_for('cuenta') }}">Mi perfil</a>
+      </nav>
   </nav>
-  <nav class="menu-container">
-    <ul class="menu-navigation">
-        <li><a class="menu-link" href="#">Categorías</a></li>
-        <li><a class="menu-link" href="#">Ofertas</a></li>
-        <li><a class="menu-link" href="#">Mi Lista</a></li>
-        <li><a class="menu-link" href="#">Favoritos</a></li>
-        <li><a class="menu-link" href="#">Ayuda</a></li>
-    </ul>
-</nav>
-
-  <!-- FontAwesome para íconos -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
-
-  <!-- FontAwesome para los íconos -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
-  <div class="producto-detalle">
-    <div class="producto-img">
-      <img src="tufoto.jpg" alt="Arándanos Pack 120g">
-      <div class="favorito">
-        <i class="icon-heart"></i>
-      </div>
-    </div>
-
-    <div class="producto-info">
-      <h2>Arándanos Pack 120g</h2>
-      <a href="#" class="tienda">Makro</a>
-      <p class="marca">Marca La Huerta</p>
-
-      <div class="precios">
-        <div>
-          <span class="label">Precio Total</span>
-          <p>$17.000</p>
-        </div>
-        <div>
-          <span class="label">Precio con descuento</span>
-          <p class="precio-descuento">$13.650</p>
-        </div>
-      </div>
-
-      <div class="estrellas">
-        ⭐⭐⭐⭐⭐
-      </div>
-
-      <div class="acciones">
-        <button class="btn-primary">+ Agregar a mi lista</button>
-        <button class="btn-secundario">Ver en más tiendas</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="tabs">
-    <a href="#" class="tab">Descripción</a>
-    <a href="#" class="tab active">Ubicación</a>
-    <a href="#" class="tab">Precios</a>
-    <a href="#" class="tab">Tiendas</a>
-    <a href="#" class="tab">Reseñas</a>
-  </div>
-
 
   <div class="map-container">
-    <div class="map">Tu producto se encuentra aquí</div>
+      <div id="map"></div>
   </div>
 
-  <div class="store-list">
-    <div class="store">
-      <span class="icon">📍</span>
-      <div class="info">
-        <a href="#">Makro La Sabana</a>
-        <p>Av 32 c #75-27</p>
-      </div>
-    </div>
-    <div class="store">
-      <span class="icon">📍</span>
-      <div class="info">
-        <a href="#">D1 San Cristóbal</a>
-        <p>Av 32 c #75-27</p>
-      </div>
-    </div>
-    <div class="store">
-      <span class="icon">📍</span>
-      <div class="info">
-        <a href="#">Carulla Calle 100</a>
-        <p>Av 32 c #75-27</p>
-      </div>
-    </div>
-    <div class="store">
-      <span class="icon">📍</span>
-      <div class="info">
-        <a href="#">Éxito de Las Américas</a>
-        <p>Cr 68 A #22-09</p>
-      </div>
-    </div>
-    <div class="store">
-      <span class="icon">📍</span>
-      <div class="info">
-        <a href="#">Olímpica Calle 80</a>
-        <p>Calle 80 #65 C 32</p>
-      </div>
-    </div>
-    <div class="store">
-      <span class="icon">📍</span>
-      <div class="info">
-        <a href="#">Ara Modelia</a>
-        <p>Av 32 c #75-27</p>
-      </div>
-    </div>
-  </div>
+  <script>
+      var map = L.map('map').setView([4.60971, -74.08175], 13); // Ubicación de Bogotá, Colombia
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+
+      L.marker([4.60971, -74.08175]).addTo(map)
+          .bindPopup('Aquí se encuentra el producto')
+          .openPopup();
+  </script>
 </body>
-<footer>
-  <div class="footer">
-      <div class="footer-content">
-          <div class="footer-column">
-              <div class="footer-info">
-                  <div class="footer-heading">Comparte y ahorra en tus compras diarias</div>
-                  <div class="footer-text">
-                      Encuentra los mejores precios en supermercados y toma decisiones
-                      inteligentes para tu hogar.
-                  </div>
-              </div>
-              <div class="footer-actions">
-                  <button class="footer-btn-primary">
-                      <span class="footer-btn-text-primary">Explorar</span>
-                  </button>
-
-                  <button class="footer-btn-secondary">
-                      <span class="footer-btn-text-secondary">Ayuda</span>
-                  </button>
-              </div>
-          </div>
-          <div class="footer-links-column">
-              <div class="footer-link-list">
-                  <div class="footer-link-item">
-                      <a href="#" class="footer-link">Inicio</a>
-                  </div>
-                  <div class="footer-link-item">
-                      <a href="#" class="footer-link">Contáctanos</a>
-                  </div>
-                  <div class="footer-link-item">
-                      <a href="#" class="footer-link">Ayuda Online</a>
-                  </div>
-                  <div class="footer-link-item">
-                      <a href="#" class="footer-link">Política de Privacidad</a>
-                  </div>
-                  <div class="footer-link-item">
-                      <a href="#" class="footer-link">Términos de Uso</a>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="footer-credits">
-          <div class="footer-logo-row">
-              <div class="footer-logo-container">
-                  <img class="footer-logo" src="{{ url_for('static', path='img/lOGO PROYECTO LuckasEnt.png') }}" />
-              </div>
-          </div>
-          <div class="footer-divider"></div>
-          <div class="footer-bottom-row">
-              <div class="footer-copyright">
-                  © 2024 LuckasEnt. Todos los derechos reservados.
-              </div>
-              <div class="footer-social-links">
-                  <a href="https://facebook.com" target="_blank">
-                      <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}"
-                          alt="Facebook" />
-                  </a>
-                  <a href="https://twitter.com" target="_blank">
-                      <img class="footer-social-icon" src="{{ url_for('static', path='img/X.png') }}" alt="Twitter" />
-                  </a>
-                  <a href="https://instagram.com" target="_blank">
-                      <img class="footer-social-icon" src="{{ url_for('static', path='img/Instagram.png') }}"
-                          alt="Instagram" />
-                  </a>
-                  <a href="https://linkedin.com" target="_blank">
-                      <img class="footer-social-icon" src="{{ url_for('static', path='img/LinkedIn.png') }}"
-                          alt="LinkedIn" />
-                  </a>
-                  <a href="https://youtube.com" target="_blank">
-                      <img class="footer-social-icon" src="{{ url_for('static', path='img/Youtube.png') }}"
-                          alt="YouTube" />
-                  </a>
-              </div>
-
-          </div>
-      </div>
-  </div>
-</footer>
-
-</html>
+</html>cd
