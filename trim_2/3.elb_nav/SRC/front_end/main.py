@@ -71,6 +71,13 @@ async def home(request: Request): # ✔️ Nombre correcto de la función
 @app.get("/tienda", name="tienda")
 async def tienda(request: Request): # ✔️ Nombre correcto de la función
     return templates.TemplateResponse("tienda.html", {"request": request})
+@app.get("/productlista", name="productlista")
+async def productlista(request: Request):  # ✔️ Nombre correcto de la función
+    return templates.TemplateResponse("categorias.html", {"request": request})
+
+@app.get("/detalle_producto", name="detalle_producto")
+async def detalleproducto(request: Request):  # ✔️ Nombre correcto de la función
+    return templates.TemplateResponse("detalleproduct.html", {"request": request})
 
 
 

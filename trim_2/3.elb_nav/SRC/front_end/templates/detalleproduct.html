@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Producto</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="{{ url_for('static', path='css/detalleproduct.css') }}">
+</head>
+
+<body>
+    <div class="top-bar">
+        <img class="logo" src="rectangle-41370.png" alt="Logo" />
+        <div class="nav-title">Exploración de Productos</div>
+        <div class="navigation">
+            <a href="{{ url_for('page') }}" class="nav-link">Inicio</a>
+            <a href="{{ url_for('productlista') }}" class="nav-link">Categorías</a>
+            <a href="#" class="nav-link">Ofertas</a>
+            <a href="{{ url_for('tulista') }}" class="nav-link">Mi Lista</a>
+            <a href="{{ url_for('perfil') }}" class="nav-link profile-link">
+                Mi perfil
+            </a>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Busca un producto o tienda" />
+                <button class="search-button">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="barra-superior">
+        <div class="enlace">
+            <span class="material-symbols-outlined">arrow_back_ios</span>
+            <a href="productos.html" class="texto-productos">Productos</a>
+        </div>
+        <div class="enlace">
+            <span class="material-symbols-outlined">arrow_back_ios</span>
+            <a href="carnicos.html" class="texto-carnicos">Cárnicos</a>
+        </div>
+    </div>
+
+    <div class="product-container">
+        <div class="product-title">Detalles del producto</div>
+    </div>
+    <div class="tabs">
+        <a href="{{ url_for('ubicacionproduc') }}" class="tab">Ubicación</a>
+        <a href="{{ url_for('precioproduc') }}" class="tab">Precios</a>
+        <a href="#" class="tab">Tiendas</a>
+        <a href="{{ url_for('reseñaproduc') }}" class="tab active">Descripción</a>
+    </div>
+    <div class="product-detail-wrapper">
+        <div class="product-detail-container">
+            <div class="product-image-container">
+                <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1024&q=80" alt="Carne para asar" class="product-image">
+            </div>
+            <div class="product-info">
+                <div class="product-name">Carne para asar</div>
+                <div class="product-weight">500 g</div>
+                <div class="product-price">Precio: $17.000</div>
+                <div class="product-buttons">
+                    <button class="primary-button add-to-cart">
+                        <span>+ Agregar</span>
+                    </button>
+                    <button class="secondary-button">
+                        <span>Ver detalles</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="available-products-section">
+            <div class="title">Producto Disponible en:</div>
+            <div class="products-grid">
+                <div class="frame-427320300">
+                    <div class="carne-para-fritar">Carne para fritar</div>
+                    <div class="mercado-libre">Mercado Libre</div>
+                    <div class="subtitle">Precio: $15.000</div>
+                    <div class="rating">
+                        <img class="vector" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTkiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCA1OSAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTUuNSAwTDYuNzMzNyAzLjgxOTY2SDEwLjczMzFMNy40OTk3IDYuMTgwMzRMOC43MzM0IDEwTDUuNSA3LjYzOTMyTDIuMjY2NiAxMEwzLjUwMDMgNi4xODAzNEwwLjI2NjkgMy44MTk2Nkg0LjI2NjNMNS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik0xNy41IDBMMTguNzMzNyAzLjgxOTY2SDIyLjczMzFMMTkuNDk5NyA2LjE4MDM0TDIwLjczMzQgMTBMMTcuNSA3LjYzOTMyTDE0LjI2NjYgMTBMMTUuNTAwMyA2LjE4MDM0TDEyLjI2NjkgMy44MTk2NkgxNi4yNjYzTDE3LjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPHBhdGggZD0iTTI5LjUgMEwzMC43MzM3IDMuODE5NjZIMzQuNzMzMUwzMS40OTk3IDYuMTgwMzRMMzIuNzMzNCAxMEwyOS41IDcuNjM5MzJMMjYuMjY2NiAxMEwyNy41MDAzIDYuMTgwMzRMMjQuMjY2OSAzLjgxOTY2SDI4LjI2NjNMMjkuNSAwWiIgZmlsbD0iI0ZGQ0MwMCIvPgo8cGF0aCBkPSJNNDEuNSAwTDQyLjczMzcgMy44MTk2Nkg0Ni43MzMxTDQzLjQ5OTcgNi4xODAzNEw0NC43MzM0IDEwTDQxLjUgNy42MzkzMkwzOC4yNjY2IDEwTDM5LjUwMDMgNi4xODAzNEwzNi4yNjY5IDMuODE5NjZINDAuMjY2M0w0MS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik01My41IDBMNTQuNzMzNyAzLjgxOTY2SDU4LjczMzFMNTUuNDk5NyA2LjE4MDM0TDU2LjczMzQgMTBMNTMuNSA3LjYzOTMyTDUwLjI2NjYgMTBMNTEuNTAwMyA2LjE4MDM0TDQ4LjI2NjkgMy44MTk2Nkg1Mi4yNjYzTDUzLjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPC9zdmc+Cg==" alt="5 estrellas" />
+                    </div>
+                </div>
+                <div class="frame-427320300">
+                    <div class="carne-para-fritar">Carne</div>
+                    <div class="mercado-libre">Makro</div>
+                    <div class="subtitle">Precio: $17.000</div>
+                    <div class="rating">
+                        <img class="vector" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTkiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCA1OSAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTUuNSAwTDYuNzMzNyAzLjgxOTY2SDEwLjczMzFMNy40OTk3IDYuMTgwMzRMOC43MzM0IDEwTDUuNSA3LjYzOTMyTDIuMjY2NiAxMEwzLjUwMDMgNi4xODAzNEwwLjI2NjkgMy44MTk2Nkg0LjI2NjNMNS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik0xNy41IDBMMTguNzMzNyAzLjgxOTY2SDIyLjczMzFMMTkuNDk5NyA2LjE4MDM0TDIwLjczMzQgMTBMMTcuNSA3LjYzOTMyTDE0LjI2NjYgMTBMMTUuNTAwMyA2LjE4MDM0TDEyLjI2NjkgMy44MTk2NkgxNi4yNjYzTDE3LjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPHBhdGggZD0iTTI5LjUgMEwzMC43MzM3IDMuODE5NjZIMzQuNzMzMUwzMS40OTk3IDYuMTgwMzRMMzIuNzMzNCAxMEwyOS41IDcuNjM5MzJMMjYuMjY2NiAxMEwyNy41MDAzIDYuMTgwMzRMMjQuMjI2OSAzLjgxOTY2SDI4LjI2NjNMMjkuNSAwWiIgZmlsbD0iI0ZGQ0MwMCIvPgo8cGF0aCBkPSJNNDEuNSAwTDQyLjczMzcgMy44MTk2Nkg0Ni43MzMxTDQzLjQ5OTcgNi4xODAzNEw0NC43MzM0IDEwTDQxLjUgNy42MzkzMkwzOC4yNjY2IDEwTDM5LjUwMDMgNi4xODAzNEwzNi4yMjY5IDMuODE5NjZINDAuMjY2M0w0MS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik01My41IDBMNTQuNzMzNyAzLjgxOTY2SDU4LjczMzFMNTUuNDk5NyA2LjE4MDM0TDU2LjczMzQgMTBMNTMuNSA3LjYzOTMyTDUwLjI2NjYgMTBMNTEuNTAwMyA2LjE4MDM0TDQ4LjI2NjkgMy44MTk2Nkg1Mi4yNjYzTDUzLjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPC9zdmc+Cg==" alt="5 estrellas" />
+                    </div>
+                </div>
+                <div class="frame-427320300">
+                    <div class="carne-para-fritar">Carne de pasto</div>
+                    <div class="mercado-libre">Éxito</div>
+                    <div class="subtitle">Precio: $16.900</div>
+                    <div class="rating">
+                        <img class="vector" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTkiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCA1OSAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTUuNSAwTDYuNzMzNyAzLjgxOTY2SDEwLjczMzFMNy40OTk3IDYuMTgwMzRMOC43MzM0IDEwTDUuNSA3LjYzOTMyTDIuMjY2NiAxMEwzLjUwMDMgNi4xODAzNEwwLjI2NjkgMy44MTk2Nkg0LjI2NjNMNS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik0xNy41IDBMMTguNzMzNyAzLjgxOTY2SDIyLjczMzFMMTkuNDk5NyA2LjE4MDM0TDIwLjczMzQgMTBMMTcuNSA3LjYzOTMyTDE0LjI2NjYgMTBMMTUuNTAwMyA2LjE4MDM0TDEyLjI2NjkgMy44MTk2NkgxNi4yNjYzTDE3LjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPHBhdGggZD0iTTI5LjUgMEwzMC43MzM3IDMuODE5NjZIMzQuNzMzMUwzMS40OTk3IDYuMTgwMzRMMzIuNzMzNCAxMEwyOS41IDcuNjM5MzJMMjYuMjI2NiAxMEwyNy41MDAzIDYuMTgwMzRMMjQuMjI2OSAzLjgxOTY2SDI4LjI2NjNMMjkuNSAwWiIgZmlsbD0iI0ZGQ0MwMCIvPgo8cGF0aCBkPSJNNDEuNSAwTDQyLjczMzcgMy44MTk2Nkg0Ni43MzMxTDQzLjQ5OTcgNi4xODAzNEw0NC43MzM0IDEwTDQxLjUgNy42MzkzMkwzOC4yMjY2IDEwTDM5LjUwMDMgNi4xODAzNEwzNi4yMjY5IDMuODE5NjZINDAuMjY2M0w0MS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik01My41IDBMNTQuNzMzNyAzLjgxOTY2SDU4LjczMzFMNTUuNDk5NyA2LjE4MDM0TDU2LjczMzQgMTBMNTMuNSA3LjYzOTMyTDUwLjI2NjYgMTBMNTEuNTAwMyA2LjE4MDM0TDQ4LjI2NjkgMy44MTk2Nkg1Mi4yNjYzTDUzLjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPC9zdmc+Cg==" alt="5 estrellas" />
+                    </div>
+                </div>
+                <div class="frame-427320300">
+                    <div class="carne-para-fritar">Carne punta de anca</div>
+                    <div class="mercado-libre">Olímpica</div>
+                    <div class="subtitle">Precio: $17.300</div>
+                    <div class="rating">
+                        <img class="vector" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTkiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCA1OSAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTUuNSAwTDYuNzMzNyAzLjgxOTY2SDEwLjczMzFMNy40OTk3IDYuMTgwMzRMOC43MzM0IDEwTDUuNSA3LjYzOTMyTDIuMjY2NiAxMEwzLjUwMDMgNi4xODAzNEwwLjI2NjkgMy44MTk2Nkg0LjI2NjNMNS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik0xNy41IDBMMTguNzMzNyAzLjgxOTY2SDIyLjczMzFMMTkuNDk5NyA2LjE4MDM0TDIwLjczMzQgMTBMMTcuNSA3LjYzOTMyTDE0LjI2NjYgMTBMMTUuNTAwMyA2LjE4MDM0TDEyLjI2NjkgMy44MTk2NkgxNi4yNjYzTDE3LjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPHBhdGggZD0iTTI5LjUgMEwzMC43MzM3IDMuODE5NjZIMzQuNzMzMUwzMS40OTk3IDYuMTgwMzRMMzIuNzMzNCAxMEwyOS41IDcuNjM5MzJMMjYuMjI2NiAxMEwyNy41MDAzIDYuMTgwMzRMMjQuMjI2OSAzLjgxOTY2SDI4LjI2NjNMMjkuNSAwWiIgZmlsbD0iI0ZGQ0MwMCIvPgo8cGF0aCBkPSJNNDEuNSAwTDQyLjczMzcgMy44MTk2Nkg0Ni43MzMxTDQzLjQ5OTcgNi4xODAzNEw0NC43MzM0IDEwTDQxLjUgNy42MzkzMkwzOC4yMjY2IDEwTDM5LjUwMDMgNi4xODAzNEwzNi4yMjY5IDMuODE5NjZINDAuMjY2M0w0MS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik01My41IDBMNTQuNzMzNyAzLjgxOTY2SDU4LjczMzFMNTUuNDk5NyA2LjE4MDM0TDU2LjczMzQgMTBMNTMuNSA3LjYzOTMyTDUwLjI2NjYgMTBMNTEuNTAwMyA2LjE4MDM0TDQ4LjI2NjkgMy44MTk2Nkg1Mi4yNjYzTDUzLjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPC9zdmc+Cg==" alt="5 estrellas" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
