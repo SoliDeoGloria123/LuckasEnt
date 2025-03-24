@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tienda</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/tienda.css') }}">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+            <span>Tiendas</span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Categorías</a></li>
+            <li><a href="#">Ofertas</a></li>
+            <li><a href="#">Mi Lista</a></li>
+            <li><a href="#" class="perfil"><i class="fas fa-user"></i> Mi perfil</a></li>
+        </ul>
+
+        <div class="search-box">
+            <input type="text" placeholder="Busca un producto o tienda">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+    </nav>
+    <section class="store-highlight">
+        <div class="store-content">
+            <img src="#" alt="Makro" class="store-logo">
+            <div class="store-info">
+                <h2>Makro</h2>
+                <span class="badge">Desde 1968</span>
+                <span class="badge">Calidad Garantizada</span>
+                <p>Descubre nuestra historia y propuesta única</p>
+            </div>
+        </div>
+        <a href="#" class="store-button">Ver más</a>
+    </section>
+    <section class="map-section">
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093706!2d144.95373531531593!3d-37.81627927975171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf4c5f0b0a1b1cd37!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2s!4v1614123456789"
+            width="100%" 
+            height="250" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy">
+        </iframe>
+        <p class="map-text">
+            📍 Encuentra nuestra tienda y puntos de distribución cercanos
+        </p>
+    </section>
+    <section class="featured-product">
+        <div class="product-image">
+            <img src="aguacate.jpg" alt="Aguacate">
+        </div>
+        <div class="product-info">
+            <h2>Producto Destacado</h2>
+            <p>Descubre todas las características y beneficios</p>
+            <div class="product-cards">
+                <div class="card">
+                    <span class="badge new">Nuevo Lanzamiento</span>
+                    <img src="tomates.jpg" alt="Tomate Chonto">
+                    <p>Tomate Chonto Paquete 1kg</p>
+                    <strong>$2.500</strong>
+                </div>
+                <div class="card">
+                    <span class="badge offer">Oferta Especial</span>
+                    <img src="arandanos.jpg" alt="Arándanos">
+                    <p>Arándanos Estuche 249G</p>
+                    <strong>$13.600</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="more-info">
+        <div class="info-content">
+            <h2>Más Información</h2>
+            <p>Descubre detalles adicionales sobre la marca</p>
+    
+            <div class="info-card">
+                <img src="historia.jpg" alt="Historia de la Tienda">
+                <div class="info-text">
+                    <h3>Historia de la Tienda</h3>
+                    <p>Desde nuestros inicios hasta nuestros logros actuales</p>
+                    <span class="badge">Calidad</span>
+                    <span class="badge">Innovación</span>
+                    <p class="ceo">👤 CEO XYZ</p>
+                </div>
+            </div>
+    
+            <div class="info-card">
+                <img src="valores.jpg" alt="Valores de la Marca">
+                <div class="info-text">
+                    <h3>Valores de la Marca</h3>
+                    <p>Compromiso con la sostenibilidad y la excelencia</p>
+                    <span class="badge">Compromiso Social</span>
+                    <span class="badge">Calidad</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="info-image">
+            <img src="tienda.jpg" alt="Tienda de frutas">
+        </div>
+    </section>
+    <section class="carousel">
+        <div class="carousel-container">
+            <div class="carousel-slide">
+                <img src="producto1.jpg" alt="Producto 1">
+                <p>¡Descubre más productos y ofertas exclusivas!</p>
+            </div>
+            <div class="carousel-slide">
+                <img src="producto2.jpg" alt="Producto 2">
+                <p>Oferta especial en frutas frescas</p>
+            </div>
+            <div class="carousel-slide">
+                <img src="producto3.jpg" alt="Producto 3">
+                <p>¡Nuevos productos disponibles!</p>
+            </div>
+        </div>
+        <div class="carousel-dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+    </section>
+    
+</body>
+<footer>
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <div class="footer-info">
+                    <div class="footer-heading">Comparte y ahorra en tus compras diarias</div>
+                    <div class="footer-text">
+                        Encuentra los mejores precios en supermercados y toma decisiones
+                        inteligentes para tu hogar.
+                    </div>
+                </div>
+                <div class="footer-actions">
+                    <button class="footer-btn-primary">
+                        <span class="footer-btn-text-primary">Explorar</span>
+                    </button>
+
+                    <button class="footer-btn-secondary">
+                        <span class="footer-btn-text-secondary">Ayuda</span>
+                    </button>
+                </div>
+            </div>
+            <div class="footer-links-column">
+                <div class="footer-link-list">
+                    <div class="footer-link-item">
+                        <a href="#" class="footer-link">Inicio</a>
+                    </div>
+                    <div class="footer-link-item">
+                        <a href="#" class="footer-link">Contáctanos</a>
+                    </div>
+                    <div class="footer-link-item">
+                        <a href="#" class="footer-link">Ayuda Online</a>
+                    </div>
+                    <div class="footer-link-item">
+                        <a href="#" class="footer-link">Política de Privacidad</a>
+                    </div>
+                    <div class="footer-link-item">
+                        <a href="{{ url_for('termino') }}" class="footer-link">Términos de Uso</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-credits">
+            <div class="footer-logo-row">
+                <div class="footer-logo-container">
+                    <img class="footer-logo" src="{{ url_for('static', path='img/lOGO PROYECTO LuckasEnt.png') }}" />
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom-row">
+                <div class="footer-copyright">
+                    © 2024 LuckasEnt. Todos los derechos reservados.
+                </div>
+                <div class="footer-social-links">
+                    <a href="https://facebook.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}"
+                            alt="Facebook" />
+                    </a>
+                    <a href="https://twitter.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/X.png') }}" alt="Twitter" />
+                    </a>
+                    <a href="https://instagram.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Instagram.png') }}"
+                            alt="Instagram" />
+                    </a>
+                    <a href="https://linkedin.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/LinkedIn.png') }}"
+                            alt="LinkedIn" />
+                    </a>
+                    <a href="https://youtube.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Youtube.png') }}"
+                            alt="YouTube" />
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</footer>
+</html>
