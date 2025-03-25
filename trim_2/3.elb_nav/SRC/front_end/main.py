@@ -79,5 +79,13 @@ async def productlista(request: Request):  # ✔️ Nombre correcto de la funci�
 async def detalleproducto(request: Request):  # ✔️ Nombre correcto de la función
     return templates.TemplateResponse("detalleproduct.html", {"request": request})
 
+@app.get("/categoria", name="categoria")
+async def categoria(request: Request):  # ✔️ Nombre correcto de la función
+    return templates.TemplateResponse("categorias.html", {"request": request})
+
+@app.get("/tienda", name="tienda")
+async def tienda(request: Request):  # ✔️ Nombre correcto de la función
+    return templates.TemplateResponse("tienda.html", {"request": request})
+
 
 

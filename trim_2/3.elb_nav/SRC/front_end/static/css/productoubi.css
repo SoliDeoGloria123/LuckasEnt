@@ -343,7 +343,55 @@ body {
   margin: 4px 0 0 0;
   font-size: 14px;
 }
+.map-container {
+  width: 100%;
+  height: 500px;
+  margin-top: 20px;
+}
 
+#map {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+.tabs {
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 5px;
+  gap: 24px;
+  font-family: 'Inter', sans-serif;
+}
+.tab {
+  color: #888;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding-bottom: 5px;
+  position: relative;
+  padding: 17px;
+}
+
+.tab.active {
+  color: #000;
+  font-weight: 600;
+}
+
+.tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #0033ff;
+  border-radius: 2px;
+}
+
+.tab:hover {
+  color: #000;
+  transition: all 0.3s ease;
+}
 .footer {
   background: #ffffff;
   padding: 80px 64px;

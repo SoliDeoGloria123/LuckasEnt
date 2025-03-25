@@ -6,35 +6,38 @@
     <title>tienda</title>
     <link rel="stylesheet" href="{{ url_for('static', path='css/tienda.css') }}">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">
-            <img src="logo.png" alt="Logo">
-            <span>Tiendas</span>
+    <div class="top-bar">
+        <img class="logo" src="rectangle-41370.png" alt="Logo" />
+        <div class="nav-title">Tiendas</div>
+        <div class="navigation">
+            <a href="{{ url_for('page') }}" class="nav-link">Inicio</a>
+            <a href="{{ url_for('productlista') }}" class="nav-link">Categorías</a>
+            <a href="#" class="nav-link">Ofertas</a>
+            <a href="{{ url_for('tulista') }}" class="nav-link">Mi Lista</a>
+            <a href="{{ url_for('perfil') }}" class="nav-link profile-link">
+                Mi perfil
+            </a>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Busca un producto o tienda" />
+                <button class="search-button">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+            </div>
         </div>
+    </div>
 
-        <ul class="nav-links">
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Categorías</a></li>
-            <li><a href="#">Ofertas</a></li>
-            <li><a href="#">Mi Lista</a></li>
-            <li><a href="#" class="perfil"><i class="fas fa-user"></i> Mi perfil</a></li>
-        </ul>
-
-        <div class="search-box">
-            <input type="text" placeholder="Busca un producto o tienda">
-            <button><i class="fas fa-search"></i></button>
-        </div>
-    </nav>
     <section class="store-highlight">
         <div class="store-content">
             <img src="#" alt="Makro" class="store-logo">
             <div class="store-info">
                 <h2>Makro</h2>
-                <span class="badge">Desde 1968</span>
+                <!--<span class="badge">Desde 1968</span>
                 <span class="badge">Calidad Garantizada</span>
-                <p>Descubre nuestra historia y propuesta única</p>
+                <p>Descubre nuestra historia y propuesta única</p>-->
             </div>
         </div>
         <a href="#" class="store-button">Ver más</a>
@@ -85,8 +88,8 @@
                 <div class="info-text">
                     <h3>Historia de la Tienda</h3>
                     <p>Desde nuestros inicios hasta nuestros logros actuales</p>
-                    <span class="badge">Calidad</span>
-                    <span class="badge">Innovación</span>
+                   <!-- <span class="badge">Calidad</span>
+                    <span class="badge">Innovación</span>-->
                     <p class="ceo">👤 CEO XYZ</p>
                 </div>
             </div>
@@ -96,8 +99,8 @@
                 <div class="info-text">
                     <h3>Valores de la Marca</h3>
                     <p>Compromiso con la sostenibilidad y la excelencia</p>
-                    <span class="badge">Compromiso Social</span>
-                    <span class="badge">Calidad</span>
+                   <!-- <span class="badge">Compromiso Social</span>
+                    <span class="badge">Calidad</span>-->
                 </div>
             </div>
         </div>

@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="{{ url_for('static', path='css/termino_uso.css') }}">
 
 
-    
-
 </head>
 
 <body>
@@ -25,8 +23,7 @@
             </ul>
         </div>
     </nav>
-    <div class="pdf-container">
-        <h2>Propuesta Tecnica</h2>
+
 
     <div class="main-container">
         <div class="sidebar">
@@ -39,29 +36,26 @@
                 <li><a href="#" onclick="loadPDF('Contrato.pdf'); return false;">Contrato</a></li>
             </ul>
         </div>
-
+    
         <div class="pdf-viewer">
-            <iframe src="{{ url_for('static', path='propuesta/Propuesta_tecnica.pdf') }}" ></iframe>
-        </div> 
-
             <!-- Cambia la ruta inicial si quieres que empiece con otro PDF -->
-            <iframe id="pdf-viewer" src="{{ url_for('static', path='propuesta/Propuesta_tecnica.pdf') }}" ></iframe>
+            <iframe id="pdf-viewer" src="{{ url_for('static', path='propuesta/Propuesta_tecnica.pdf') }}" width="100%" height="600px"></iframe>
         </div>
     </div>
 
     <script>
         function loadPDF(pdfName) {
-            // Cambia el src del iframe para cargar dinámicamente el PDF seleccionado
-            document.getElementById('pdf-viewer').src = `static/propuesta/${pdfName}`;
-
-            // Manejo de clase activa para resaltar el documento seleccionado
-            const links = document.querySelectorAll('.doc-list a');
-            links.forEach(link => link.classList.remove('active')); // Quitar la clase activa
-            event.target.classList.add('active'); // Agregar clase activa al enlace clicado
-
-            // Evitar comportamiento predeterminado del enlace
-            return false;
-        }
+        // Cambia el src del iframe para cargar dinámicamente el PDF seleccionado
+        document.getElementById('pdf-viewer').src = `static/propuesta/${pdfName}`;
+        
+        // Manejo de clase activa para resaltar el documento seleccionado
+        const links = document.querySelectorAll('.doc-list a');
+        links.forEach(link => link.classList.remove('active')); // Quitar la clase activa
+        event.target.classList.add('active'); // Agregar clase activa al enlace clicado
+        
+        // Evitar comportamiento predeterminado del enlace
+        return false;
+    }
     </script>
 </body>
 

@@ -30,20 +30,20 @@
         </nav>
         </div>
     </nav>
-      <!-- Menú de arriba -->
+    <!-- Menú de arriba -->
     <nav class="menu-container">
-                <ul class="menu-navigation">
-                    <li><a class="menu-link" href="#">Categorías</a></li>
-                    <li><a class="menu-link" href="#">Ofertas</a></li>
-                    <li><a class="menu-link" href="{{ url_for('tulista') }}">Mi Lista</a></li>
-                    <li><a class="menu-link" href="#">Favoritos</a></li>
-                    <li><a class="menu-link" href="{{ url_for('precioproduc') }}">Ayuda</a></li>
-                </ul>
-            </nav>
+        <ul class="menu-navigation">
+            <li><a class="menu-link" href="{{ url_for('categoria') }}">Categorías</a></li>
+            <li><a class="menu-link" href="#">Ofertas</a></li>
+            <li><a class="menu-link" href="{{ url_for('tulista') }}">Mi Lista</a></li>
+            <li><a class="menu-link" href="#">Favoritos</a></li>
+            <li><a class="menu-link" href="">Ayuda</a></li>
+        </ul>
+    </nav>
     <section class="hero">
         <div class="hero-container">
-          
-        
+
+
             <!-- Texto central -->
             <div class="hero-content">
                 <h1>Descubre y Compara</h1>
@@ -80,7 +80,8 @@
                         <p><strong>Precio Promedio:</strong> $17.000</p>
                         <div class="btn-group">
                             <button class="btn-azul">Agregar</button>
-                            <button class="btn-detalles">Ver detalles</button>
+                            <!--<button class="btn-detalles">Ver detalles</button>-->
+                            <a href="{{ url_for('detalle_producto') }}" class="btn-detalles">Ver detalles</a>
                         </div>
                     </div>
                 </div>

@@ -255,7 +255,6 @@
     gap: 24px;
     font-family: 'Inter', sans-serif;
   }
-  
   .tab {
     color: #888;
     text-decoration: none;
@@ -263,6 +262,7 @@
     font-weight: 500;
     padding-bottom: 5px;
     position: relative;
+    padding: 17px;
   }
   
   .tab.active {

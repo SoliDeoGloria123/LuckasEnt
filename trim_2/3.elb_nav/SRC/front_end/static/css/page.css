@@ -210,7 +210,7 @@
 
   .hero-search button {
     padding: 10px 15px;
-    background-color: #0917d8;
+    background-color: #0047FF;
     border: 1px solid #ccc;
     border-left: none;
     border-radius: 0 5px 5px 0;
@@ -218,7 +218,7 @@
   }
 
   .hero-search button i {
-    color: #333;
+    color: #ffffff;
   }
 
   .hero-button {

@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil de Usuario</title>
     <!--<link rel="icon" href="../Images/proconect_logo.ico">-->
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
     <link rel="stylesheet" href="{{ url_for('static', path='css/mi_informacion.css') }}">
 </head>
 
@@ -17,8 +18,8 @@
         <img class="logo" src="rectangle-41370.png" alt="Logo" />
         <div class="nav-title">Perfil</div>
         <div class="navigation">
-            <a href="index.html" class="nav-link">Inicio</a>
-            <a href="categorias.html" class="nav-link">Categorías</a>
+            <a href="{{ url_for('page') }}" class="nav-link">Inicio</a>
+            <a href="{{ url_for('categoria') }}" class="nav-link">Categorías</a>
             <a href="ofertas.html" class="nav-link">Ofertas</a>
             <a href="mi-lista.html" class="nav-link">Mi Lista</a>
             <a href="{{ url_for('perfil') }}" class="nav-link profile-link">
@@ -28,7 +29,7 @@
             <div class="search-container">
                 <input type="text" class="search-input" placeholder="Busca un producto o tienda" />
                 <button class="search-button">
-                    <img class="icon-search" src="ic-search0.svg" alt="Buscar" />
+                    <span class="material-symbols-outlined">search</span>
                 </button>
             </div>
         </div>
@@ -71,21 +72,25 @@
             <div class="form-row">
                 <div class="form-input">
                     <label for="firstName" class="input-label">Nombres</label>
-                    <input type="text" id="firstName" class="input-field" placeholder="Ingresa tus Nombres" required autocomplete="off">
+                    <input type="text" id="firstName" class="input-field" placeholder="Ingresa tus Nombres" required
+                        autocomplete="off">
                 </div>
                 <div class="form-input">
                     <label for="lastName" class="input-label">Apellidos</label>
-                    <input type="text" id="lastName" class="input-field" placeholder="Ingresa tus Apellidos" required autocomplete="off">
+                    <input type="text" id="lastName" class="input-field" placeholder="Ingresa tus Apellidos" required
+                        autocomplete="off">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-input">
                     <label for="email" class="input-label">Email</label>
-                    <input type="email" id="email" class="input-field" placeholder="Ingrese su Correo Electrónico" required autocomplete="off"> 
+                    <input type="email" id="email" class="input-field" placeholder="Ingrese su Correo Electrónico"
+                        required autocomplete="off">
                 </div>
                 <div class="form-input">
                     <label for="password" class="input-label">Contraseña</label>
-                <input type="password" id="password" class="input-field" placeholder="Ingrese su contraseña" required autocomplete="off">
+                    <input type="password" id="password" class="input-field" placeholder="Ingrese su contraseña"
+                        required autocomplete="off">
                 </div>
             </div>
             <div class="form-row">
@@ -95,7 +100,8 @@
                 </div>
                 <div class="form-input">
                     <label for="phone" class="input-label">Número de Celular o Telefónico</label>
-                    <input type="tel" id="phone" class="input-field" placeholder="Ingrese su Celular o Teléfono" required autocomplete="off">
+                    <input type="tel" id="phone" class="input-field" placeholder="Ingrese su Celular o Teléfono"
+                        required autocomplete="off">
                 </div>
             </div>
             <div class="form-row">
@@ -127,100 +133,119 @@
             </div>
             <div class="form-actions">
                 <button type="reset" class="form-btn-secondary">Descartar</button>
-                <button type="submit" class="form-btn-primary">Guardar cambios</button>
+                <button id="saveButton" class="form-btn-primary">Guardar cambios</button>
             </div>
         </div>
-        
     </div>
+    <div id="alertOverlay" class="overlay">
+        <div class="container">
+            <div class="title0">Tus datos han sido actualizados.</div>
+        </div>
+        <div class="primary" onclick="closeAlert()">
+            <div class="title2">Volver</div>
+        </div>
+    </div>
+    <script>
+        // Mostrar la alerta al hacer clic en "Guardar cambios"
+        document.getElementById('saveButton').addEventListener('click', function(event) {
+            event.preventDefault();  // Evita comportamiento predeterminado
+            document.getElementById('alertOverlay').style.display = 'flex'; // Mostrar alerta
+        });
+
+        // Cerrar alerta al hacer clic en "Volver"
+        function closeAlert() {
+            document.getElementById('alertOverlay').style.display = 'none';
+        }
+    </script>
     <div class="container">
         <div class="image-wrapper">
-          <div class="image-box">
-            <div class="text-overlay">
-              Stay connected with us for the latest updates and promotions.
+            <div class="image-box">
+                <div class="text-overlay">
+                    Stay connected with us for the latest updates and promotions.
+                </div>
+                <div class="pagination-dots">
+                    <div class="dot-active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
             </div>
-            <div class="pagination-dots">
-              <div class="dot-active"></div>
-              <div class="dot"></div>
-              <div class="dot"></div>
-              <div class="dot"></div>
-            </div>
-          </div>
         </div>
         <img class="vector" src="vector-2000.svg" />
-      </div>
+    </div>
 </body>
 <footer>
-        <div class="footer">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <div class="footer-info">
-                        <div class="footer-heading">Comparte y ahorra en tus compras diarias</div>
-                        <div class="footer-text">
-                            Encuentra los mejores precios en supermercados y toma decisiones
-                            inteligentes para tu hogar.
-                        </div>
-                    </div>
-                    <div class="footer-actions">
-                        <button class="footer-btn-primary">
-                            <span class="footer-btn-text-primary">Explorar</span>
-                        </button>
-                      
-                        <button class="footer-btn-secondary">
-                            <span class="footer-btn-text-secondary">Ayuda</span>
-                        </button>
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <div class="footer-info">
+                    <div class="footer-heading">Comparte y ahorra en tus compras diarias</div>
+                    <div class="footer-text">
+                        Encuentra los mejores precios en supermercados y toma decisiones
+                        inteligentes para tu hogar.
                     </div>
                 </div>
-                <div class="footer-links-column">
-                    <div class="footer-link-list">
-                        <div class="footer-link-item">                     
-                            <a href="#" class="footer-link">Inicio</a>
-                        </div>
-                        <div class="footer-link-item">
-                            <a href="#" class="footer-link">Contáctanos</a>
-                        </div>
-                        <div class="footer-link-item">
-                            <a href="#" class="footer-link">Ayuda Online</a>
-                        </div>
-                        <div class="footer-link-item">
-                            <a href="#" class="footer-link">Política de Privacidad</a>
-                        </div>
-                        <div class="footer-link-item">
-                            <a href="#" class="footer-link">Términos de Uso</a>
-                        </div>
-                    </div>
+                <div class="footer-actions">
+                    <button class="footer-btn-primary">
+                        <span class="footer-btn-text-primary">Explorar</span>
+                    </button>
+                  
+                    <button class="footer-btn-secondary">
+                        <span class="footer-btn-text-secondary">Ayuda</span>
+                    </button>
                 </div>
             </div>
-            <div class="footer-credits">
-                <div class="footer-logo-row">
-                    <div class="footer-logo-container">
-                        <img class="footer-logo" src="Img/lOGO PROYECTO LuckasEnt.png" />
+            <div class="footer-links-column">
+                <div class="footer-link-list">
+                    <div class="footer-link-item">                     
+                        <a href="#" class="footer-link">Inicio</a>
                     </div>
-                </div>
-                <div class="footer-divider"></div>
-                <div class="footer-bottom-row">
-                    <div class="footer-copyright">
-                        © 2024 LuckasEnt. Todos los derechos reservados.
+                    <div class="footer-link-item">
+                        <a href="#" class="footer-link">Contáctanos</a>
                     </div>
-                    <div class="footer-social-links">
-                        <a href="https://facebook.com" target="_blank">
-                            <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}" alt="Facebook" />
-                        </a>
-                        <a href="https://twitter.com" target="_blank">
-                            <img class="footer-social-icon" src="{{ url_for('static', path='img/X.png') }}" alt="Twitter" />
-                        </a>
-                        <a href="https://instagram.com" target="_blank">
-                            <img class="footer-social-icon" src="{{ url_for('static', path='img/Instagram.png') }}" alt="Instagram" />
-                        </a>
-                        <a href="https://linkedin.com" target="_blank">
-                            <img class="footer-social-icon" src="{{ url_for('static', path='img/LinkedIn.png') }}" alt="LinkedIn" />
-                        </a>
-                        <a href="https://youtube.com" target="_blank">
-                            <img class="footer-social-icon" src="{{ url_for('static', path='img/Youtube.png') }}" alt="YouTube" />
-                        </a>
+                    <div class="footer-link-item">
+                        <a href="#" class="footer-link">Ayuda Online</a>
+                    </div>
+                    <div class="footer-link-item">
+                        <a href="#" class="footer-link">Política de Privacidad</a>
+                    </div>
+                    <div class="footer-link-item">
+                        <a href="#" class="footer-link">Términos de Uso</a>
                     </div>
                 </div>
             </div>
         </div>
-    </footer>
+        <div class="footer-credits">
+            <div class="footer-logo-row">
+                <div class="footer-logo-container">
+                    <img class="footer-logo" src="{{ url_for('static', path='img/lOGO PROYECTO LuckasEnt.png') }}" />
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom-row">
+                <div class="footer-copyright">
+                    © 2024 LuckasEnt. Todos los derechos reservados.
+                </div>
+                <div class="footer-social-links">
+                    <a href="https://facebook.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}" alt="Facebook" />
+                    </a>
+                    <a href="https://twitter.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/X.png') }}" alt="Twitter" />
+                    </a>
+                    <a href="https://instagram.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Instagram.png') }}" alt="Instagram" />
+                    </a>
+                    <a href="https://linkedin.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/LinkedIn.png') }}" alt="LinkedIn" />
+                    </a>
+                    <a href="https://youtube.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Youtube.png') }}" alt="YouTube" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 
 </html>

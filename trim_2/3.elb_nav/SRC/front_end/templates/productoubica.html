@@ -1,62 +1,135 @@
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ubicación</title>
-  <link rel="stylesheet" href="{{ url_for('static', path='css/productoubi.css') }}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&display=swap" />
-  
-  <!-- Leaflet.js para el mapa -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubicación</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/productoubi.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&display=swap" />
 
-  <style>
-      .map-container {
-          width: 100%;
-          height: 500px;
-          margin-top: 20px;
-      }
+    <!-- Leaflet.js para el mapa -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
-      #map {
-          width: 100%;
-          height: 100%;
-          border-radius: 10px;
-      }
-  </style>
 </head>
 
 <body>
-  <nav class="nav-bar">
-      <div class="logo">
-          <a href="{{ url_for('home') }}">
-              <span class="luckas">Luckas</span><span class="ent">ent</span>
-          </a>
-      </div>
-      <div class="search-bar">
-          <input type="text" placeholder="Busca un producto o tienda">
-          <button><i class="fas fa-search"></i></button>
-      </div>
-      <nav class="nav-menu">
-          <a href="#">Inicio</a>
-          <a href="#">Nosotros</a>
-          <a href="{{ url_for('cuenta') }}">Mi perfil</a>
-      </nav>
-  </nav>
+    <nav class="nav-bar">
+        <div class="logo">
+            <a href="{{ url_for('page') }}">
+                <span class="luckas">Luckas</span><span class="ent">ent</span>
+            </a>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Busca un producto o tienda">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+        <nav class="nav-menu">
+            <a href="{{ url_for('page') }}">Inicio</a>
+            <a href="#">Nosotros</a>
+            <a href="{{ url_for('cuenta') }}">Mi perfil</a>
+        </nav>
+    </nav>
+    <div class="tabs">
+        <a href="#" class="tab">Descripción</a>
+        <a href="{{ url_for('ubicacionproduc') }}" class="tab ">Ubicación</a>
+        <a href="#" class="tab ">Precios</a>
+        <a href="#" class="tab">Tiendas</a>
+        <a href="{{ url_for('reseñaproduc') }}" class="tab active">Reseñas</a>
+    </div>
+    <div class="map-container">
+        <div id="map"></div>
+    </div>
 
-  <div class="map-container">
-      <div id="map"></div>
-  </div>
+    <script>
+        var map = L.map('map').setView([4.60971, -74.08175], 13); // Ubicación de Bogotá, Colombia
 
-  <script>
-      var map = L.map('map').setView([4.60971, -74.08175], 13); // Ubicación de Bogotá, Colombia
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '© OpenStreetMap contributors'
-      }).addTo(map);
+        L.marker([4.60971, -74.08175]).addTo(map)
+            .bindPopup('Aquí se encuentra el producto')
+            .openPopup();
+    </script>
 
-      L.marker([4.60971, -74.08175]).addTo(map)
-          .bindPopup('Aquí se encuentra el producto')
-          .openPopup();
-  </script>
 </body>
-</html>cd
+
+<footer>
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <div class="footer-info">
+                    <div class="footer-heading">Comparte y ahorra en tus compras diarias</div>
+                    <div class="footer-text">
+                        Encuentra los mejores precios en supermercados y toma decisiones
+                        inteligentes para tu hogar.
+                    </div>
+                </div>
+                <div class="footer-actions">
+                    <button class="footer-btn-primary">
+                        <span class="footer-btn-text-primary">Explorar</span>
+                    </button>
+
+                    <button class="footer-btn-secondary">
+                        <span class="footer-btn-text-secondary">Ayuda</span>
+                    </button>
+                </div>
+            </div>
+            <div class="footer-links-column">
+                <div class="footer-link-list">
+                    <div class="footer-link-item">
+                        <a href="#" class="footer-link">Inicio</a>
+                    </div>
+                    <div class="footer-link-item">
+                        <a href="#" class="footer-link">Contáctanos</a>
+                    </div>
+                    <div class="footer-link-item">
+                        <a href="#" class="footer-link">Ayuda Online</a>
+                    </div>
+                    <div class="footer-link-item">
+                        <a href="#" class="footer-link">Política de Privacidad</a>
+                    </div>
+                    <div class="footer-link-item">
+                        <a href="#" class="footer-link">Términos de Uso</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-credits">
+            <div class="footer-logo-row">
+                <div class="footer-logo-container">
+                    <img class="footer-logo" src="{{ url_for('static', path='img/lOGO PROYECTO LuckasEnt.png') }}" />
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom-row">
+                <div class="footer-copyright">
+                    © 2024 LuckasEnt. Todos los derechos reservados.
+                </div>
+                <div class="footer-social-links">
+                    <a href="https://facebook.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}"
+                            alt="Facebook" />
+                    </a>
+                    <a href="https://twitter.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/X.png') }}" alt="Twitter" />
+                    </a>
+                    <a href="https://instagram.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Instagram.png') }}"
+                            alt="Instagram" />
+                    </a>
+                    <a href="https://linkedin.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/LinkedIn.png') }}"
+                            alt="LinkedIn" />
+                    </a>
+                    <a href="https://youtube.com" target="_blank">
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Youtube.png') }}"
+                            alt="YouTube" />
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</footer>
+</html>
