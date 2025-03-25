@@ -30,9 +30,9 @@
     </nav>
     <nav class="menu-container">
         <ul class="menu-navigation">
-            <li><a class="menu-link" href="#">Categorías</a></li>
+            <li><a class="menu-link" href="{{ url_for('productlista') }}">Categorías</a></li>
             <li><a class="menu-link" href="#">Ofertas</a></li>
-            <li><a class="menu-link" href="#">Mi Lista</a></li>
+            <li><a class="menu-link" href="{{ url_for('tulista') }}">Mi Lista</a></li>
             <li><a class="menu-link" href="#">Favoritos</a></li>
             <li><a class="menu-link" href="#">Ayuda</a></li>
         </ul>
@@ -84,8 +84,8 @@
     <div class="tabs">
         <a href="#" class="tab">Descripción</a>
         <a href="{{ url_for('ubicacionproduc') }}" class="tab ">Ubicación</a>
-        <a href="#" class="tab ">Precios</a>
-        <a href="#" class="tab">Tiendas</a>
+        <a href="{{ url_for('precioproduc') }}" class="tab ">Precios</a>
+        <a href="{{ url_for('tienda') }}" class="tab">Tiendas</a>
         <a href="{{ url_for('reseñaproduc') }}" class="tab active">Reseñas</a>
     </div>
 </body>

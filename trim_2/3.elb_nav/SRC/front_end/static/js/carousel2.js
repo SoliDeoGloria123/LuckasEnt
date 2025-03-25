@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+/*document.addEventListener("DOMContentLoaded", function () {
     // 📌 1️⃣ Manejo de Carrusel
     const carousels = document.querySelectorAll(".carousel-container");
 
@@ -61,4 +61,38 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+});*/
+document.addEventListener("DOMContentLoaded", function () {
+    // 📌 Manejo de Carrusel
+    const carousels = document.querySelectorAll(".carousel-container");
+
+    carousels.forEach((container) => {
+        const carousel = container.querySelector(".carousel, .favoritos-carousel"); // Detecta ambos tipos de carruseles
+        const leftArrow = container.querySelector(".arrow.left");
+        const rightArrow = container.querySelector(".arrow.right");
+
+        if (carousel && leftArrow && rightArrow) {
+            const card = carousel.querySelector(".card, .favorito-card");
+            if (!card) return; // Si no hay tarjetas, salimos
+            
+            const cardWidth = card.offsetWidth + 20; // Ancho de tarjeta + margen
+            const visibleCards = Math.floor(container.offsetWidth / cardWidth);
+            const scrollStep = cardWidth * visibleCards; // Mueve tantas tarjetas como entren en pantalla
+
+            leftArrow.addEventListener("click", function () {
+                carousel.scrollBy({ left: -scrollStep, behavior: "smooth" });
+            });
+
+            rightArrow.addEventListener("click", function () {
+                carousel.scrollBy({ left: scrollStep, behavior: "smooth" });
+            });
+        }
+    });
+
+    // 📌 Manejo de Favoritos
+    document.querySelectorAll(".favorite").forEach(button => {
+        button.addEventListener("click", function () {
+            this.classList.toggle("active");
+        });
+    });
 });
