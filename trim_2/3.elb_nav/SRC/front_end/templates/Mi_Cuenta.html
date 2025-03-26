@@ -77,9 +77,16 @@
                         <span class="profile-button-text">Editar Perfil</span>
                     </button>
                 </div>
-                <img class="vector-200" src="vector-2000.svg" />
+    
             </div>
 
+            <script>
+                // Usamos Flask para obtener la URL de forma dinámica
+                const editProfileBtn = document.getElementById('editProfileBtn');
+                editProfileBtn.addEventListener('click', function() {
+                    window.location.href = "{{ url_for('perfil') }}";  // Redirige a la página Flask
+                });
+            </script>
             <!-- Sección de productos -->
             <div class="products-section">
                 <div class="products-header">

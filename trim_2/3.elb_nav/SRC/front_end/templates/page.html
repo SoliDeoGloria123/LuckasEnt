@@ -67,7 +67,14 @@
         <div class="carousel-container">
             <!-- Flecha izquierda -->
             <button class="arrow left">&lt;</button>
-
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const detalleBtn = document.getElementById('detalle');
+                    detalleBtn.addEventListener('click', function () {
+                        window.location.href = "{{ url_for('detalle_producto') }}";  // Redirige a la página Flask
+                    });
+                });
+            </script>
             <!-- Cards de productos -->
             <div class="carousel">
                 <!-- Card 1 -->
@@ -80,8 +87,7 @@
                         <p><strong>Precio Promedio:</strong> $17.000</p>
                         <div class="btn-group">
                             <button class="btn-azul">Agregar</button>
-                            <!--<button class="btn-detalles">Ver detalles</button>-->
-                            <a href="{{ url_for('detalle_producto') }}" class="btn-detalles">Ver detalles</a>
+                            <button id="detalle" class="btn-detalles">Ver detalles</button>
                         </div>
                     </div>
                 </div>
@@ -96,7 +102,7 @@
                         <p><strong>Precio Promedio:</strong> $12.000</p>
                         <div class="btn-group">
                             <button class="btn-azul">Agregar</button>
-                            <button class="btn-detalles">Ver detalles</button>
+                            <button id="detalle" class="btn-detalles">Ver detalles</button>
                         </div>
                     </div>
                 </div>
@@ -112,7 +118,7 @@
                         <p><strong>Precio:</strong> $6.000</p>
                         <div class="btn-group">
                             <button class="btn-azul">Agregar</button>
-                            <button class="btn-detalles">Ver detalles</button>
+                            <button  id="detalle" class="btn-detalles">Ver detalles</button>
                         </div>
                     </div>
                 </div>
@@ -126,7 +132,7 @@
                         <p><strong>Precio:</strong> $6.000</p>
                         <div class="btn-group">
                             <button class="btn-azul">Agregar</button>
-                            <button class="btn-detalles">Ver detalles</button>
+                            <button id="detalle" class="btn-detalles">Ver detalles</button>
                         </div>
                     </div>
                 </div>
@@ -140,7 +146,7 @@
                         <p><strong>Precio:</strong> $6.000</p>
                         <div class="btn-group">
                             <button class="btn-azul">Agregar</button>
-                            <button class="btn-detalles">Ver detalles</button>
+                            <button id="detalle" class="btn-detalles">Ver detalles</button>
                         </div>
                     </div>
                 </div>
@@ -154,7 +160,7 @@
                         <p><strong>Precio:</strong> $6.000</p>
                         <div class="btn-group">
                             <button class="btn-azul">Agregar</button>
-                            <button class="btn-detalles">Ver detalles</button>
+                            <button  id="detalle" class="btn-detalles">Ver detalles</button>
                         </div>
                     </div>
                 </div>
@@ -169,7 +175,7 @@
                         <p><strong>Precio:</strong> $6.000</p>
                         <div class="btn-group">
                             <button class="btn-azul">Agregar</button>
-                            <button class="btn-detalles">Ver detalles</button>
+                            <button  id="detalle"class="btn-detalles">Ver detalles</button>
                         </div>
                     </div>
                 </div>

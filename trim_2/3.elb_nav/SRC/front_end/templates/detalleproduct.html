@@ -52,14 +52,15 @@
     <div class="product-detail-wrapper">
         <div class="product-detail-container">
             <div class="product-image-container">
-                <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1024&q=80" alt="Carne para asar" class="product-image">
+                <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1024&q=80"
+                    alt="Carne para asar" class="product-image">
             </div>
             <div class="product-info">
                 <div class="product-name">Carne para asar</div>
                 <div class="product-weight">500 g</div>
                 <div class="product-price">Precio: $17.000</div>
                 <div class="product-buttons">
-                    <button class="primary-button add-to-cart">
+                    <button class="primary-button add-to-cart" id="addToCartBtn">
                         <span>+ Agregar</span>
                     </button>
                     <button class="secondary-button">
@@ -68,7 +69,83 @@
                 </div>
             </div>
         </div>
+        <div id="productAddedAlert" class="product-alert-overlay">
+            <div class="product-alert-form">
+                <div class="product-alert-container">
+                    <div class="product-alert-title">El producto ha sido agregado a tu lista!</div>
+                    <div class="product-alert-description">Papa pastusa</div>
+                </div>
+                <div class="product-alert-list">
+                    <div class="product-alert-row"></div>
+                    <div class="product-alert-button-group">
+                        <div class="product-alert-btn-secondary" id="backToShoppingBtn">
+                            <div class="product-alert-btn-secondary-text">Volver</div>
+                        </div>
+                        <div class="product-alert-btn-primary" id="viewListBtn">
+                            <div class="product-alert-btn-primary-text">Ver Lista</div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                // Obtener referencias a los elementos
+                const addToCartBtn = document.getElementById("addToCartBtn")
+                const productAddedAlert = document.getElementById("productAddedAlert")
+                const backToShoppingBtn = document.getElementById("backToShoppingBtn")
+                const viewListBtn = document.getElementById("viewListBtn")
 
+                // Función para mostrar el alert
+                function showProductAddedAlert(productName) {
+                    // Actualizar el nombre del producto en la descripción
+                    const descriptionElement = document.querySelector(".product-alert-description")
+                    if (descriptionElement && productName) {
+                        descriptionElement.textContent = productName
+                    }
+
+                    // Mostrar el alert
+                    productAddedAlert.style.display = "flex"
+                }
+
+                // Función para cerrar el alert
+                function closeProductAddedAlert() {
+                    productAddedAlert.style.display = "none"
+                }
+
+                // Evento para el botón de agregar al carrito
+                addToCartBtn.addEventListener("click", () => {
+                    // Aquí podrías obtener el nombre del producto desde algún atributo o elemento cercano
+                    // Por ejemplo: const productName = this.closest('.product-card').querySelector('.product-name').textContent;
+                    const productName = "Papa pastusa" // Por defecto o como ejemplo
+
+                    showProductAddedAlert(productName)
+                })
+
+                // Evento para el botón de volver
+                backToShoppingBtn.addEventListener("click", () => {
+                    closeProductAddedAlert()
+                })
+
+                // Evento para el botón de ver lista
+                viewListBtn.addEventListener("click", () => {
+                    // Aquí puedes agregar la lógica para redirigir a la página de la lista
+                    // window.location.href = "/mi-lista.html";
+                    closeProductAddedAlert()
+                    window.location.href = "{{ url_for('tulista') }}"; // Reemplazar con tu lógica real
+                })
+
+                // Cerrar el alert si se hace clic fuera de él
+                productAddedAlert.addEventListener("click", (event) => {
+                    if (event.target === productAddedAlert) {
+                        closeProductAddedAlert()
+                    }
+                })
+            })
+
+
+        </script>
         <div class="available-products-section">
             <div class="title">Producto Disponible en:</div>
             <div class="products-grid">
@@ -77,7 +154,9 @@
                     <div class="mercado-libre">Mercado Libre</div>
                     <div class="subtitle">Precio: $15.000</div>
                     <div class="rating">
-                        <img class="vector" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTkiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCA1OSAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTUuNSAwTDYuNzMzNyAzLjgxOTY2SDEwLjczMzFMNy40OTk3IDYuMTgwMzRMOC43MzM0IDEwTDUuNSA3LjYzOTMyTDIuMjY2NiAxMEwzLjUwMDMgNi4xODAzNEwwLjI2NjkgMy44MTk2Nkg0LjI2NjNMNS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik0xNy41IDBMMTguNzMzNyAzLjgxOTY2SDIyLjczMzFMMTkuNDk5NyA2LjE4MDM0TDIwLjczMzQgMTBMMTcuNSA3LjYzOTMyTDE0LjI2NjYgMTBMMTUuNTAwMyA2LjE4MDM0TDEyLjI2NjkgMy44MTk2NkgxNi4yNjYzTDE3LjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPHBhdGggZD0iTTI5LjUgMEwzMC43MzM3IDMuODE5NjZIMzQuNzMzMUwzMS40OTk3IDYuMTgwMzRMMzIuNzMzNCAxMEwyOS41IDcuNjM5MzJMMjYuMjY2NiAxMEwyNy41MDAzIDYuMTgwMzRMMjQuMjY2OSAzLjgxOTY2SDI4LjI2NjNMMjkuNSAwWiIgZmlsbD0iI0ZGQ0MwMCIvPgo8cGF0aCBkPSJNNDEuNSAwTDQyLjczMzcgMy44MTk2Nkg0Ni43MzMxTDQzLjQ5OTcgNi4xODAzNEw0NC43MzM0IDEwTDQxLjUgNy42MzkzMkwzOC4yNjY2IDEwTDM5LjUwMDMgNi4xODAzNEwzNi4yNjY5IDMuODE5NjZINDAuMjY2M0w0MS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik01My41IDBMNTQuNzMzNyAzLjgxOTY2SDU4LjczMzFMNTUuNDk5NyA2LjE4MDM0TDU2LjczMzQgMTBMNTMuNSA3LjYzOTMyTDUwLjI2NjYgMTBMNTEuNTAwMyA2LjE4MDM0TDQ4LjI2NjkgMy44MTk2Nkg1Mi4yNjYzTDUzLjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPC9zdmc+Cg==" alt="5 estrellas" />
+                        <img class="vector"
+                            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTkiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCA1OSAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTUuNSAwTDYuNzMzNyAzLjgxOTY2SDEwLjczMzFMNy40OTk3IDYuMTgwMzRMOC43MzM0IDEwTDUuNSA3LjYzOTMyTDIuMjY2NiAxMEwzLjUwMDMgNi4xODAzNEwwLjI2NjkgMy44MTk2Nkg0LjI2NjNMNS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik0xNy41IDBMMTguNzMzNyAzLjgxOTY2SDIyLjczMzFMMTkuNDk5NyA2LjE4MDM0TDIwLjczMzQgMTBMMTcuNSA3LjYzOTMyTDE0LjI2NjYgMTBMMTUuNTAwMyA2LjE4MDM0TDEyLjI2NjkgMy44MTk2NkgxNi4yNjYzTDE3LjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPHBhdGggZD0iTTI5LjUgMEwzMC43MzM3IDMuODE5NjZIMzQuNzMzMUwzMS40OTk3IDYuMTgwMzRMMzIuNzMzNCAxMEwyOS41IDcuNjM5MzJMMjYuMjY2NiAxMEwyNy41MDAzIDYuMTgwMzRMMjQuMjY2OSAzLjgxOTY2SDI4LjI2NjNMMjkuNSAwWiIgZmlsbD0iI0ZGQ0MwMCIvPgo8cGF0aCBkPSJNNDEuNSAwTDQyLjczMzcgMy44MTk2Nkg0Ni43MzMxTDQzLjQ5OTcgNi4xODAzNEw0NC43MzM0IDEwTDQxLjUgNy42MzkzMkwzOC4yNjY2IDEwTDM5LjUwMDMgNi4xODAzNEwzNi4yNjY5IDMuODE5NjZINDAuMjY2M0w0MS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik01My41IDBMNTQuNzMzNyAzLjgxOTY2SDU4LjczMzFMNTUuNDk5NyA2LjE4MDM0TDU2LjczMzQgMTBMNTMuNSA3LjYzOTMyTDUwLjI2NjYgMTBMNTEuNTAwMyA2LjE4MDM0TDQ4LjI2NjkgMy44MTk2Nkg1Mi4yNjYzTDUzLjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPC9zdmc+Cg=="
+                            alt="5 estrellas" />
                     </div>
                 </div>
                 <div class="frame-427320300">
@@ -85,7 +164,9 @@
                     <div class="mercado-libre">Makro</div>
                     <div class="subtitle">Precio: $17.000</div>
                     <div class="rating">
-                        <img class="vector" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTkiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCA1OSAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTUuNSAwTDYuNzMzNyAzLjgxOTY2SDEwLjczMzFMNy40OTk3IDYuMTgwMzRMOC43MzM0IDEwTDUuNSA3LjYzOTMyTDIuMjY2NiAxMEwzLjUwMDMgNi4xODAzNEwwLjI2NjkgMy44MTk2Nkg0LjI2NjNMNS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik0xNy41IDBMMTguNzMzNyAzLjgxOTY2SDIyLjczMzFMMTkuNDk5NyA2LjE4MDM0TDIwLjczMzQgMTBMMTcuNSA3LjYzOTMyTDE0LjI2NjYgMTBMMTUuNTAwMyA2LjE4MDM0TDEyLjI2NjkgMy44MTk2NkgxNi4yNjYzTDE3LjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPHBhdGggZD0iTTI5LjUgMEwzMC43MzM3IDMuODE5NjZIMzQuNzMzMUwzMS40OTk3IDYuMTgwMzRMMzIuNzMzNCAxMEwyOS41IDcuNjM5MzJMMjYuMjY2NiAxMEwyNy41MDAzIDYuMTgwMzRMMjQuMjI2OSAzLjgxOTY2SDI4LjI2NjNMMjkuNSAwWiIgZmlsbD0iI0ZGQ0MwMCIvPgo8cGF0aCBkPSJNNDEuNSAwTDQyLjczMzcgMy44MTk2Nkg0Ni43MzMxTDQzLjQ5OTcgNi4xODAzNEw0NC43MzM0IDEwTDQxLjUgNy42MzkzMkwzOC4yNjY2IDEwTDM5LjUwMDMgNi4xODAzNEwzNi4yMjY5IDMuODE5NjZINDAuMjY2M0w0MS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik01My41IDBMNTQuNzMzNyAzLjgxOTY2SDU4LjczMzFMNTUuNDk5NyA2LjE4MDM0TDU2LjczMzQgMTBMNTMuNSA3LjYzOTMyTDUwLjI2NjYgMTBMNTEuNTAwMyA2LjE4MDM0TDQ4LjI2NjkgMy44MTk2Nkg1Mi4yNjYzTDUzLjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPC9zdmc+Cg==" alt="5 estrellas" />
+                        <img class="vector"
+                            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTkiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCA1OSAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTUuNSAwTDYuNzMzNyAzLjgxOTY2SDEwLjczMzFMNy40OTk3IDYuMTgwMzRMOC43MzM0IDEwTDUuNSA3LjYzOTMyTDIuMjY2NiAxMEwzLjUwMDMgNi4xODAzNEwwLjI2NjkgMy44MTk2Nkg0LjI2NjNMNS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik0xNy41IDBMMTguNzMzNyAzLjgxOTY2SDIyLjczMzFMMTkuNDk5NyA2LjE4MDM0TDIwLjczMzQgMTBMMTcuNSA3LjYzOTMyTDE0LjI2NjYgMTBMMTUuNTAwMyA2LjE4MDM0TDEyLjI2NjkgMy44MTk2NkgxNi4yNjYzTDE3LjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPHBhdGggZD0iTTI5LjUgMEwzMC43MzM3IDMuODE5NjZIMzQuNzMzMUwzMS40OTk3IDYuMTgwMzRMMzIuNzMzNCAxMEwyOS41IDcuNjM5MzJMMjYuMjY2NiAxMEwyNy41MDAzIDYuMTgwMzRMMjQuMjI2OSAzLjgxOTY2SDI4LjI2NjNMMjkuNSAwWiIgZmlsbD0iI0ZGQ0MwMCIvPgo8cGF0aCBkPSJNNDEuNSAwTDQyLjczMzcgMy44MTk2Nkg0Ni43MzMxTDQzLjQ5OTcgNi4xODAzNEw0NC43MzM0IDEwTDQxLjUgNy42MzkzMkwzOC4yNjY2IDEwTDM5LjUwMDMgNi4xODAzNEwzNi4yMjY5IDMuODE5NjZINDAuMjY2M0w0MS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik01My41IDBMNTQuNzMzNyAzLjgxOTY2SDU4LjczMzFMNTUuNDk5NyA2LjE4MDM0TDU2LjczMzQgMTBMNTMuNSA3LjYzOTMyTDUwLjI2NjYgMTBMNTEuNTAwMyA2LjE4MDM0TDQ4LjI2NjkgMy44MTk2Nkg1Mi4yNjYzTDUzLjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPC9zdmc+Cg=="
+                            alt="5 estrellas" />
                     </div>
                 </div>
                 <div class="frame-427320300">
@@ -93,7 +174,9 @@
                     <div class="mercado-libre">Éxito</div>
                     <div class="subtitle">Precio: $16.900</div>
                     <div class="rating">
-                        <img class="vector" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTkiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCA1OSAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTUuNSAwTDYuNzMzNyAzLjgxOTY2SDEwLjczMzFMNy40OTk3IDYuMTgwMzRMOC43MzM0IDEwTDUuNSA3LjYzOTMyTDIuMjY2NiAxMEwzLjUwMDMgNi4xODAzNEwwLjI2NjkgMy44MTk2Nkg0LjI2NjNMNS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik0xNy41IDBMMTguNzMzNyAzLjgxOTY2SDIyLjczMzFMMTkuNDk5NyA2LjE4MDM0TDIwLjczMzQgMTBMMTcuNSA3LjYzOTMyTDE0LjI2NjYgMTBMMTUuNTAwMyA2LjE4MDM0TDEyLjI2NjkgMy44MTk2NkgxNi4yNjYzTDE3LjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPHBhdGggZD0iTTI5LjUgMEwzMC43MzM3IDMuODE5NjZIMzQuNzMzMUwzMS40OTk3IDYuMTgwMzRMMzIuNzMzNCAxMEwyOS41IDcuNjM5MzJMMjYuMjI2NiAxMEwyNy41MDAzIDYuMTgwMzRMMjQuMjI2OSAzLjgxOTY2SDI4LjI2NjNMMjkuNSAwWiIgZmlsbD0iI0ZGQ0MwMCIvPgo8cGF0aCBkPSJNNDEuNSAwTDQyLjczMzcgMy44MTk2Nkg0Ni43MzMxTDQzLjQ5OTcgNi4xODAzNEw0NC43MzM0IDEwTDQxLjUgNy42MzkzMkwzOC4yMjY2IDEwTDM5LjUwMDMgNi4xODAzNEwzNi4yMjY5IDMuODE5NjZINDAuMjY2M0w0MS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik01My41IDBMNTQuNzMzNyAzLjgxOTY2SDU4LjczMzFMNTUuNDk5NyA2LjE4MDM0TDU2LjczMzQgMTBMNTMuNSA3LjYzOTMyTDUwLjI2NjYgMTBMNTEuNTAwMyA2LjE4MDM0TDQ4LjI2NjkgMy44MTk2Nkg1Mi4yNjYzTDUzLjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPC9zdmc+Cg==" alt="5 estrellas" />
+                        <img class="vector"
+                            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTkiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCA1OSAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTUuNSAwTDYuNzMzNyAzLjgxOTY2SDEwLjczMzFMNy40OTk3IDYuMTgwMzRMOC43MzM0IDEwTDUuNSA3LjYzOTMyTDIuMjY2NiAxMEwzLjUwMDMgNi4xODAzNEwwLjI2NjkgMy44MTk2Nkg0LjI2NjNMNS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik0xNy41IDBMMTguNzMzNyAzLjgxOTY2SDIyLjczMzFMMTkuNDk5NyA2LjE4MDM0TDIwLjczMzQgMTBMMTcuNSA3LjYzOTMyTDE0LjI2NjYgMTBMMTUuNTAwMyA2LjE4MDM0TDEyLjI2NjkgMy44MTk2NkgxNi4yNjYzTDE3LjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPHBhdGggZD0iTTI5LjUgMEwzMC43MzM3IDMuODE5NjZIMzQuNzMzMUwzMS40OTk3IDYuMTgwMzRMMzIuNzMzNCAxMEwyOS41IDcuNjM5MzJMMjYuMjI2NiAxMEwyNy41MDAzIDYuMTgwMzRMMjQuMjI2OSAzLjgxOTY2SDI4LjI2NjNMMjkuNSAwWiIgZmlsbD0iI0ZGQ0MwMCIvPgo8cGF0aCBkPSJNNDEuNSAwTDQyLjczMzcgMy44MTk2Nkg0Ni43MzMxTDQzLjQ5OTcgNi4xODAzNEw0NC43MzM0IDEwTDQxLjUgNy42MzkzMkwzOC4yMjY2IDEwTDM5LjUwMDMgNi4xODAzNEwzNi4yMjY5IDMuODE5NjZINDAuMjY2M0w0MS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik01My41IDBMNTQuNzMzNyAzLjgxOTY2SDU4LjczMzFMNTUuNDk5NyA2LjE4MDM0TDU2LjczMzQgMTBMNTMuNSA3LjYzOTMyTDUwLjI2NjYgMTBMNTEuNTAwMyA2LjE4MDM0TDQ4LjI2NjkgMy44MTk2Nkg1Mi4yNjYzTDUzLjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPC9zdmc+Cg=="
+                            alt="5 estrellas" />
                     </div>
                 </div>
                 <div class="frame-427320300">
@@ -101,7 +184,9 @@
                     <div class="mercado-libre">Olímpica</div>
                     <div class="subtitle">Precio: $17.300</div>
                     <div class="rating">
-                        <img class="vector" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTkiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCA1OSAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTUuNSAwTDYuNzMzNyAzLjgxOTY2SDEwLjczMzFMNy40OTk3IDYuMTgwMzRMOC43MzM0IDEwTDUuNSA3LjYzOTMyTDIuMjY2NiAxMEwzLjUwMDMgNi4xODAzNEwwLjI2NjkgMy44MTk2Nkg0LjI2NjNMNS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik0xNy41IDBMMTguNzMzNyAzLjgxOTY2SDIyLjczMzFMMTkuNDk5NyA2LjE4MDM0TDIwLjczMzQgMTBMMTcuNSA3LjYzOTMyTDE0LjI2NjYgMTBMMTUuNTAwMyA2LjE4MDM0TDEyLjI2NjkgMy44MTk2NkgxNi4yNjYzTDE3LjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPHBhdGggZD0iTTI5LjUgMEwzMC43MzM3IDMuODE5NjZIMzQuNzMzMUwzMS40OTk3IDYuMTgwMzRMMzIuNzMzNCAxMEwyOS41IDcuNjM5MzJMMjYuMjI2NiAxMEwyNy41MDAzIDYuMTgwMzRMMjQuMjI2OSAzLjgxOTY2SDI4LjI2NjNMMjkuNSAwWiIgZmlsbD0iI0ZGQ0MwMCIvPgo8cGF0aCBkPSJNNDEuNSAwTDQyLjczMzcgMy44MTk2Nkg0Ni43MzMxTDQzLjQ5OTcgNi4xODAzNEw0NC43MzM0IDEwTDQxLjUgNy42MzkzMkwzOC4yMjY2IDEwTDM5LjUwMDMgNi4xODAzNEwzNi4yMjY5IDMuODE5NjZINDAuMjY2M0w0MS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik01My41IDBMNTQuNzMzNyAzLjgxOTY2SDU4LjczMzFMNTUuNDk5NyA2LjE4MDM0TDU2LjczMzQgMTBMNTMuNSA3LjYzOTMyTDUwLjI2NjYgMTBMNTEuNTAwMyA2LjE4MDM0TDQ4LjI2NjkgMy44MTk2Nkg1Mi4yNjYzTDUzLjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPC9zdmc+Cg==" alt="5 estrellas" />
+                        <img class="vector"
+                            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTkiIGhlaWdodD0iMTIiIHZpZXdCb3g9IjAgMCA1OSAxMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTUuNSAwTDYuNzMzNyAzLjgxOTY2SDEwLjczMzFMNy40OTk3IDYuMTgwMzRMOC43MzM0IDEwTDUuNSA3LjYzOTMyTDIuMjY2NiAxMEwzLjUwMDMgNi4xODAzNEwwLjI2NjkgMy44MTk2Nkg0LjI2NjNMNS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik0xNy41IDBMMTguNzMzNyAzLjgxOTY2SDIyLjczMzFMMTkuNDk5NyA2LjE4MDM0TDIwLjczMzQgMTBMMTcuNSA3LjYzOTMyTDE0LjI2NjYgMTBMMTUuNTAwMyA2LjE4MDM0TDEyLjI2NjkgMy44MTk2NkgxNi4yNjYzTDE3LjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPHBhdGggZD0iTTI5LjUgMEwzMC43MzM3IDMuODE5NjZIMzQuNzMzMUwzMS40OTk3IDYuMTgwMzRMMzIuNzMzNCAxMEwyOS41IDcuNjM5MzJMMjYuMjI2NiAxMEwyNy41MDAzIDYuMTgwMzRMMjQuMjI2OSAzLjgxOTY2SDI4LjI2NjNMMjkuNSAwWiIgZmlsbD0iI0ZGQ0MwMCIvPgo8cGF0aCBkPSJNNDEuNSAwTDQyLjczMzcgMy44MTk2Nkg0Ni43MzMxTDQzLjQ5OTcgNi4xODAzNEw0NC43MzM0IDEwTDQxLjUgNy42MzkzMkwzOC4yMjY2IDEwTDM5LjUwMDMgNi4xODAzNEwzNi4yMjY5IDMuODE5NjZINDAuMjY2M0w0MS41IDBaIiBmaWxsPSIjRkZDQzAwIi8+CjxwYXRoIGQ9Ik01My41IDBMNTQuNzMzNyAzLjgxOTY2SDU4LjczMzFMNTUuNDk5NyA2LjE4MDM0TDU2LjczMzQgMTBMNTMuNSA3LjYzOTMyTDUwLjI2NjYgMTBMNTEuNTAwMyA2LjE4MDM0TDQ4LjI2NjkgMy44MTk2Nkg1Mi4yNjYzTDUzLjUgMFoiIGZpbGw9IiNGRkNDMDAiLz4KPC9zdmc+Cg=="
+                            alt="5 estrellas" />
                     </div>
                 </div>
             </div>
