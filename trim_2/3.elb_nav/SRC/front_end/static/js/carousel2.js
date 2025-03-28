@@ -96,3 +96,16 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+  // ===== FAVORITOS Y MENSAJES =====
+  // Manejo de botones de favoritos
+  const favoriteBorders = document.querySelectorAll(".product-card__favorite-btn")
+
+  favoriteBorders.forEach((favoriteBorder) => {
+    favoriteBorder.addEventListener("click", function () {
+      this.classList.toggle("liked")
+      if (this.classList.contains("liked")) {
+        showMessage("Se guardó satisfactoriamente este producto")
+      }
+    })
+  })

@@ -630,64 +630,69 @@ button {
   overflow: visible;
 }
 
-.overlay,
 .overlay * {
   box-sizing: border-box;
 }
 
 .overlay {
-  background: var(--neutrals-50, #ffffff);
-  padding: 60px 80px;
-  display: flex;
-  flex-direction: row;
-  gap: 60px;
-  align-items: center;
-  justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none; /* Inicialmente oculto */
+  justify-content: center;
+  align-items: center;
   z-index: 1000;
-  overflow: hidden;
-  display: none;
-  /* Ocultamos inicialmente */
 }
-
-.container {
+.overlay-form {
+  background: var(--neutrals-50, #fffdfd);
+  padding: 60px 80px 60px 80px;
   display: flex;
-  flex-direction: column;
-  gap: 24px;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   position: relative;
+  overflow: hidden;
+  max-width: 1100px;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
-.title0 {
+.overlay-container {
+  background: #ffffff;
+  display: flex;
+  flex-direction: row;  /* Colocar elementos en fila */
+  align-items: center;  /* Centrar verticalmente el título y el botón */
+  justify-content: space-between;  /* Espacio entre el título y el botón */
+  padding: 40px 60px;  /* Ajustar padding para más espacio */
+  gap: 24px;  /* Separación entre título y botón */
+  width: 100%;
+}
+
+.overlay-title {
   color: #000000;
-  text-align: left;
+  text-align: left;  /* Alinear el texto a la izquierda */
   font-family: "Roboto-Bold", sans-serif;
   font-size: 40px;
-  line-height: 48px;
   font-weight: 700;
-  position: relative;
-  align-self: stretch;
 }
 
-.primary {
+.overlay-primary {
   background: #0033ff;
   border-radius: 8px;
-  padding: 12px;
+  padding: 12px 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 240px;
+  width: 219px;  /* Ajustar el ancho del botón */
   cursor: pointer;
 }
 
-.title2 {
-   color: #ffffff;
+.overlay-title1 {
+  color: #ffffff;
   text-align: left;
   font-family: "Roboto-Medium", sans-serif;
   font-size: 16px;
@@ -695,37 +700,40 @@ button {
   font-weight: 500;
   position: relative;
 }
-
 .delete-overlay {
-  background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
-  padding: 40px;
-  display: none; /* Ocultamos inicialmente */
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none; /* Inicialmente oculto */
+  justify-content: center;
+  align-items: center;
   z-index: 1000;
 }
 
 .delete-container {
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 4px;
-  max-width: 450px;
+  background: var(--neutrals-50, #ffffff);
+  padding: 60px 80px 60px 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  max-width: 1066px;
   width: 100%;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .delete-title {
   color: #000000;
   font-family: "Roboto", sans-serif;
-  font-size: 18px;
-  font-weight: 500;
-  margin-bottom: 20px;
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: 700;
   text-align: left;
 }
 
@@ -733,37 +741,36 @@ button {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+  margin-right: -24px;
 }
 
 .delete-btn-no {
-  background: #0052ff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  text-transform: uppercase;
+  background: #0033ff;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 230px;
+  position: relative;
 }
 
 .delete-btn-yes {
-  background: transparent;
-  color: #666666;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 400;
-  cursor: pointer;
-}
-
-.delete-btn-no:hover {
-  background: #0045d8;
-}
-
-.delete-btn-yes:hover {
-  background: #f5f5f5;
+background: #ffffff;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 230px;
+  position: relative;
 }
 
 .footer {

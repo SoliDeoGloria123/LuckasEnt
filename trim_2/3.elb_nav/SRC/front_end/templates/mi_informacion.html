@@ -16,7 +16,9 @@
 
     <!-- Barra de navegación -->
     <div class="top-bar">
-        <img class="logo" src="rectangle-41370.png" alt="Logo" />
+        <img class="logo"
+            src="https://images.unsplash.com/photo-1612368871329-946fd8ddbb89?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Logo" />
         <div class="nav-title">Perfil</div>
         <div class="navigation">
             <a href="{{ url_for('page') }}" class="nav-link">Inicio</a>
@@ -37,7 +39,8 @@
     </div>
 
     <div class="profile-section">
-        <img class="profile-avatar" src="avatar0.png" />
+        <img class="profile-avatar"
+            src="https://images.unsplash.com/photo-1612368871329-946fd8ddbb89?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
         <div class="profile-info-container">
             <div class="profile-name">Steeven Pedraza</div>
             <div class="badge-container">
@@ -149,12 +152,14 @@
             </div>
         </div>
     </div>
-    <div id="alertOverlay" class="overlay">
-        <div class="container">
-            <div class="title0">Tus datos han sido actualizados.</div>
-        </div>
-        <div class="primary" onclick="closeAlert()">
-            <div class="title2">Volver</div>
+    <div  id="alertOverlay" class="overlay" >
+        <div class="overlay-form">
+            <div class="overlay-container">
+                <div class="overlay-title">Tus datos han sido actualizados.</div>
+            </div>
+            <div class="overlay-primary" onclick="closeAlert()">
+                <div class="overlay-title1">Volver</div>
+            </div>
         </div>
     </div>
     <script>
