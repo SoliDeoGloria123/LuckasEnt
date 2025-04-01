@@ -22,35 +22,35 @@ colorama.init()
 # Lee el archivo Excel
 def read_exel_py(exelFile: str) -> IOResult[DataFrame, ReadExcelPyError]:
     try:
-        return IOSuccess(pd.read_csv(exelFile, header=None))
+        return IOSuccess(pd.read_excel(exelFile, header=None))
     except Exception as Error:
         return IOFailure(ReadExcelPyError(Error))
 
 
-# Extrae solo la Columna donde estan la URLS 
+# Extrae solo la columna donde están las URLs
 def extract_urls(pd: DataFrame) -> IOResult[Series, ExtractUrlsError]:
     try:
-        return IOSuccess(pd[1])  # Changed from pd[0] to pd[1] to get URL column
+        return IOSuccess(pd[1])
     except Exception as Error:
         return IOFailure(ExtractUrlsError(Error))
 
 
-# Usa la Libreria PlayWright para abir un Browser y asi obtener el HTML de la Pagina Web
+# Usa Playwright para obtener el HTML de la página web
 def extraer_info(URL: str) -> IOResult[str, extraer_infoError]:
     try:
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=False)
+            browser = p.chromium.launch(headless=True)
             page = browser.new_page()
             page.goto(URL)
-            page.wait_for_URL(URL)
+            page.wait_for_load_state("networkidle")
             content = page.content()
             browser.close()
-            return content
+            return IOSuccess(content)
     except Exception as Error:
         return IOFailure(extraer_infoError(Error))
 
 
-# Crea un DOM para BS4 lo entienda
+# Crea un DOM para BeautifulSoup
 def soup_bs4(
     HTML: str, features: str = "html.parser"
 ) -> IOResult[BeautifulSoup, soup_bs4error]:
@@ -60,32 +60,46 @@ def soup_bs4(
         return IOFailure(soup_bs4error(Error))
 
 
-# Extrae el PLP("Product Listing Page")
+# Extrae los productos de la página (PLP)
 def scrapper(
-    soup: BeautifulSoup, Tag: Tag = "div", attrs: str = "grid-pod"
+    soup: BeautifulSoup, Tag: str = "div", attrs: str = "grid-pod"
 ) -> IOResult[ResultSet[Tag], scrapperError]:
     try:
-        return (
-            IOSuccess(soup.find_all(Tag, class_=attrs))
-            if soup.find_all(Tag, class_=attrs)
-            else IOSuccess(NOT_FOUND)
-        )
+        elements = soup.find_all(Tag, class_=attrs)
+        return IOSuccess(elements) if elements else IOSuccess(NOT_FOUND)
     except Exception as Error:
         return IOFailure(scrapperError(Error))
 
 
-# Crea una funcion dry(No te repitas a ti mismo) para raspar la informacion de cada tag
-def access_to_HTML(CardsTag: ResultSet[Tag]) -> IOResult[Tag, access_to_HTMLError]:
+# Extrae la información de cada producto
+def access_to_HTML(
+    CardsTag: ResultSet[Tag],
+) -> IOResult[list[dict], access_to_HTMLError]:
     try:
-        return IOSuccess(extract_object_PLP(card) for card in CardsTag)
+        return IOSuccess([extract_object_PLP(card) for card in CardsTag])
     except Exception as Error:
         return IOFailure(access_to_HTMLError(Error))
 
 
-def extract_object_PLP(card: Tag) -> IOResult[str | int | float, access_to_HTMLError]:
-    return IOResult.do(
-        {"Brand": Brand, "Product Name": Product_name, "Total_price": Total_price}
-        for Brand in card.select_one('b[class*="title-rebrand"]').text
-        for Product_name in card.select_one('b[class*="subTitle-rebrand"]').text
-        for Total_price in card.select_one('span[class*="line-height-22"]').text
-    )
+# Extrae los datos de un producto específico
+def extract_object_PLP(card: Tag) -> dict:
+    try:
+        return {
+            "Brand": (
+                card.select_one('b[class*="title-rebrand"]').text.strip()
+                if card.select_one('b[class*="title-rebrand"]')
+                else "N/A"
+            ),
+            "Product Name": (
+                card.select_one('b[class*="subTitle-rebrand"]').text.strip()
+                if card.select_one('b[class*="subTitle-rebrand"]')
+                else "N/A"
+            ),
+            "Total Price": (
+                card.select_one('span[class*="line-height-22"]').text.strip()
+                if card.select_one('span[class*="line-height-22"]')
+                else "N/A"
+            ),
+        }
+    except Exception:
+        return {"Brand": "N/A", "Product Name": "N/A", "Total Price": "N/A"}
