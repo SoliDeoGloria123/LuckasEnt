@@ -25,10 +25,10 @@
 
         <nav class="nav-menu">
             <a href="{{ url_for('home')}}">Inicio</a>
-            <a href="#">Nosotros</a>
+            <a href="{{ url_for('nosotros')}}">Nosotros</a>
             <a href="{{ url_for('cuenta') }}">Mi perfil</a>
         </nav>
-        </div>
+       
     </nav>
     <!-- Menú de arriba -->
     <nav class="menu-container">
@@ -36,7 +36,7 @@
             <li><a class="menu-link" href="{{ url_for('categoria') }}">Categorías</a></li>
             <li><a class="menu-link" href="#">Ofertas</a></li>
             <li><a class="menu-link" href="{{ url_for('tulista') }}">Mi Lista</a></li>
-            <li><a class="menu-link" href="#">Favoritos</a></li>
+            <li><a class="menu-link" href="{{ url_for('cuenta') }}#seccion-destino">Favoritos</a></li>
             <li><a class="menu-link" href="">Ayuda</a></li>
         </ul>
     </nav>
@@ -79,7 +79,7 @@
             <div class="carousel">
                 <!-- Card 1 -->
                 <div class="card">
-                     <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
+                    <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
                     <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Carne para asar">
                     <div class="card-content">
                         <h3>Carne para asar</h3>
@@ -118,7 +118,7 @@
                         <p><strong>Precio:</strong> $6.000</p>
                         <div class="btn-group">
                             <button class="btn-azul">Agregar</button>
-                            <button  id="detalle" class="btn-detalles">Ver detalles</button>
+                            <button id="detalle" class="btn-detalles">Ver detalles</button>
                         </div>
                     </div>
                 </div>
@@ -160,7 +160,7 @@
                         <p><strong>Precio:</strong> $6.000</p>
                         <div class="btn-group">
                             <button class="btn-azul">Agregar</button>
-                            <button  id="detalle" class="btn-detalles">Ver detalles</button>
+                            <button id="detalle" class="btn-detalles">Ver detalles</button>
                         </div>
                     </div>
                 </div>
@@ -174,7 +174,7 @@
                         <p><strong>Precio:</strong> $6.000</p>
                         <div class="btn-group">
                             <button class="btn-azul">Agregar</button>
-                            <button  id="detalle"class="btn-detalles">Ver detalles</button>
+                            <button id="detalle" class="btn-detalles">Ver detalles</button>
                         </div>
                     </div>
                 </div>
@@ -393,7 +393,7 @@
     </section>
 
     <script src="{{ url_for('static', path='js/carousel2.js') }}"></script>
-   
+
 </body>
 <footer>
     <div class="footer">

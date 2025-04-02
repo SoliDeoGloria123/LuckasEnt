@@ -87,5 +87,29 @@ async def categoria(request: Request):  # ✔️ Nombre correcto de la función
 async def tienda(request: Request):  # ✔️ Nombre correcto de la función
     return templates.TemplateResponse("tienda.html", {"request": request})
 
+@app.get("/nosotros", name="nosotros")
+async def nosotros(request: Request):  # ✔️ Nombre correcto de la función
+    return templates.TemplateResponse("nosotros.html", {"request": request})
+
+@app.get("/categoria_carne", name="categoria_carne")
+async def categoria_carne(request: Request):  # ✔️ Nombre correcto de la función
+    return templates.TemplateResponse("categoria_carne.html", {"request": request})
+
+@app.get("/categoria_pescado", name="categoria_pescado")
+async def categoria_pescado(request: Request):  # ✔️ Nombre correcto de la función
+    return templates.TemplateResponse("categoria_pescado.html", {"request": request})
+
+@app.get("/categoria_pan", name="categoria_pan")
+async def categoria_pan(request: Request):  # ✔️ Nombre correcto de la función
+    return templates.TemplateResponse("categoria_pan.html", {"request": request})
+
+@app.get("/categoria_dulce", name="categoria_dulce")
+async def categoria_dulce(request: Request):  # ✔️ Nombre correcto de la función
+    return templates.TemplateResponse("categoria_dulce.html", {"request": request})
+
+@app.get("/categoria_bebida", name="categoria_bebida")
+async def categoria_bebida(request: Request):  # ✔️ Nombre correcto de la función
+    return templates.TemplateResponse("categoria_bebida.html", {"request": request})
+
 
 

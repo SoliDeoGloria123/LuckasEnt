@@ -44,10 +44,12 @@
         <div class="product-title">Detalles del producto</div>
     </div>
     <div class="tabs">
+        <a href="{{ url_for('reseñaproduc') }}" class="tab active">Descripción</a>
         <a href="{{ url_for('ubicacionproduc') }}" class="tab">Ubicación</a>
         <a href="{{ url_for('precioproduc') }}" class="tab">Precios</a>
         <a href="{{ url_for('tienda') }}" class="tab">Tiendas</a>
-        <a href="{{ url_for('reseñaproduc') }}" class="tab active">Descripción</a>
+        <a href="{{ url_for('reseñaproduc') }}" class="tab">Reseñas</a>
+        
     </div>
     <div class="product-detail-wrapper">
         <div class="product-detail-container">
@@ -118,7 +120,7 @@
                 addToCartBtn.addEventListener("click", () => {
                     // Aquí podrías obtener el nombre del producto desde algún atributo o elemento cercano
                     // Por ejemplo: const productName = this.closest('.product-card').querySelector('.product-name').textContent;
-                    const productName = "Papa pastusa" // Por defecto o como ejemplo
+                    const productName = "Carne para asar" // Por defecto o como ejemplo
 
                     showProductAddedAlert(productName)
                 })

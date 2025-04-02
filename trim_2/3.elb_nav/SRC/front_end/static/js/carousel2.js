@@ -95,9 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
             this.classList.toggle("active");
         });
     });
-});
-
-  // ===== FAVORITOS Y MENSAJES =====
+      // ===== FAVORITOS Y MENSAJES =====
   // Manejo de botones de favoritos
   const favoriteBorders = document.querySelectorAll(".product-card__favorite-btn")
 
@@ -109,3 +107,28 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     })
   })
+  
+  function showMessage(text) {
+    const message = document.createElement("div")
+    message.className = "message show"
+    message.innerHTML = `${text} <span class="close-btn">&times;</span><div class="progress-bar"></div>`
+    document.body.appendChild(message)
+
+    const closeBtn = message.querySelector(".close-btn")
+    closeBtn.addEventListener("click", () => {
+      message.classList.remove("show")
+      setTimeout(() => {
+        document.body.removeChild(message)
+      }, 500)
+    })
+
+    setTimeout(() => {
+      message.classList.remove("show")
+      setTimeout(() => {
+        document.body.removeChild(message)
+      }, 500)
+    }, 2500)
+  }
+
+});
+

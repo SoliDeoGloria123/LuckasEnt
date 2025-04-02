@@ -6,14 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{{ url_for('static', path='css/mi_cuenta.css') }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
     <!-- Barra de navegación -->
     <div class="top-bar">
-        <img class="logo" src="https://images.unsplash.com/photo-1612368871329-946fd8ddbb89?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Logo" />
+        <img class="logo"
+            src="https://images.unsplash.com/photo-1612368871329-946fd8ddbb89?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Logo" />
         <div class="nav-title">Perfil</div>
         <div class="navigation">
             <a href="{{ url_for('page') }}" class="nav-link">Inicio</a>
@@ -63,7 +66,9 @@
             <!-- Sección de perfil -->
             <div class="profile-section">
                 <div class="profile-frame">
-                    <img class="profile-avatar" src="https://images.unsplash.com/photo-1612368871329-946fd8ddbb89?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Avatar de Usuario">
+                    <img class="profile-avatar"
+                        src="https://images.unsplash.com/photo-1612368871329-946fd8ddbb89?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="Avatar de Usuario">
                     <div class="profile-container">
                         <div class="profile-title">Hola Steeven!</div>
                         <div class="profile-selection">
@@ -72,18 +77,18 @@
                             </div>
                         </div>
                     </div>
-               
+
                     <button id="editProfileBtn" class="profile-button-primary">
                         <span class="profile-button-text">Editar Perfil</span>
                     </button>
                 </div>
-    
+
             </div>
 
             <script>
                 // Usamos Flask para obtener la URL de forma dinámica
                 const editProfileBtn = document.getElementById('editProfileBtn');
-                editProfileBtn.addEventListener('click', function() {
+                editProfileBtn.addEventListener('click', function () {
                     window.location.href = "{{ url_for('perfil') }}";  // Redirige a la página Flask
                 });
             </script>
@@ -97,6 +102,7 @@
                                     <div class="products-tag-text">Nuevo</div>
                                 </div>
                             </div>
+                            <img src="#"  class="product-img">
                         </div>
                     </div>
                     <div class="products-title-container">
@@ -143,7 +149,6 @@
                         </div>
                     </div>
                 </div>
-                <img class="vector-200" src="vector-2000.svg" />
             </div>
 
             <!-- Sección de categorías -->
@@ -179,53 +184,53 @@
                 </div>
             </section>
 
-            <section class="favoritos">
+            <section id="seccion-destino" class="favoritos">
                 <h2>Tus favoritos <span>💙</span></h2>
-              
+
                 <div class="carousel-container">
                     <!-- Flecha izquierda -->
                     <button class="arrow left" id="leftArrow">&lt;</button>
-              
+
                     <!-- Carrusel de productos -->
                     <div class="favoritos-carousel" id="carousel">
                         <!-- Producto 1 -->
                         <div class="favorito-card">
-                            <div class="favorite"><i class="fas fa-heart"></i></div>
-                            <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Arándanos">
+                            <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
+                            <img src="https://images.unsplash.com/photo-1548692972-dd5753b37b9f?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Arándanos">
                             <h3>Arándanos</h3>
                             <button class="btn-ver">Ver</button>
                         </div>
-              
+
                         <!-- Producto 2 -->
                         <div class="favorito-card">
-                            <div class="favorite"><i class="fas fa-heart"></i></div>
-                            <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Lechuga crespa">
+                            <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
+                            <img src="https://images.unsplash.com/photo-1690047003756-46c3a91a5215?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Lechuga crespa">
                             <h3>Lechuga crespa</h3>
                             <button class="btn-ver">Ver</button>
                         </div>
-              
+
                         <!-- Producto 3 -->
                         <div class="favorito-card">
-                            <div class="favorite"><i class="fas fa-heart"></i></div>
-                            <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Zanahorias">
+                            <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
+                            <img src="https://images.unsplash.com/photo-1601493700750-58796129ebb5?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Zanahorias">
                             <h3>Zanahorias</h3>
                             <button class="btn-ver">Ver</button>
                         </div>
-              
+
                         <!-- Producto 4 -->
                         <div class="favorito-card">
-                            <div class="favorite"><i class="fas fa-heart"></i></div>
+                            <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
                             <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Manzanas">
                             <h3>Manzanas</h3>
                             <button class="btn-ver">Ver</button>
                         </div>
                     </div>
-              
+
                     <!-- Flecha derecha -->
                     <button class="arrow right" id="rightArrow">&gt;</button>
                 </div>
             </section>
-                       <!-- Banner promocional -->
+            <!-- Banner promocional -->
             <div class="promo-banner">
                 <div class="promo-img-wrapper">
                     <div class="promo-img-box">
@@ -238,14 +243,9 @@
                         </div>
                     </div>
                 </div>
-                <img class="decorative-vector" src="vector-2000.svg" />
             </div>
         </div>
     </div>
-
-
-    
-
     <script src="{{ url_for('static', path='js/carousel2.js') }}"></script>
 </body>
 <footer>
@@ -263,7 +263,7 @@
                     <button class="footer-btn-primary">
                         <span class="footer-btn-text-primary">Explorar</span>
                     </button>
-                  
+
                     <button class="footer-btn-secondary">
                         <span class="footer-btn-text-secondary">Ayuda</span>
                     </button>
@@ -271,7 +271,7 @@
             </div>
             <div class="footer-links-column">
                 <div class="footer-link-list">
-                    <div class="footer-link-item">                     
+                    <div class="footer-link-item">
                         <a href="#" class="footer-link">Inicio</a>
                     </div>
                     <div class="footer-link-item">
@@ -302,23 +302,28 @@
                 </div>
                 <div class="footer-social-links">
                     <a href="https://facebook.com" target="_blank">
-                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}" alt="Facebook" />
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}"
+                            alt="Facebook" />
                     </a>
                     <a href="https://twitter.com" target="_blank">
                         <img class="footer-social-icon" src="{{ url_for('static', path='img/X.png') }}" alt="Twitter" />
                     </a>
                     <a href="https://instagram.com" target="_blank">
-                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Instagram.png') }}" alt="Instagram" />
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Instagram.png') }}"
+                            alt="Instagram" />
                     </a>
                     <a href="https://linkedin.com" target="_blank">
-                        <img class="footer-social-icon" src="{{ url_for('static', path='img/LinkedIn.png') }}" alt="LinkedIn" />
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/LinkedIn.png') }}"
+                            alt="LinkedIn" />
                     </a>
                     <a href="https://youtube.com" target="_blank">
-                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Youtube.png') }}" alt="YouTube" />
+                        <img class="footer-social-icon" src="{{ url_for('static', path='img/Youtube.png') }}"
+                            alt="YouTube" />
                     </a>
                 </div>
             </div>
         </div>
     </div>
 </footer>
+
 </html>

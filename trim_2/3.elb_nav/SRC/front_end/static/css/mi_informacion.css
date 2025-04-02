@@ -70,6 +70,7 @@
   height: 20px;
 }
 
+
 .search-container {
   display: flex;
   align-items: center;
@@ -96,7 +97,6 @@
   width: 20px;
   height: 20px;
 }
-
 /* Sección de perfil superior */
 .profile-section {
   padding: 60px 170px;

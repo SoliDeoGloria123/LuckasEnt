@@ -41,7 +41,7 @@
         <div class="main-container">
             <!-- Título de la página -->
             <div class="page-header">
-                <h1 class="letra">Frutas &amp; Verduras</h1>
+                <h1 class="letra">Carnicos</h1>
                 <div class="pagination-controls">
                     <button class="pagination-btn"><i class="fas fa-chevron-left"></i></button>
                     <span class="page-number active">1</span>
@@ -62,13 +62,13 @@
                         <h3 class="filter-title">Categoría</h3>
                         <div class="filter-divider"></div>
                         <div class="category-list">
-                            <a href="#" class="category-item active">
+                            <a href="{{ url_for('categoria') }}" class="category-item ">
                                 <div class="category-icon">
                                     <img src="https://static.codia.ai/image/2025-03-11/ca1bb570-b208-481a-8412-28737cba9bd7.png" alt="Frutas y Verduras" />
                                 </div>
                                 <span class="category-name">Frutas y Verduras</span>
                             </a>
-                            <a href="{{ url_for('categoria_carne') }}" class="category-item">
+                            <a href="{{ url_for('categoria_carne') }}" class="category-item active">
                                 <div class="category-icon">
                                     <img src="https://static.codia.ai/image/2025-03-11/a08a5d37-05b2-4f7b-90cf-405f096bb842.svg" alt="Cárnicos" />
                                 </div>
