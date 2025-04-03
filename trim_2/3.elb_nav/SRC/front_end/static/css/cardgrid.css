@@ -1,3 +1,4 @@
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
 .lista-container {
   width: 700px;
   margin: 190px auto;
@@ -44,7 +45,7 @@
   position: relative;
   height: 52px;
   margin: 0 0 0 0;
-  color: #050505;
+  color: #0033ff;
   font-family: Bebas Neue, var(--default-font-family);
   font-size: 56px;
   font-weight: 400;
@@ -59,7 +60,7 @@
   position: relative;
   height: 14px;
   margin: -2px 0 0 90px;
-  color: #0a0a0a;
+  color: #0033ff;
   font-family: Bebas Neue, var(--default-font-family);
   font-size: 12px;
   font-weight: 400;
@@ -82,17 +83,22 @@
 }
 .search-bar {
   display: flex;
-  flex: 1;
-  max-width: 500px;
-  margin: 0 20px;
+  text-decoration: none;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    width: 100%; /* Asegura que ocupe todo el ancho disponible */
+    margin: 0 auto; /* Centra en caso de que tenga un ancho definido */
 }
 
 .search-bar input {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  border-radius: 5px 0 0 5px;
-  outline: none;
+  flex: 1; /* Permite que el input ocupe el espacio disponible */
+    padding: 10px; /* Hace el input más cómodo */
+    border: none;
+    border-radius: 40px;
+    outline: none;
+    width: 100%; /* Asegura que el input se expanda correctamente */
+    max-width: 500px; /* Ajusta el ancho máximo para que no sea demasiado grande */
+    text-align: center; /* Centra el texto dentro del input */
 }
 
 .search-bar button {

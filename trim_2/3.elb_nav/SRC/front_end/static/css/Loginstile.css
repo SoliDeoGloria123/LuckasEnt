@@ -116,13 +116,14 @@ input {
 
 .btn-primary {
     background-color: #0033FF;
+    text-decoration: none;
     color: white;
     padding: 12px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
-    width: 100%;
+    width: 95%;
     transition: background 0.3s;
 }
 

@@ -75,7 +75,7 @@
                 <div class="container-buttons">
                     <div class="buttons">
                         <button type="submit" class="button-primary">
-                            <span class="button">Registrarse</span>
+                            <a  href="{{ url_for('login') }}"class="button">Registrarse</a>
                         </button>
 
                         <button type="button" class="style-secondary-small-false-alternate-false-icon-position-leading">
@@ -83,13 +83,11 @@
                             <span class="button2">Iniciar sesión con Google</span>
                         </button>
                     </div>
-
                     <a href="{{ url_for('olvidar') }}" class="link">¿Olvidaste tu contraseña?</a>
                 </div>
             </form>
         </div>
     </div>
-    <a href="{{ url_for('login') }}" class="register-link">No tienes cuenta? <span>Inicia Sesión</span></a>
 </body>
 <footer>&copy; 2024 LuckasEnt</footer>
 

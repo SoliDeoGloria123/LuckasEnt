@@ -18,20 +18,20 @@
         <div class="menu-container">
             <ul class="menu-links">
                 <li class="menu-item">
-                    <a href="" class="menu-link">Inicio</a>
+                    <a href="{{ url_for('registro') }}" class="menu-link">Inicio</a>
                 </li>
                 <li class="menu-item">
                     <a href="{{ url_for('login') }}" class="menu-link">Comparar prodctos</a>
                 </li>
                 <li class="menu-item">
-                    <a href="ofertas.html" class="menu-link">Ofertas</a>
+                    <a href="{{ url_for('registro') }}" class="menu-link">Ofertas</a>
                 </li>
                 <li class="menu-item dropdown">
                     <a href="#" class="menu-link">Más Opciones</a>
                     <ul class="submenu">
-                        <li><a href="contacto.html" class="submenu-link">Contacto</a></li>
-                        <li><a href="nosotros.html" class="submenu-link">Nosotros</a></li>
-                        <li><a href="ayuda.html" class="submenu-link">Ayuda</a></li>
+                        <li><a href="#contacto" class="submenu-link">Contacto</a></li>
+                        <li><a href="{{ url_for('nosotros') }}#nosotros" class="submenu-link">Nosotros</a></li>
+                        <li><a href="#Ayuda" class="submenu-link">Ayuda</a>
                     </ul>
                 </li>
             </ul>
@@ -65,7 +65,7 @@
                     informadas y ahorra dinero en tus compras diarias.
                 </div>
             </div>
-            <a href="pagina-destino.html" class="button-primary1">
+            <a href="{{ url_for('registro') }}" class="button-primary1">
                 <button class="button">Descubre</button>
             </a>
 
@@ -129,7 +129,7 @@
                 <a href="{{ url_for('registro') }}" class="button-primary3">
                     <div class="button5">Registrarse</div>
                 </a>
-                <a href="informacion.html" class="button-primary4">
+                <a href="{{ url_for('termino') }}" class="button-primary4">
                     <div class="m-s-informaci-n">Más información</div>
                 </a>
             </div>
@@ -148,7 +148,7 @@
                             <div class="heading0">Accede a supermercados en un solo lugar</div>
                             <div class="text0">Compara precios de diferentes tiendas y ahorra en tus compras.</div>
                         </div>
-                        <a href="descubre.html" class="hyperlink">
+                        <a href="{{ url_for('registro') }}" class="hyperlink">
                             <span class="comienza">Descubre</span>
                             <span class="arrow">➜</span>
                         </a>
@@ -164,7 +164,7 @@
                             <div class="heading0">Interfaz amigable y fácil de usar</div>
                             <div class="text0">Navega sin complicaciones y encuentra lo que necesitas.</div>
                         </div>
-                        <a href="comienza.html" class="hyperlink">
+                        <a href="{{ url_for('registro') }}" class="hyperlink">
                             <span class="comienza">Comienza</span>
                             <span class="arrow">➜</span>
                         </a>
@@ -179,7 +179,7 @@
                             <div class="heading0">Explora las mejores ofertas</div>
                             <div class="text0">Descubre descuentos exclusivos en tus productos favoritos.</div>
                         </div>
-                        <a href="explora.html" class="hyperlink">
+                        <a href="{{ url_for('registro') }}" class="hyperlink">
                             <span class="comienza">Explora</span>
                             <span class="arrow">➜</span>
                         </a>
@@ -268,11 +268,11 @@
                 </div>
                 <div class="footer-actions">
                     <button class="footer-btn-primary">
-                        <span class="footer-btn-text-primary">Explorar</span>
+                        <a  href="{{ url_for('registro') }}"class="footer-btn-text-primary">Explorar</a>
                     </button>
 
-                    <button class="footer-btn-secondary">
-                        <span class="footer-btn-text-secondary">Ayuda</span>
+                    <button class="footer-btn-secondary" >
+                        <a id="Ayuda"  href="{{ url_for('registro') }}"class="footer-btn-text-secondary">Ayuda</a>
                     </button>
                 </div>
             </div>
@@ -307,7 +307,7 @@
                 <div class="footer-copyright">
                     © 2024 LuckasEnt. Todos los derechos reservados.
                 </div>
-                <div class="footer-social-links">
+                <div  id="contacto" class="footer-social-links">
                     <a href="https://facebook.com" target="_blank">
                         <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}"
                             alt="Facebook" />

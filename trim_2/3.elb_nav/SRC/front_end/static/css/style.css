@@ -104,14 +104,15 @@
 
 .submenu {
     display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
+    position: fixed;
+    top: 60px; /* Ajusta esto según la altura del header */
+    left: 1450px;
+    z-index: 99999;
     background: #0033ff;
     border-radius: 8px;
     padding: 8px 0;
     min-width: 160px;
-    z-index: 1;
+    z-index: 9999; /* Asegura que el menú esté sobre la imagen */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -187,7 +188,8 @@
     flex-shrink: 0;
     height: 900px;
     position: relative;
-    overflow: hidden;
+    z-index: 1;
+    overflow: visible;
     background: url(/static/img/foto.avif) center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -283,7 +285,7 @@
 }
 
 .button:hover {
-    background-color: #001acc; /* Azul más oscuro */
+    background-color: #b2b9e0; /* Azul más oscuro */
     transform: scale(1.05);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
