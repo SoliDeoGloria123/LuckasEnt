@@ -27,6 +27,8 @@
 
 
 .logo {
+  text-decoration: none;
+  font-family: 'Bebas Neue', sans-serif;
   position: absolute;
   /* Fijar el logo en la parte superior izquierda */
   top: 20px;
@@ -46,7 +48,7 @@
   height: 52px;
   margin: 0 0 0 0;
   color: #0033ff;
-  font-family: Bebas Neue, var(--default-font-family);
+  font-family: 'Bebas Neue', sans-serif;
   font-size: 56px;
   font-weight: 400;
   line-height: 52px;
@@ -61,7 +63,7 @@
   height: 14px;
   margin: -2px 0 0 90px;
   color: #0033ff;
-  font-family: Bebas Neue, var(--default-font-family);
+  font-family: 'Bebas Neue', sans-serif;
   font-size: 12px;
   font-weight: 400;
   line-height: 14px;

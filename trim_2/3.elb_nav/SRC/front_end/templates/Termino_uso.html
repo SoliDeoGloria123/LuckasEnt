@@ -31,7 +31,7 @@
             <ul class="doc-list">
                 <li><a href="#" onclick="loadPDF('Propuesta_tecnica.pdf'); return false;" class="active">Propuesta Técnica</a></li>
                 <li><a href="#" onclick="loadPDF('Despligue.pdf'); return false;">Diagrama de despligue</a></li>
-                <li><a href="#" onclick="loadPDF('Manual_de_usuario.pdf'); return false;">Manual de Usuario</a></li>
+                <li><a href="#" onclick="loadPDF('Diagramaclses.pdf'); return false;">Diagrama de clases</a></li>
                 <li><a href="#" onclick="loadPDF('Especificaciones.pdf'); return false;">Especificaciones</a></li>
                 <li><a href="#" onclick="loadPDF('Contrato.pdf'); return false;">Contrato</a></li>
             </ul>
@@ -41,6 +41,7 @@
             <!-- Cambia la ruta inicial si quieres que empiece con otro PDF -->
             <iframe id="pdf-viewer" src="{{ url_for('static', path='propuesta/Propuesta_tecnica.pdf') }}" width="100%" height="600px"></iframe>
             <iframe id="pdf-viewer" src="{{ url_for('static', path='depliegue/Despligue.pdf') }}" width="100%" height="600px"></iframe>
+            <iframe id="pdf-viewer" src="{{ url_for('static', path='Diagramaclses/Diagramaclses.pdf') }}" width="100%" height="600px"></iframe>
         </div>
     </div>
 
@@ -73,11 +74,11 @@
                 </div>
                 <div class="footer-actions">
                     <button class="footer-btn-primary">
-                        <span class="footer-btn-text-primary">Explorar</span>
+                        <a  href="{{ url_for('registro') }}"class="footer-btn-text-primary">Explorar</a>
                     </button>
 
-                    <button class="footer-btn-secondary">
-                        <span class="footer-btn-text-secondary">Ayuda</span>
+                    <button class="footer-btn-secondary" >
+                        <a id="Ayuda"  href="{{ url_for('registro') }}"class="footer-btn-text-secondary">Ayuda</a>
                     </button>
                 </div>
             </div>
@@ -96,7 +97,7 @@
                         <a href="#" class="footer-link">Política de Privacidad</a>
                     </div>
                     <div class="footer-link-item">
-                        <a href="#" class="footer-link">Términos de Uso</a>
+                        <a href="{{ url_for('termino') }}" class="footer-link">Términos de Uso</a>
                     </div>
                 </div>
             </div>
@@ -112,7 +113,7 @@
                 <div class="footer-copyright">
                     © 2024 LuckasEnt. Todos los derechos reservados.
                 </div>
-                <div class="footer-social-links">
+                <div  id="contacto" class="footer-social-links">
                     <a href="https://facebook.com" target="_blank">
                         <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}"
                             alt="Facebook" />

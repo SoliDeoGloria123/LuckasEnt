@@ -191,28 +191,27 @@ body {
 }
 
 .product-info {
-    max-width: 500px;
+  max-width: 700px;
 }
 
 .product-cards {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 15px;
 }
 
 .card {
-    background: #fff;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    position: relative;
+  background: #fff;
+  padding: 80px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
 }
 
 .card img {
-    width: 100%;
-    border-radius: 5px;
+  width: 100%;
+  border-radius: 5px;
 }
-
 .badge {
     position: absolute;
     top: 10px;
@@ -242,7 +241,7 @@ body {
     display: flex;
     align-items: center;
     background: #fff;
-    padding: 15px;
+    padding: 40px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 15px;

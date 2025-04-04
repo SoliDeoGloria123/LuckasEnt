@@ -7,7 +7,7 @@
   <title>Card</title>
   <link rel="stylesheet" href="{{ url_for('static', path='css/cardgrid.css') }}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2w?family=Bebas+Neue:wght@400&display=swap" />
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 
 <body>
@@ -73,9 +73,9 @@
       </div>
 
       <!-- Botón PDF -->
-      <button class="btn-descargar">
+      <button id="btn-descargar" class="btn-descargar">
         📄 Descargar Lista PDF
-      </button>
+    </button>
     </div>
   </section>
   <script src="{{ url_for('static', path='js/Eliminar.js') }}"></script>

@@ -37,7 +37,7 @@
             <li><a class="menu-link" href="#">Ofertas</a></li>
             <li><a class="menu-link" href="{{ url_for('tulista') }}">Mi Lista</a></li>
             <li><a class="menu-link" href="{{ url_for('cuenta') }}#seccion-destino">Favoritos</a></li>
-            <li><a class="menu-link" href="">Ayuda</a></li>
+            <li><a class="menu-link" href="#">Ayuda</a></li>
         </ul>
     </nav>
     <section class="hero">
@@ -68,12 +68,17 @@
             <!-- Flecha izquierda -->
             <button class="arrow left">&lt;</button>
             <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const detalleBtn = document.getElementById('detalle');
-                    detalleBtn.addEventListener('click', function () {
-                        window.location.href = "{{ url_for('detalle_producto') }}";  // Redirige a la página Flask
-                    });
-                });
+               document.addEventListener('DOMContentLoaded', function () {
+    // Seleccionar todos los botones con la clase .btn-detalles
+    const detalleBtns = document.querySelectorAll('.btn-detalles');
+
+    // Agregar un evento de clic a cada botón
+    detalleBtns.forEach(btn => {
+        btn.addEventListener('click', function () {
+            window.location.href = "{{ url_for('detalle_producto') }}";  // Redirige a Flask
+        });
+    });
+});
             </script>
             <!-- Cards de productos -->
             <div class="carousel">
@@ -408,11 +413,11 @@
                 </div>
                 <div class="footer-actions">
                     <button class="footer-btn-primary">
-                        <span class="footer-btn-text-primary">Explorar</span>
+                        <a  href="{{ url_for('registro') }}"class="footer-btn-text-primary">Explorar</a>
                     </button>
 
-                    <button class="footer-btn-secondary">
-                        <span class="footer-btn-text-secondary">Ayuda</span>
+                    <button class="footer-btn-secondary" >
+                        <a id="Ayuda"  href="{{ url_for('registro') }}"class="footer-btn-text-secondary">Ayuda</a>
                     </button>
                 </div>
             </div>
@@ -431,7 +436,7 @@
                         <a href="#" class="footer-link">Política de Privacidad</a>
                     </div>
                     <div class="footer-link-item">
-                        <a href="#" class="footer-link">Términos de Uso</a>
+                        <a href="{{ url_for('termino') }}" class="footer-link">Términos de Uso</a>
                     </div>
                 </div>
             </div>
@@ -447,7 +452,7 @@
                 <div class="footer-copyright">
                     © 2024 LuckasEnt. Todos los derechos reservados.
                 </div>
-                <div class="footer-social-links">
+                <div  id="contacto" class="footer-social-links">
                     <a href="https://facebook.com" target="_blank">
                         <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}"
                             alt="Facebook" />

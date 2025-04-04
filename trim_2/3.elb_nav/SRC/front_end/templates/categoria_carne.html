@@ -432,11 +432,11 @@
                 </div>
                 <div class="footer-actions">
                     <button class="footer-btn-primary">
-                        <span class="footer-btn-text-primary">Explorar</span>
+                        <a  href="{{ url_for('registro') }}"class="footer-btn-text-primary">Explorar</a>
                     </button>
 
-                    <button class="footer-btn-secondary">
-                        <span class="footer-btn-text-secondary">Ayuda</span>
+                    <button class="footer-btn-secondary" >
+                        <a id="Ayuda"  href="{{ url_for('registro') }}"class="footer-btn-text-secondary">Ayuda</a>
                     </button>
                 </div>
             </div>
@@ -455,7 +455,7 @@
                         <a href="#" class="footer-link">Política de Privacidad</a>
                     </div>
                     <div class="footer-link-item">
-                        <a href="#" class="footer-link">Términos de Uso</a>
+                        <a href="{{ url_for('termino') }}" class="footer-link">Términos de Uso</a>
                     </div>
                 </div>
             </div>
@@ -471,7 +471,7 @@
                 <div class="footer-copyright">
                     © 2024 LuckasEnt. Todos los derechos reservados.
                 </div>
-                <div class="footer-social-links">
+                <div  id="contacto" class="footer-social-links">
                     <a href="https://facebook.com" target="_blank">
                         <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}"
                             alt="Facebook" />
