@@ -1,3 +1,4 @@
+import re
 import pandas as pd
 import colorama
 from pandas import DataFrame, Series
@@ -118,17 +119,62 @@ def adjust_prices(total_price: str, discount_price: str) -> tuple:
 
 
 # Extrae los datos de un producto específico
-def extract_object_PLP(card: Tag, parner: str = "") -> IOResult[dict, extract_object_PLPError]:
+def extract_object_PLP(
+    card: Tag, parner: str = ""
+) -> IOResult[dict, extract_object_PLPError]:
     try:
         return {
-            "Parner": "",
+            "Parner": parner,
             "Imagen": extract_image_src(card),
-            "Product Name": (
-                card.select_one('p[class*="prod__name"]').text.strip()
-                if card.select_one('p[class*="prod__name"]')
+            "Product_Name": (
+                re.sub(
+                    r"\b\d+(\.\d+)?\s?(pesos|PESOS|COP|usd|USD)?\b",  # Elimina precios del nombre
+                    "",
+                    (
+                        card.select_one('p[class*="prod__name"]').text.strip()
+                        if card.select_one('p[class*="prod__name"]')
+                        else NOT_FOUND
+                    ),
+                )
+                .strip()
+                .rsplit(" ", 1)[0]
+                if (
+                    card.select_one('p[class*="prod__name"]')
+                    and re.search(
+                        r"(\d+\s?(?:kg|KG|g|ml|l|un|unidad|gr))$",
+                        card.select_one('p[class*="prod__name"]').text.strip(),
+                        re.IGNORECASE,
+                    )
+                )
+                else re.sub(
+                    r"\b\d+(\.\d+)?\s?(pesos|PESOS|COP|usd|USD)?\b",  # Elimina precios del nombre
+                    "",
+                    (
+                        card.select_one('p[class*="prod__name"]').text.strip()
+                        if card.select_one('p[class*="prod__name"]')
+                        else NOT_FOUND
+                    ),
+                ).strip()
+            ),
+            "Weight": (
+                re.search(
+                    r"(\d+\s?(?:kg|g|ml|l|un|unidad|gr))$",
+                    card.select_one('p[class*="prod__name"]').text.strip(),
+                    re.IGNORECASE,
+                )
+                .group(1)
+                .upper()
+                if (
+                    card.select_one('p[class*="prod__name"]')
+                    and re.search(
+                        r"(\d+\s?(?:kg|g|ml|l|un|unidad|gr))$",
+                        card.select_one('p[class*="prod__name"]').text.strip(),
+                        re.IGNORECASE,
+                    )
+                )
                 else NOT_FOUND
             ),
-            "Total Price": adjust_prices(
+            "Total_Price": adjust_prices(
                 (
                     card.select_one(
                         'p[class*="prod-crossed-out_price_old"]'
@@ -142,7 +188,7 @@ def extract_object_PLP(card: Tag, parner: str = "") -> IOResult[dict, extract_ob
                     else NOT_FOUND
                 ),
             )[0],
-            "Precio con Descuento": adjust_prices(
+            "Precio_con_Descuento": adjust_prices(
                 (
                     card.select_one(
                         'p[class*="prod-crossed-out_price_old"]'

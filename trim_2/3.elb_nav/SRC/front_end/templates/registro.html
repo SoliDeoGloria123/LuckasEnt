@@ -21,9 +21,11 @@
             </div>
 
             {% if error %}
+            <script>
+                alert("{{ error }}");
+            </script>
             <p class="error">{{ error }}</p>
             {% endif %}
-
             <form method="post" action="/register" class="form">
                 <div class="frame-427318929">
                     <div class="input-default">

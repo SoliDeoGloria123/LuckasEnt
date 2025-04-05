@@ -38,376 +38,380 @@
             <li><a class="menu-link" href="#">Ayuda</a></li>
         </ul>
     </nav>
-        <div class="main-container">
-            <!-- Título de la página -->
-            <div class="page-header">
-                <h1 class="letra">Frutas &amp; Verduras</h1>
-                <div class="pagination-controls">
-                    <button class="pagination-btn"><i class="fas fa-chevron-left"></i></button>
-                    <span class="page-number active">1</span>
-                    <span class="page-number">2</span>
-                    <span class="page-number">3</span>
-                    <span class="page-dots">...</span>
-                    <span class="page-number">10</span>
-                    <button class="pagination-btn"><i class="fas fa-chevron-right"></i></button>
-                </div>
-            </div>
-
-            <!-- Contenedor de contenido -->
-            <div class="content-wrapper">
-                <!-- Sidebar con filtros -->
-                <div class="sidebar">
-                    <!-- Categoría -->
-                    <div class="filter-section">
-                        <h3 class="filter-title">Categoría</h3>
-                        <div class="filter-divider"></div>
-                        <div class="category-list">
-                            <a href="#" class="category-item active">
-                                <div class="category-icon">
-                                    <img src="https://static.codia.ai/image/2025-03-11/ca1bb570-b208-481a-8412-28737cba9bd7.png" alt="Frutas y Verduras" />
-                                </div>
-                                <span class="category-name">Frutas y Verduras</span>
-                            </a>
-                            <a href="{{ url_for('categoria_carne') }}" class="category-item">
-                                <div class="category-icon">
-                                    <img src="https://static.codia.ai/image/2025-03-11/a08a5d37-05b2-4f7b-90cf-405f096bb842.svg" alt="Cárnicos" />
-                                </div>
-                                <span class="category-name">Cárnicos</span>
-                            </a>
-                            <a href="{{ url_for('categoria_pescado') }}" class="category-item">
-                                <div class="category-icon">
-                                    <img src="https://static.codia.ai/image/2025-03-11/8748a356-35f8-4418-99ca-b3a27c1936ad.png" alt="Pescados" />
-                                </div>
-                                <span class="category-name">Pescados</span>
-                            </a>
-                            <a href="{{ url_for('categoria_pan') }}" class="category-item">
-                                <div class="category-icon">
-                                    <img src="https://static.codia.ai/image/2025-03-11/3a07efec-fbee-4a67-b961-10c98ccc36e9.png" alt="Panadería" />
-                                </div>
-                                <span class="category-name">Panadería</span>
-                            </a>
-                            <a href="{{ url_for('categoria_dulce') }}" class="category-item">
-                                <div class="category-icon">
-                                    <img src="https://static.codia.ai/image/2025-03-11/69cda9e8-204c-4088-bb26-48281fa66fc1.png" alt="Dulces y Abarrotes" />
-                                </div>
-                                <span class="category-name">Dulces y Abarrotes</span>
-                            </a>
-                            <a href="{{ url_for('categoria_bebida') }}" class="category-item">
-                                <div class="category-icon">
-                                    <img src="https://static.codia.ai/image/2025-03-11/734371ac-7366-4129-bf5f-42efaa873bae.png" alt="Bebidas" />
-                                </div>
-                                <span class="category-name">Bebidas</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Tiendas -->
-                    <div class="filter-section">
-                        <h3 class="filter-title">Tiendas</h3>
-                        <div class="filter-divider"></div>
-                        <div class="checkbox-list">
-                            <label class="checkbox-item">
-                                <input type="checkbox" class="checkbox-input">
-                                <span class="checkbox-custom"></span>
-                                <span class="checkbox-label">Makro</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" class="checkbox-input">
-                                <span class="checkbox-custom"></span>
-                                <span class="checkbox-label">Éxito</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" class="checkbox-input">
-                                <span class="checkbox-custom"></span>
-                                <span class="checkbox-label">Olímpica</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" class="checkbox-input">
-                                <span class="checkbox-custom"></span>
-                                <span class="checkbox-label">Ara</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Precio -->
-                    <div class="filter-section">
-                        <h3 class="filter-title">Precio</h3>
-                        <div class="filter-divider"></div>
-                        <div class="checkbox-list">
-                            <label class="checkbox-item">
-                                <input type="checkbox" class="checkbox-input">
-                                <span class="checkbox-custom"></span>
-                                <span class="checkbox-label">0 - $5.000</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" class="checkbox-input" checked>
-                                <span class="checkbox-custom"></span>
-                                <span class="checkbox-label">$5.000 - $15.000</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" class="checkbox-input">
-                                <span class="checkbox-custom"></span>
-                                <span class="checkbox-label">$15.000 - $20.000</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" class="checkbox-input">
-                                <span class="checkbox-custom"></span>
-                                <span class="checkbox-label">$20.000 - $35.000</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" class="checkbox-input">
-                                <span class="checkbox-custom"></span>
-                                <span class="checkbox-label">$35.000 - $50.000</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" class="checkbox-input">
-                                <span class="checkbox-custom"></span>
-                                <span class="checkbox-label">$50.000 - $100.000</span>
-                            </label>
-                            <label class="checkbox-item">
-                                <input type="checkbox" class="checkbox-input">
-                                <span class="checkbox-custom"></span>
-                                <span class="checkbox-label">$100.000 - $200.000</span>
-                            </label>
-                        </div>
-                    </div>
-                    <!-- Ubicación -->
-                    <div class="filter-section">
-                        <h3 class="filter-title">Ubicación</h3>
-                        <div class="filter-divider"></div>
-                        <div class="location-list">
-                            <label class="location-item">
-                                <i class="fas fa-map-marker-alt location-icon"></i>
-                                <span class="location-label">Bogotá</span>
-                            </label>
-                            <label class="location-item">
-                                <i class="fas fa-map-marker-alt location-icon"></i>
-                                <span class="location-label">Medellín</span>
-                            </label>
-                            <label class="location-item">
-                                <i class="fas fa-map-marker-alt location-icon"></i>
-                                <span class="location-label">Cali</span>
-                            </label>
-                            <label class="location-item">
-                                <i class="fas fa-map-marker-alt location-icon"></i>
-                                <span class="location-label">Barranquilla</span>
-                            </label>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- CUADRÍCULA DE PRODUCTOS -->
-                <div class="product-grid">
-                    <!-- Primera fila -->
-                    <div class="product-row">
-                        <!-- Producto 1 -->
-                        <div class="product-card">
-                            <div class="product-card__image-container"
-                                style="background-image: url('https://static.codia.ai/image/2025-03-11/c3a27f84-c0fa-4ad6-8cb8-96c557e35b66.png')">
-                                <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                            </div>
-                            <div class="product-card__content">
-                                <h3 class="product-card__title">Fresas</h3>
-                                <p class="product-card__weight">250g</p>
-                                <p class="product-card__price">Precio: $8.500</p>
-                                <div class="product-card__actions">
-                                    <button class="product-card__btn product-card__btn--primary">
-                                        <span class="product-card__btn-icon"></span>
-                                        Agregar
-                                    </button>
-                                    <button class="product-card__btn product-card__btn--secondary">
-                                        Ver detalles
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Producto 2 -->
-                        <div class="product-card">
-                            <div class="product-card__image-container"
-                                style="background-image: url('https://images.unsplash.com/photo-1644439017477-befade11bd83?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
-                                <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                            </div>
-                            <div class="product-card__content">
-                                <h3 class="product-card__title">Papas Pastusa</h3>
-                                <p class="product-card__weight">1 Kg</p>
-                                <p class="product-card__price">Precio: $12.000</p>
-                                <div class="product-card__actions">
-                                    <button class="product-card__btn product-card__btn--primary">
-                                        <span class="product-card__btn-icon"></span>
-                                        Agregar
-                                    </button>
-                                    <button class="product-card__btn product-card__btn--secondary">
-                                        Ver detalles
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Producto 3 -->
-                        <div class="product-card">
-                            <div class="product-card__image-container"
-                                style="background-image: url('https://images.unsplash.com/photo-1548692972-dd5753b37b9f?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
-                                <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                            </div>
-                            <div class="product-card__content">
-                                <h3 class="product-card__title">Arándanos</h3>
-                                <p class="product-card__weight">125g</p>
-                                <p class="product-card__price">Precio: $6.500</p>
-                                <div class="product-card__actions">
-                                    <button class="product-card__btn product-card__btn--primary">
-                                        <span class="product-card__btn-icon"></span>
-                                        Agregar
-                                    </button>
-                                    <button class="product-card__btn product-card__btn--secondary">
-                                        Ver detalles
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Segunda fila -->
-                    <div class="product-row">
-                        <!-- Producto 4 -->
-                        <div class="product-card">
-                            <div class="product-card__image-container"
-                                style="background-image: url('https://images.unsplash.com/photo-1699449914085-085948569952?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
-                                <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                            </div>
-                            <div class="product-card__content">
-                                <h3 class="product-card__title">Lechuga</h3>
-                                <p class="product-card__weight">200g</p>
-                                <p class="product-card__price">Precio: $7.000</p>
-                                <div class="product-card__actions">
-                                    <button class="product-card__btn product-card__btn--primary">
-                                        <span class="product-card__btn-icon"></span>
-                                        Agregar
-                                    </button>
-                                    <button class="product-card__btn product-card__btn--secondary">
-                                        Ver detalles
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Producto 5 -->
-                        <div class="product-card">
-                            <div class="product-card__image-container"
-                                style="background-image: url('https://images.unsplash.com/photo-1601379760583-064bb4bead7e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1024&q=80')">
-                                <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                            </div>
-                            <div class="product-card__content">
-                                <h3 class="product-card__title">Tomates</h3>
-                                <p class="product-card__weight">500g</p>
-                                <p class="product-card__price">Precio: $5.500</p>
-                                <div class="product-card__actions">
-                                    <button class="product-card__btn product-card__btn--primary">
-                                        <span class="product-card__btn-icon"></span>
-                                        Agregar
-                                    </button>
-                                    <button class="product-card__btn product-card__btn--secondary">
-                                        Ver detalles
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Producto 6 -->
-                        <div class="product-card">
-                            <div class="product-card__image-container"
-                                style="background-image: url('https://images.unsplash.com/photo-1601493700750-58796129ebb5?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
-                                <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                            </div>
-                            <div class="product-card__content">
-                                <h3 class="product-card__title">Zanahorias</h3>
-                                <p class="product-card__weight">400g</p>
-                                <p class="product-card__price">Precio: $4.200</p>
-                                <div class="product-card__actions">
-                                    <button class="product-card__btn product-card__btn--primary">
-                                        <span class="product-card__btn-icon"></span>
-                                        Agregar
-                                    </button>
-                                    <button class="product-card__btn product-card__btn--secondary">
-                                        Ver detalles
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tercera fila -->
-                    <div class="product-row">
-                        <!-- Producto 7 -->
-                        <div class="product-card">
-                            <div class="product-card__image-container"
-                                style="background-image: url('https://plus.unsplash.com/premium_photo-1671119151615-7739e1dcc738?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
-                                <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                            </div>
-                            <div class="product-card__content">
-                                <h3 class="product-card__title">Naranjas</h3>
-                                <p class="product-card__weight">1 Kg</p>
-                                <p class="product-card__price">Precio: $7.800</p>
-                                <div class="product-card__actions">
-                                    <button class="product-card__btn product-card__btn--primary">
-                                        <span class="product-card__btn-icon"></span>
-                                        Agregar
-                                    </button>
-                                    <button class="product-card__btn product-card__btn--secondary">
-                                        Ver detalles
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Producto 8 -->
-                        <div class="product-card">
-                            <div class="product-card__image-container"
-                                style="background-image: url('https://images.unsplash.com/photo-1535189487909-a262ad10c165?q=80&w=1399&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
-                                <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                            </div>
-                            <div class="product-card__content">
-                                <h3 class="product-card__title">Cilantro</h3>
-                                <p class="product-card__weight">100g</p>
-                                <p class="product-card__price">Precio: $3.500</p>
-                                <div class="product-card__actions">
-                                    <button class="product-card__btn product-card__btn--primary">
-                                        <span class="product-card__btn-icon"></span>
-                                        Agregar
-                                    </button>
-                                    <button class="product-card__btn product-card__btn--secondary">
-                                        Ver detalles
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Producto 9 -->
-                        <div class="product-card">
-                            <div class="product-card__image-container"
-                                style="background-image: url('https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1024&q=80')">
-                                <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                            </div>
-                            <div class="product-card__content">
-                                <h3 class="product-card__title">Piña</h3>
-                                <p class="product-card__weight">1 Unidad</p>
-                                <p class="product-card__price">Precio: $9.900</p>
-                                <div class="product-card__actions">
-                                    <button class="product-card__btn product-card__btn--primary">
-                                        <span class="product-card__btn-icon"></span>
-                                        Agregar
-                                    </button>
-                                    <button class="product-card__btn product-card__btn--secondary">
-                                        Ver detalles
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="main-container">
+        <!-- Título de la página -->
+        <div class="page-header">
+            <h1 class="letra">Frutas &amp; Verduras</h1>
+            <div class="pagination-controls">
+                <button class="pagination-btn"><i class="fas fa-chevron-left"></i></button>
+                <span class="page-number active">1</span>
+                <span class="page-number">2</span>
+                <span class="page-number">3</span>
+                <span class="page-dots">...</span>
+                <span class="page-number">10</span>
+                <button class="pagination-btn"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
+
+        <!-- Contenedor de contenido -->
+        <div class="content-wrapper">
+            <!-- Sidebar con filtros -->
+            <div class="sidebar">
+                <!-- Categoría -->
+                <div class="filter-section">
+                    <h3 class="filter-title">Categoría</h3>
+                    <div class="filter-divider"></div>
+                    <div class="category-list">
+                        <a href="#" class="category-item active">
+                            <div class="category-icon">
+                                <img src="https://static.codia.ai/image/2025-03-11/ca1bb570-b208-481a-8412-28737cba9bd7.png"
+                                    alt="Frutas y Verduras" />
+                            </div>
+                            <span class="category-name">Frutas y Verduras</span>
+                        </a>
+                        <a href="{{ url_for('categoria_carne') }}" class="category-item">
+                            <div class="category-icon">
+                                <img src="https://static.codia.ai/image/2025-03-11/a08a5d37-05b2-4f7b-90cf-405f096bb842.svg"
+                                    alt="Cárnicos" />
+                            </div>
+                            <span class="category-name">Cárnicos</span>
+                        </a>
+                        <a href="{{ url_for('categoria_pescado') }}" class="category-item">
+                            <div class="category-icon">
+                                <img src="https://static.codia.ai/image/2025-03-11/8748a356-35f8-4418-99ca-b3a27c1936ad.png"
+                                    alt="Pescados" />
+                            </div>
+                            <span class="category-name">Pescados</span>
+                        </a>
+                        <a href="{{ url_for('categoria_pan') }}" class="category-item">
+                            <div class="category-icon">
+                                <img src="https://static.codia.ai/image/2025-03-11/3a07efec-fbee-4a67-b961-10c98ccc36e9.png"
+                                    alt="Panadería" />
+                            </div>
+                            <span class="category-name">Panadería</span>
+                        </a>
+                        <a href="{{ url_for('categoria_dulce') }}" class="category-item">
+                            <div class="category-icon">
+                                <img src="https://static.codia.ai/image/2025-03-11/69cda9e8-204c-4088-bb26-48281fa66fc1.png"
+                                    alt="Dulces y Abarrotes" />
+                            </div>
+                            <span class="category-name">Dulces y Abarrotes</span>
+                        </a>
+                        <a href="{{ url_for('categoria_bebida') }}" class="category-item">
+                            <div class="category-icon">
+                                <img src="https://static.codia.ai/image/2025-03-11/734371ac-7366-4129-bf5f-42efaa873bae.png"
+                                    alt="Bebidas" />
+                            </div>
+                            <span class="category-name">Bebidas</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Tiendas -->
+                <div class="filter-section">
+                    <h3 class="filter-title">Tiendas</h3>
+                    <div class="filter-divider"></div>
+                    <div class="checkbox-list">
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="checkbox-input">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">Makro</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="checkbox-input">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">Éxito</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="checkbox-input">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">Olímpica</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="checkbox-input">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">Ara</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Precio -->
+                <div class="filter-section">
+                    <h3 class="filter-title">Precio</h3>
+                    <div class="filter-divider"></div>
+                    <div class="checkbox-list">
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="checkbox-input">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">0 - $5.000</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="checkbox-input" checked>
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">$5.000 - $15.000</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="checkbox-input">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">$15.000 - $20.000</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="checkbox-input">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">$20.000 - $35.000</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="checkbox-input">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">$35.000 - $50.000</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="checkbox-input">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">$50.000 - $100.000</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" class="checkbox-input">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">$100.000 - $200.000</span>
+                        </label>
+                    </div>
+                </div>
+                <!-- Ubicación -->
+                <div class="filter-section">
+                    <h3 class="filter-title">Ubicación</h3>
+                    <div class="filter-divider"></div>
+                    <div class="location-list">
+                        <label class="location-item">
+                            <i class="fas fa-map-marker-alt location-icon"></i>
+                            <span class="location-label">Bogotá</span>
+                        </label>
+                        <label class="location-item">
+                            <i class="fas fa-map-marker-alt location-icon"></i>
+                            <span class="location-label">Medellín</span>
+                        </label>
+                        <label class="location-item">
+                            <i class="fas fa-map-marker-alt location-icon"></i>
+                            <span class="location-label">Cali</span>
+                        </label>
+                        <label class="location-item">
+                            <i class="fas fa-map-marker-alt location-icon"></i>
+                            <span class="location-label">Barranquilla</span>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CUADRÍCULA DE PRODUCTOS -->
+            <div class="product-grid">
+                {% for producto in productos %}
+                <!-- Primera fila -->
+                <div class="product-row">
+                    <!-- Producto 1 -->
+                    <div class="product-card">
+                        <div class="product-card__image-container"
+                            style="background-image: url('{{ producto.Imagen }}')">
+                            <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">{{ producto.Product_Name }}</h3>
+                            <p class="product-card__weight">{{ producto.Weight }}</p> <!--{{ producto.Weight }}-->
+                            <p class="product-card__price">Precio: {{ producto.Total_Price }}</p>
+                            <div class="product-card__actions">
+                                <button class="product-card__btn product-card__btn--primary">
+                                    <span class="product-card__btn-icon"></span>
+                                    Agregar
+                                </button>
+                                <button class="product-card__btn product-card__btn--secondary">
+                                    Ver detalles
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto 2 -->
+                    <div class="product-card">
+                        <div class="product-card__image-container"
+                            style="background-image: url('{{ producto.Imagen }}')">
+                            <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">{{ producto.Product_Name }}</h3>
+                            <p class="product-card__weight">{{ producto.Weight }}</p>
+                            <p class="product-card__price">Precio: {{ producto.Total_Price }}</p>
+                            <div class="product-card__actions">
+                                <button class="product-card__btn product-card__btn--primary">
+                                    <span class="product-card__btn-icon"></span>
+                                    Agregar
+                                </button>
+                                <button class="product-card__btn product-card__btn--secondary">
+                                    Ver detalles
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto 3 -->
+                    <div class="product-card">
+                        <div class="product-card__image-container"
+                            style="background-image: url('{{ producto.Imagen }}')">
+                            <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">{{ producto.Product_Name }}</h3>
+                            <p class="product-card__weight">{{ producto.Weight }}</p>
+                            <p class="product-card__price">Precio: {{ producto.Total_Price }}</p>
+                            <div class="product-card__actions">
+                                <button class="product-card__btn product-card__btn--primary">
+                                    <span class="product-card__btn-icon"></span>
+                                    Agregar
+                                </button>
+                                <button class="product-card__btn product-card__btn--secondary">
+                                    Ver detalles
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Segunda fila -->
+                <div class="product-row">
+                    <!-- Producto 4 -->
+                    <div class="product-card">
+                        <div class="product-card__image-container"
+                            style="background-image: url('{{ producto.Imagen }}')">
+                            <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
+                        </div>
+                        <div class="product-card__content">
+                            <h3 class="product-card__title">{{ producto.Product_Name }}</h3>
+                            <p class="product-card__weight">{{ producto.Weight }}</p>
+                            <p class="product-card__price">Precio: {{ producto.Total_Price }}</p>
+                            <div class="product-card__actions">
+                                <button class="product-card__btn product-card__btn--primary">
+                                    <span class="product-card__btn-icon"></span>
+                                    Agregar
+                                </button>
+                                <button class="product-card__btn product-card__btn--secondary">
+                                    Ver detalles
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Producto 5 -->
+                    <div class="product-card">
+                        <div class="product-card__image-container"
+                            style="background-image: url('{{ producto.Imagen }}')"></div>
+                        <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
+                    </div>
+                    <div class="product-card__content">
+                        <h3 class="product-card__title">{{ producto.Product_Name }}</h3>
+                        <p class="product-card__weight">{{ producto.Weight }}</p>
+                        <p class="product-card__price">Precio: {{ producto.Total_Price }}</p>
+                        <div class="product-card__actions">
+                            <button class="product-card__btn product-card__btn--primary">
+                                <span class="product-card__btn-icon"></span>
+                                Agregar
+                            </button>
+                            <button class="product-card__btn product-card__btn--secondary">
+                                Ver detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 6 -->
+                <div class="product-card">
+                    <div class="product-card__image-container" style="background-image: url('{{ producto.Imagen }}')">
+                        <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
+                    </div>
+                    <div class="product-card__content">
+                        <h3 class="product-card__title">{{ producto.Product_Name }}</h3>
+                        <p class="product-card__weight">{{ producto.Weight }}</p>
+                        <p class="product-card__price">Precio: {{ producto.Total_Price }}</p>
+                        <div class="product-card__actions">
+                            <button class="product-card__btn product-card__btn--primary">
+                                <span class="product-card__btn-icon"></span>
+                                Agregar
+                            </button>
+                            <button class="product-card__btn product-card__btn--secondary">
+                                Ver detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tercera fila -->
+            <div class="product-row">
+                <!-- Producto 7 -->
+                <div class="product-card">
+                    <div class="product-card__image-container" style="background-image: url('{{ producto.Imagen }}')">
+                        <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
+                    </div>
+                    <div class="product-card__content">
+                        <h3 class="product-card__title">{{ producto.Product_Name }}</h3>
+                        <p class="product-card__weight">{{ producto.Weight }}</p>
+                        <p class="product-card__price">Precio: {{ producto.Total_Price }}</p>
+                        <div class="product-card__actions">
+                            <button class="product-card__btn product-card__btn--primary">
+                                <span class="product-card__btn-icon"></span>
+                                Agregar
+                            </button>
+                            <button class="product-card__btn product-card__btn--secondary">
+                                Ver detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 8 -->
+                <div class="product-card">
+                    <div class="product-card__image-container" style="background-image: url('{{ producto.Imagen }}')">
+                        <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
+                    </div>
+                    <div class="product-card__content">
+                        <h3 class="product-card__title">{{ producto.Product_Name }}</h3>
+                        <p class="product-card__weight">{{ producto.Weight }}</p>
+                        <p class="product-card__price">Precio: {{ producto.Total_Price }}</p>
+                        <div class="product-card__actions">
+                            <button class="product-card__btn product-card__btn--primary">
+                                <span class="product-card__btn-icon"></span>
+                                Agregar
+                            </button>
+                            <button class="product-card__btn product-card__btn--secondary">
+                                Ver detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 9 -->
+                <div class="product-card">
+                    <div class="product-card__image-container" style="background-image: url(' {{ producto.Imagen }}')"
+                        <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
+                    </div>
+                    <div class="product-card__content">
+                        <h3 class="product-card__title">{{ producto.Product_Name }}</h3>
+                        <p class="product-card__weight">{{ producto.Weight }}</p>
+                        <p class="product-card__price">Precio: {{ producto.Total_Price }}</p>
+                        <div class="product-card__actions">
+                            <button class="product-card__btn product-card__btn--primary">
+                                <span class="product-card__btn-icon"></span>
+                                Agregar
+                            </button>
+                            <button class="product-card__btn product-card__btn--secondary">
+                                Ver detalles
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    </div>
 
     <!-- Mensaje de notificación -->
     <div class="message">
@@ -432,11 +436,11 @@
                 </div>
                 <div class="footer-actions">
                     <button class="footer-btn-primary">
-                        <a  href="{{ url_for('registro') }}"class="footer-btn-text-primary">Explorar</a>
+                        <a href="{{ url_for('registro') }}" class="footer-btn-text-primary">Explorar</a>
                     </button>
 
-                    <button class="footer-btn-secondary" >
-                        <a id="Ayuda"  href="{{ url_for('registro') }}"class="footer-btn-text-secondary">Ayuda</a>
+                    <button class="footer-btn-secondary">
+                        <a id="Ayuda" href="{{ url_for('registro') }}" class="footer-btn-text-secondary">Ayuda</a>
                     </button>
                 </div>
             </div>
@@ -471,7 +475,7 @@
                 <div class="footer-copyright">
                     © 2024 LuckasEnt. Todos los derechos reservados.
                 </div>
-                <div  id="contacto" class="footer-social-links">
+                <div id="contacto" class="footer-social-links">
                     <a href="https://facebook.com" target="_blank">
                         <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}"
                             alt="Facebook" />
