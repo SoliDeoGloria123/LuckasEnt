@@ -83,72 +83,41 @@
             </div>
         </div>
         <div class="form-container">
-            <div class="form-row">
-                <div class="form-input">
-                    <label for="firstName" class="input-label">Nombres</label>
-                    <input type="text" id="firstName" class="input-field" placeholder="Ingresa tus Nombres" required
-                        autocomplete="off">
-                </div>
-                <div class="form-input">
-                    <label for="lastName" class="input-label">Apellidos</label>
-                    <input type="text" id="lastName" class="input-field" placeholder="Ingresa tus Apellidos" required
-                        autocomplete="off">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-input">
-                    <label for="email" class="input-label">Email</label>
-                    <input type="email" id="email" class="input-field" placeholder="Ingrese su Correo Electrónico"
-                        required autocomplete="off">
-                </div>
-                <div class="form-input">
-                    <label for="password" class="input-label">Contraseña</label>
-                    <input type="password" id="password" class="input-field" placeholder="Ingrese su contraseña"
-                        required autocomplete="off">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-input">
-                    <label for="profilePhoto" class="input-label">Cambiar foto</label>
-                    <input type="file" id="profilePhoto" class="input-field">
-                </div>
-                <div class="form-input">
-                    <label for="phone" class="input-label">Número de Celular o Telefónico</label>
-                    <input type="tel" id="phone" class="input-field" placeholder="Ingrese su Celular o Teléfono"
-                        required autocomplete="off">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-selection">
-                    <div class="input-label">Genero</div>
-                    <div class="chip-group">
-                        <label class="chip"><input type="radio" name="gender" value="Masculino"> Masculino</label>
-                        <label class="chip"><input type="radio" name="gender" value="Femenino"> Femenino</label>
+            <form action="/perfil" method="post" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class="form-input">
+                        <label for="firstName" class="input-label">Nombres</label>
+                        <input type="text" id="firstName" name="nombre" class="input-field" value="{{ usuario['nombre'] }}" required>
+                    </div>
+                    <div class="form-input">
+                        <label for="lastName" class="input-label">Apellidos</label>
+                        <input type="text" id="lastName" name="apellido" class="input-field" value="{{ usuario['apellido'] }}" required>
                     </div>
                 </div>
-                <div class="form-selection">
-                    <div class="input-label">Desea cambiar la membresia?</div>
-                    <div class="chip-group">
-                        <label class="chip"><input type="radio" name="membership" value="Si"> Sí</label>
-                        <label class="chip"><input type="radio" name="membership" value="No"> No</label>
+                <div class="form-row">
+                    <div class="form-input">
+                        <label for="email" class="input-label">Email</label>
+                        <input type="email" id="email" name="email" class="input-field" value="{{ usuario['correo'] }}" readonly>
+                    </div>
+                    <div class="form-input">
+                        <label for="password" class="input-label">Contraseña</label>
+                        <input type="password" id="password" name="password" class="input-field" value="{{ usuario['password'] }}" required>
                     </div>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-selection">
-                    <div class="input-label">
-                        Tienes un negocio y deseas incluir tu catalogo?
+                <div class="form-row">
+                    <div class="form-input">
+                        <label for="phone" class="input-label">Número de Teléfono</label>
+                        <input type="tel" id="phone" name="telefono" class="input-field" value="{{ usuario['telefono'] }}" required>
                     </div>
-                    <div class="chip-group">
-                        <label class="chip"><input type="radio" name="membership" value="Si"> Sí</label>
-                        <label class="chip"><input type="radio" name="membership" value="No"> No</label>
+                    <div class="form-input">
+                        <label for="profilePhoto" class="input-label">Foto de Perfil</label>
+                        <input type="file" id="profilePhoto" name="foto" class="input-field">
                     </div>
                 </div>
-            </div>
-            <div class="form-actions">
-                <button type="reset" class="form-btn-secondary">Descartar</button>
-                <button id="saveButton" class="form-btn-primary">Guardar cambios</button>
-            </div>
+                <div class="form-actions">
+                    <button type="submit" class="form-btn-primary">Guardar cambios</button>
+                </div>
+            </form>
         </div>
     </div>
     <div  id="alertOverlay" class="overlay" >

@@ -29,5 +29,6 @@ CMD ["uvicorn", "SRC.front_end.main:app", "--reload", "--host", "0.0.0.0", "--po
 #docker build -t luckasent .                                                              NOTA: PARA CREAR LA IMAGEN
 #docker run -p 5001:5001 --network=host luckasent                                         NOTA: PARA VERLO EN EL LOCAL UNA VEZ SIN RECARGAR
 #docker run -p 5001:5001 --network=host -v $(pwd)/SRC:/app/SRC luckasent                  NOTA:LO MISMO QUE EL ANTERIOR SOLO QUE CADA VEZ QUE SE HAGA CAMBIOS EN EL CODIGO SE ACTUALIZA
+#docker run -p 5001:5001 -v $(pwd)/SRC:/app/SRC luckasent
 #docker image rmi -f luckasent                                                            NOTA: se utiliza para eliminar una imagen de Docker de tu sistema
 #uvicorn front_end.main:app --reload

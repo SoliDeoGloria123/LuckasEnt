@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', path='css/olvidacontra.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&display=swap" />
 </head>
+
 <body>
     <div class="container">
         <div class="logo">
@@ -14,15 +16,22 @@
         </div>
         <a href="{{ url_for('login') }}" class="back-link">← Volver</a>
         <h2 class="title">Restablecer Contraseña</h2>
-        
-        <form action="#" method="post">
-            <label for="username">Correo Electrónico</label>
-            <input id="username" type="text" placeholder="Ingresa tu Correo Electrónico" required>
-            <p class="info-text">Se enviará un código de verificación al correo digitado</p>
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+        {% if success %}
+        <p class="success">{{ success }}</p>
+        {% endif %}
+
+        <form action="/olvidar" method="post">
+            <label for="email">Correo Electrónico</label>
+            <input id="email" name="email" type="email" placeholder="Ingresa tu correo electrónico" required>
+            <p class="info-text">Se enviará un correo con tu contraseña</p>
             <button type="submit">Enviar</button>
         </form>
     </div>
 
     <a href="{{ url_for('registro') }}" class="register-link">No tienes cuenta? <span>Regístrate</span></a>
 </body>
+
 </html>
