@@ -66,11 +66,9 @@
             <!-- Sección de perfil -->
             <div class="profile-section">
                 <div class="profile-frame">
-                    <img class="profile-avatar"
-                        src="https://images.unsplash.com/photo-1612368871329-946fd8ddbb89?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        alt="Avatar de Usuario">
+                    <img class="profile-avatar" src="data:image/png;base64,{{ usuario['foto'] | b64encode }}" alt="Avatar de Usuario">
                     <div class="profile-container">
-                        <div class="profile-title">Hola Steeven!</div>
+                        <div class="profile-title">Hola {{ usuario["nombre"] }} {{ usuario["apellido"] }}!</div>
                         <div class="profile-selection">
                             <div class="profile-label">
                                 <div class="profile-label-text">Premium Member</div>

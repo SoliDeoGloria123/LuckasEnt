@@ -4,10 +4,16 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
 from pymongo import MongoClient
+from fastapi.exceptions import RequestValidationError
+from starlette.exceptions import HTTPException as StarletteHTTPException
+from starlette.responses import JSONResponse
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 # Conectar a MongoDB
 client = MongoClient(
-    "mongodb+srv://juanjuanddev:hR7m3QxGgMf5BOKv@cluster0.mnzsa9g.mongodb.net/LuckasEnt?retryWrites=true&w=majority"
+    "mongodb+srv://juanjuanddev:hR7m3QxGgMf5BOKv@cluster0.mnzsa9g.mongodb.net/LuckasEnt?retryWrites=true&w=majority&tlsAllowInvalidCertificates=true"
 )
 db = client.LuckasEnt  # Cambia 'nombre_de_tu_bd' por el nombre de tu base de datos
 collection = db["productos"]  # type: ignore # Cambia 'nombre_de_tu_coleccion' por el nombre de tu colección
@@ -102,26 +108,104 @@ async def register_post(
     # Redirige al usuario a la página de inicio de sesión
     return RedirectResponse(url="/login", status_code=303)
 
-
 @app.get("/olvidar", name="olvidar")
 async def olvidar(request: Request):  # ✔️ Nombre correcto de la función
     return templates.TemplateResponse("olvidar_contraseña.html", {"request": request})
 
+@app.post("/olvidar", name="olvidar_post")
+async def olvidar_post(request: Request, email: str = Form(...)):
+    if not users_collection.find_one({"correo": email}):
+        return templates.TemplateResponse(
+            "olvidar_contraseña.html", {"request": request, "error": "El correo no está registrado"}
+        )
+
+    # Recuperar la contraseña del usuario
+    password = users_collection.find_one({"correo": email}).get("password")
+
+    # Configurar el correo electrónico
+    sender_email = "luckas.entorno@gmail.com"
+    sender_password = "CorpLuckas3241"
+    subject = "Recuperación de contraseña - LuckasEnt"
+    body = f"Hola {users_collection.find_one({"correo": email}).get('nombre')},\n\nTu contraseña es: {password}\n\nPor favor, cámbiala si crees que alguien más tiene acceso a ella.\n\nSaludos,\nLuckasEnt"
+
+    # Crear el mensaje de correo
+    message = MIMEMultipart()
+    message["From"] = sender_email
+    message["To"] = email
+    message["Subject"] = subject
+    message.attach(MIMEText(body, "plain"))
+
+    try:
+        # Enviar el correo
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            server.starttls()
+            server.login(sender_email, sender_password)
+            server.sendmail(sender_email, email, message.as_string())
+        return templates.TemplateResponse(
+            "olvidar_contraseña.html", {"request": request, "success": "Se ha enviado un correo con tu contraseña"}
+        )
+    except Exception as e:
+        return templates.TemplateResponse(
+            "olvidar_contraseña.html", {"request": request, "error": f"No se pudo enviar el correo: {e}"}
+        )
 
 @app.get("/page", name="page")
 async def page(request: Request):
     return templates.TemplateResponse("page.html", {"request": request})
 
 
+
 @app.get("/cuenta", name="cuenta")
-async def cuenta(request: Request):  # ✔️ Nombre correcto de la función
-    return templates.TemplateResponse("Mi_Cuenta.html", {"request": request})
+async def cuenta(request: Request):
+    email = request.query_params.get("email")
+    if not email:
+        return RedirectResponse(url="/login", status_code=303)
+
+    usuario = users_collection.find_one({"correo": email})
+    if not usuario:
+        return RedirectResponse(url="/login", status_code=303)
+
+    return templates.TemplateResponse(
+        "Mi_Cuenta.html", {"request": request, "usuario": usuario}
+    )
 
 
 @app.get("/perfil", name="perfil")
 async def perfil(request: Request):  # ✔️ Nombre correcto de la función
     return templates.TemplateResponse("mi_informacion.html", {"request": request})
 
+@app.post("/perfil", name="actualizar_perfil")
+async def actualizar_perfil(
+    request: Request,
+    nombre: str = Form(...),
+    apellido: str = Form(...),
+    email: str = Form(...),
+    telefono: str = Form(...),
+    password: str = Form(...),
+    foto: bytes = Form(None),
+):
+    # Actualiza los datos del usuario en la base de datos
+    users_collection.update_one(
+        {"correo": email},
+        {
+            "$set": {
+                "nombre": nombre,
+                "apellido": apellido,
+                "telefono": telefono,
+                "password": password,
+                "foto": foto,  # Guarda la foto como bytes o en un servicio externo
+            }
+        },
+    )
+    return templates.TemplateResponse(
+        "mi_informacion.html",
+        {"request": request, "success": "Tus datos han sido actualizados."},
+    )
+
+@app.post("/eliminar_cuenta", name="eliminar_cuenta")
+async def eliminar_cuenta(request: Request, email: str = Form(...)):
+    users_collection.delete_one({"correo": email})
+    return RedirectResponse(url="/registro", status_code=303)
 
 @app.get("/precioproduc", name="precioproduc")
 async def precioproduc(request: Request):  # ✔️ Nombre correcto de la función
@@ -209,3 +293,30 @@ async def categoria_dulce(request: Request):  # ✔️ Nombre correcto de la fun
 @app.get("/categoria_bebida", name="categoria_bebida")
 async def categoria_bebida(request: Request):  # ✔️ Nombre correcto de la función
     return templates.TemplateResponse("categoria_bebida.html", {"request": request})
+
+
+@app.exception_handler(StarletteHTTPException)
+async def custom_http_exception_handler(request: Request, exc: StarletteHTTPException):
+    return templates.TemplateResponse(
+        "error.html",
+        {"request": request, "status_code": exc.status_code, "detail": exc.detail},
+        status_code=exc.status_code,
+    )
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    return templates.TemplateResponse(
+        "error.html",
+        {"request": request, "status_code": 422, "detail": "Error de validación"},
+        status_code=422,
+    )
+
+@app.exception_handler(Exception)
+async def general_exception_handler(request: Request, exc: Exception):
+    return templates.TemplateResponse(
+        "error.html",
+        {"request": request, "status_code": 500, "detail": "Error interno del servidor"},
+        status_code=500,
+    )
+
+
