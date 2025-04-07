@@ -7,6 +7,9 @@ WORKDIR /app
 # Copia el requirements.txt primero para aprovechar el cache de Docker en la instalación de dependencias
 COPY requirements.txt .
 
+# Actualiza pip antes de instalar dependencias
+RUN pip install --upgrade pip
+
 # Instala dependencias sin cache para evitar imágenes gigantes
 RUN pip install --no-cache-dir -r requirements.txt
 

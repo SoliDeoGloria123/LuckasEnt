@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Form, HTTPException
+from fastapi import FastAPI, Request, Form, HTTPException, Response, Depends
 from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -10,6 +10,9 @@ from starlette.responses import JSONResponse
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from itsdangerous import URLSafeSerializer
+import secrets
+import base64
 
 # Conectar a MongoDB
 client = MongoClient(
@@ -33,6 +36,20 @@ app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 # ✅ Configurar templates con el path absoluto
 templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
+SECRET_KEY = secrets.token_urlsafe(32)
+serializer = URLSafeSerializer(SECRET_KEY)
+
+# Agregar un filtro personalizado para codificar en Base64
+def b64encode_filter(data):
+    if data:
+        return base64.b64encode(data).decode("utf-8")
+    return ""
+
+# Registrar el filtro en Jinja2
+templates.env.filters["b64encode"] = b64encode_filter
+
+# Registrar el filtro personalizado
+templates.env.filters["b64encode"] = b64encode_filter
 
 @app.get("/")
 async def home(request: Request):
@@ -44,7 +61,7 @@ async def login(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
 @app.post("/login", name="login_post")
-async def login_post(request: Request, email: str = Form(...), password: str = Form(...)):
+async def login_post(request: Request, response: Response, email: str = Form(...), password: str = Form(...)):
     # Verifica si los campos están vacíos
     if not email or not password:
         error = "Todos los campos son obligatorios"
@@ -56,14 +73,26 @@ async def login_post(request: Request, email: str = Form(...), password: str = F
     usuario = users_collection.find_one({"correo": email, "password": password})
 
     if usuario:
-        # Si el usuario existe, redirige a la página principal
-        return RedirectResponse(url="/page", status_code=303)
+        session_data = {"email": email}
+        session_cookie = serializer.dumps(session_data)
+        response = RedirectResponse(url="/page", status_code=303)
+        response.set_cookie(key="session", value=session_cookie, httponly=True)
+        return response
     else:
         # Si no existe, muestra un mensaje de error
         error = "Correo o contraseña incorrectos"
         return templates.TemplateResponse(
             "login.html", {"request": request, "error": error}
         )
+
+def get_current_user(request: Request):
+    session_cookie = request.cookies.get("session")
+    if not session_cookie:
+        return None
+    try:
+        return serializer.loads(session_cookie)
+    except Exception:
+        return None
 
 @app.get("/registro", name="registro")
 async def registro(request: Request):
@@ -124,7 +153,7 @@ async def olvidar_post(request: Request, email: str = Form(...)):
 
     # Configurar el correo electrónico
     sender_email = "luckas.entorno@gmail.com"
-    sender_password = "CorpLuckas3241"
+    sender_password = "bchh iail wbao ykjv"
     subject = "Recuperación de contraseña - LuckasEnt"
     body = f"Hola {users_collection.find_one({"correo": email}).get('nombre')},\n\nTu contraseña es: {password}\n\nPor favor, cámbiala si crees que alguien más tiene acceso a ella.\n\nSaludos,\nLuckasEnt"
 
@@ -157,22 +186,34 @@ async def page(request: Request):
 
 @app.get("/cuenta", name="cuenta")
 async def cuenta(request: Request):
-    email = request.query_params.get("email")
-    if not email:
+    user = get_current_user(request)
+    if not user:
+        return RedirectResponse(url="/login", status_code=303)
+    usuario = users_collection.find_one({"correo": user["email"]})
+    usuario["foto"] = usuario.get("foto", "").decode("utf-8") if usuario.get("foto") else ""
+    return templates.TemplateResponse("Mi_Cuenta.html", {"request": request, "usuario": usuario})
+
+
+@app.get("/logout", name="logout")
+async def logout(response: Response):
+    response = RedirectResponse(url="/login", status_code=303)
+    response.delete_cookie("session")
+    return response
+
+@app.get("/perfil", name="perfil")
+async def perfil(request: Request):
+    # Obtén el usuario actual desde la cookie de sesión
+    user = get_current_user(request)
+    if not user:
         return RedirectResponse(url="/login", status_code=303)
 
-    usuario = users_collection.find_one({"correo": email})
+    # Busca al usuario en la base de datos
+    usuario = users_collection.find_one({"correo": user["email"]})
     if not usuario:
         return RedirectResponse(url="/login", status_code=303)
 
-    return templates.TemplateResponse(
-        "Mi_Cuenta.html", {"request": request, "usuario": usuario}
-    )
-
-
-@app.get("/perfil", name="perfil")
-async def perfil(request: Request):  # ✔️ Nombre correcto de la función
-    return templates.TemplateResponse("mi_informacion.html", {"request": request})
+    # Pasa el usuario al template
+    return templates.TemplateResponse("mi_informacion.html", {"request": request, "usuario": usuario})
 
 @app.post("/perfil", name="actualizar_perfil")
 async def actualizar_perfil(
