@@ -185,9 +185,7 @@
     <div class="team-list">
       <div class="team-row">
         <div class="team-card">
-          <div class="member-image">
-            <img class="member-photo" src="image1.png" alt="Juan David Mahecha Sabogal" />
-          </div>
+            <img class="member-photo" src="{{ url_for('static', path='img/maecha.png') }}" alt="Juan David Mahecha Sabogal" />
           <div class="member-info">
             <h2 class="member-name">Juan David Mahecha Sabogal</h2>
             <p class="member-portfolio">Ver Portafolio</p>
@@ -203,7 +201,7 @@
         </div>
 
         <div class="team-card">
-          <img class="member-photo" src="image-container3.png" alt="Jenifer" />
+          <img class="member-photo" src="{{ url_for('static', path='img/jenifer.png') }}" alt="Jenifer" />
           <div class="member-info">
             <h2 class="member-name">Jenifer</h2>
             <p class="member-portfolio">Ver Portafolio</p>
