@@ -44,15 +44,53 @@
         <div class="page-header">
             <h1 class="letra">Frutas &amp; Verduras</h1>
             <div class="pagination-controls">
-                <button class="pagination-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="pagination-btn" id="prev-page"><i class="fas fa-chevron-left"></i></button>
+
                 <span class="page-number active">1</span>
                 <span class="page-number">2</span>
                 <span class="page-number">3</span>
                 <span class="page-dots">...</span>
                 <span class="page-number">10</span>
-                <button class="pagination-btn"><i class="fas fa-chevron-right"></i></button>
-            </div>
+                
+                <button class="pagination-btn" id="next-page"><i class="fas fa-chevron-right"></i></button>
+              </div>
         </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+              const prevBtn = document.getElementById("prev-page");
+              const nextBtn = document.getElementById("next-page");
+              const pageNumbers = document.querySelectorAll(".page-number");
+            
+              function getCurrentPageIndex() {
+                return [...pageNumbers].findIndex(p => p.classList.contains("active"));
+              }
+            
+              function setActivePage(index) {
+                pageNumbers.forEach(p => p.classList.remove("active"));
+                pageNumbers[index].classList.add("active");
+              }
+            
+              prevBtn.addEventListener("click", function () {
+                const currentIndex = getCurrentPageIndex();
+                if (currentIndex > 0) {
+                  setActivePage(currentIndex - 1);
+                }
+              });
+            
+              nextBtn.addEventListener("click", function () {
+                const currentIndex = getCurrentPageIndex();
+                if (currentIndex < pageNumbers.length - 1) {
+                  setActivePage(currentIndex + 1);
+                }
+              });
+            
+              pageNumbers.forEach((btn, index) => {
+                btn.addEventListener("click", () => {
+                  setActivePage(index);
+                });
+              });
+            });
+            </script>
 
         <!-- Contenedor de contenido -->
         <div class="content-wrapper">
@@ -230,189 +268,12 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Producto 2 -->
-                    <div class="product-card">
-                        <div class="product-card__image-container"
-                            style="background-image: url('{{ producto.Imagen }}')">
-                            <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                        </div>
-                        <div class="product-card__content">
-                            <h3 class="product-card__title">{{ producto.Product_Name }}</h3>
-                            <p class="product-card__weight">{{ producto.Weight }}</p>
-                            <p class="product-card__price">Precio: {{ producto.Total_Price }}</p>
-                            <div class="product-card__actions">
-                                <button class="product-card__btn product-card__btn--primary">
-                                    <span class="product-card__btn-icon"></span>
-                                    Agregar
-                                </button>
-                                <button class="product-card__btn product-card__btn--secondary">
-                                    Ver detalles
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Producto 3 -->
-                    <div class="product-card">
-                        <div class="product-card__image-container"
-                            style="background-image: url('{{ producto.Imagen }}')">
-                            <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                        </div>
-                        <div class="product-card__content">
-                            <h3 class="product-card__title">{{ producto.Product_Name }}</h3>
-                            <p class="product-card__weight">{{ producto.Weight }}</p>
-                            <p class="product-card__price">Precio: {{ producto.Total_Price }}</p>
-                            <div class="product-card__actions">
-                                <button class="product-card__btn product-card__btn--primary">
-                                    <span class="product-card__btn-icon"></span>
-                                    Agregar
-                                </button>
-                                <button class="product-card__btn product-card__btn--secondary">
-                                    Ver detalles
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
-                <!-- Segunda fila -->
-                <div class="product-row">
-                    <!-- Producto 4 -->
-                    <div class="product-card">
-                        <div class="product-card__image-container"
-                            style="background-image: url('{{ producto.Imagen }}')">
-                            <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                        </div>
-                        <div class="product-card__content">
-                            <h3 class="product-card__title">{{ producto.Product_Name }}</h3>
-                            <p class="product-card__weight">{{ producto.Weight }}</p>
-                            <p class="product-card__price">Precio: {{ producto.Total_Price }}</p>
-                            <div class="product-card__actions">
-                                <button class="product-card__btn product-card__btn--primary">
-                                    <span class="product-card__btn-icon"></span>
-                                    Agregar
-                                </button>
-                                <button class="product-card__btn product-card__btn--secondary">
-                                    Ver detalles
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Producto 5 -->
-                    <div class="product-card">
-                        <div class="product-card__image-container"
-                            style="background-image: url('{{ producto.Imagen }}')"></div>
-                        <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                    </div>
-                    <div class="product-card__content">
-                        <h3 class="product-card__title">{{ producto.Product_Name }}</h3>
-                        <p class="product-card__weight">{{ producto.Weight }}</p>
-                        <p class="product-card__price">Precio: {{ producto.Total_Price }}</p>
-                        <div class="product-card__actions">
-                            <button class="product-card__btn product-card__btn--primary">
-                                <span class="product-card__btn-icon"></span>
-                                Agregar
-                            </button>
-                            <button class="product-card__btn product-card__btn--secondary">
-                                Ver detalles
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Producto 6 -->
-                <div class="product-card">
-                    <div class="product-card__image-container" style="background-image: url('{{ producto.Imagen }}')">
-                        <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                    </div>
-                    <div class="product-card__content">
-                        <h3 class="product-card__title">{{ producto.Product_Name }}</h3>
-                        <p class="product-card__weight">{{ producto.Weight }}</p>
-                        <p class="product-card__price">Precio: {{ producto.Total_Price }}</p>
-                        <div class="product-card__actions">
-                            <button class="product-card__btn product-card__btn--primary">
-                                <span class="product-card__btn-icon"></span>
-                                Agregar
-                            </button>
-                            <button class="product-card__btn product-card__btn--secondary">
-                                Ver detalles
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
-
-            <!-- Tercera fila -->
-            <div class="product-row">
-                <!-- Producto 7 -->
-                <div class="product-card">
-                    <div class="product-card__image-container" style="background-image: url('{{ producto.Imagen }}')">
-                        <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                    </div>
-                    <div class="product-card__content">
-                        <h3 class="product-card__title">{{ producto.Product_Name }}</h3>
-                        <p class="product-card__weight">{{ producto.Weight }}</p>
-                        <p class="product-card__price">Precio: {{ producto.Total_Price }}</p>
-                        <div class="product-card__actions">
-                            <button class="product-card__btn product-card__btn--primary">
-                                <span class="product-card__btn-icon"></span>
-                                Agregar
-                            </button>
-                            <button class="product-card__btn product-card__btn--secondary">
-                                Ver detalles
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Producto 8 -->
-                <div class="product-card">
-                    <div class="product-card__image-container" style="background-image: url('{{ producto.Imagen }}')">
-                        <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                    </div>
-                    <div class="product-card__content">
-                        <h3 class="product-card__title">{{ producto.Product_Name }}</h3>
-                        <p class="product-card__weight">{{ producto.Weight }}</p>
-                        <p class="product-card__price">Precio: {{ producto.Total_Price }}</p>
-                        <div class="product-card__actions">
-                            <button class="product-card__btn product-card__btn--primary">
-                                <span class="product-card__btn-icon"></span>
-                                Agregar
-                            </button>
-                            <button class="product-card__btn product-card__btn--secondary">
-                                Ver detalles
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Producto 9 -->
-                <div class="product-card">
-                    <div class="product-card__image-container" style="background-image: url(' {{ producto.Imagen }}')"
-                        <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                    </div>
-                    <div class="product-card__content">
-                        <h3 class="product-card__title">{{ producto.Product_Name }}</h3>
-                        <p class="product-card__weight">{{ producto.Weight }}</p>
-                        <p class="product-card__price">Precio: {{ producto.Total_Price }}</p>
-                        <div class="product-card__actions">
-                            <button class="product-card__btn product-card__btn--primary">
-                                <span class="product-card__btn-icon"></span>
-                                Agregar
-                            </button>
-                            <button class="product-card__btn product-card__btn--secondary">
-                                Ver detalles
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
         </div>
     </div>
-    </div>
+
 
     <!-- Mensaje de notificación -->
     <div class="message">

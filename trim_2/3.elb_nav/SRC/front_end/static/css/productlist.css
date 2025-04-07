@@ -402,7 +402,6 @@ body {
   position: relative;
 }
 
-/* Controles de paginación */
 .pagination-controls {
   display: flex;
   align-items: center;
@@ -571,13 +570,15 @@ body {
 
 /* Cuadrícula de productos - Modificado para ocupar el espacio disponible */
 .product-grid {
-  display: flex;
   flex-direction: column;
   gap: 30px;
   width: 100%;
   flex: 1;
   overflow-y: auto;
   padding-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+
 }
 
 .product-row {
@@ -598,6 +599,7 @@ body {
   position: relative;
   flex: 1;
   min-width: 0;
+  height: 330px;
 }
 
 /* Contenedor de imagen */
