@@ -681,6 +681,7 @@
     background: #0033ff;
     border-radius: 8px;
     padding: 9px 24px;
+    text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -699,6 +700,7 @@
   .footer-btn-text-primary {
     color: #ffffff;
     font-family: "Inter-SemiBold", sans-serif;
+    text-decoration: none;
     font-size: 16px;
     font-weight: 600;
   }

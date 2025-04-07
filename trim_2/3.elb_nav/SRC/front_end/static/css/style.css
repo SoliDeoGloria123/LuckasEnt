@@ -1060,7 +1060,9 @@ button:hover {
     background: #0033ff;
     border-radius: 8px;
     padding: 9px 24px;
+    text-decoration: none;
     display: flex;
+    text-decoration: none;
     align-items: center;
     justify-content: center;
     height: 40px;
@@ -1078,6 +1080,8 @@ button:hover {
   .footer-btn-text-primary {
     color: #ffffff;
     font-family: "Inter-SemiBold", sans-serif;
+    align-items: center;
+    text-decoration: none;
     font-size: 16px;
     font-weight: 600;
   }
@@ -1090,6 +1094,7 @@ button:hover {
     align-items: center;
     justify-content: center;
     height: 40px;
+    text-decoration: none;
     position: relative;
     overflow: hidden;
     background: #ffffff;
