@@ -39,7 +39,7 @@
     <div class="profile-section">
         <img class="profile-avatar" src="data:image/png;base64,{{ usuario['foto'] | b64encode }}" />
         <div class="profile-info-container">
-            <div class="profile-name">Steeven Pedraza</div>
+            <div class="profile-name">{{ usuario['nombre'] }} {{ usuario['apellido'] }}</div>
             <div class="badge-container">
                 <div class="badge">
                     <div class="badge-text">Premium Member</div>
@@ -70,38 +70,97 @@
             </div>
         </div>
     </div>
-    <div class="form-section">
+    <div class="form-section"  >
         <div class="form-header">
             <div class="form-header-info">
                 <div class="form-title">Información personal</div>
                 <div class="form-description">Todos tus detalles</div>
             </div>
             <div class="image-container">
-                <img class="profile-image" src="image0.png" />
+                <img class="profile-image" src="https://plus.unsplash.com/premium_photo-1664015982598-283bcdc9cae8?q=80&w=1365&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
             </div>
         </div>
-        <div class="form-container">
-            <form action="/perfil" method="post" enctype="multipart/form-data">
-                <input type="text" id="firstName" name="nombre" class="input-field" value="{{ usuario['nombre'] or '' }}" required>
-                <input type="text" id="lastName" name="apellido" class="input-field" value="{{ usuario['apellido'] }}" required>
-                <input type="email" id="email" name="email" class="input-field" value="{{ usuario['correo'] }}" readonly>
-                <input type="tel" id="phone" name="telefono" class="input-field" value="{{ usuario['telefono'] }}" required>
-                <input type="password" id="password" name="password" class="input-field" value="{{ usuario['password'] }}" required>
-                <input type="file" id="profilePhoto" name="foto" class="input-field">
-                <button type="submit" class="form-btn-primary">Guardar cambios</button>
-            </form>
-        </div>
+
+        <form action="/perfil" method="post" enctype="multipart/form-data" name="actualizar_perfil">
+            <div class="form-container">
+                <div class="form-row">
+                    <div class="form-input">
+                        <label for="firstName" class="input-label">Nombres</label>
+                        <input type="text" id="firstName" name="nombre" class="input-field" placeholder="Ingresa tus Nombres" required
+                        value="{{ usuario['nombre'] or '' }}" autocomplete="off">
+                    </div>
+                    <div class="form-input">
+                        <label for="lastName" class="input-label">Apellidos</label>
+                        <input type="text" id="lastName" name="apellido" class="input-field" placeholder="Ingresa tus Apellidos" required
+                        value="{{ usuario['apellido'] }}" autocomplete="off">
+                    </div>
+                </div>
+        
+                <div class="form-row">
+                    <div class="form-input">
+                        <label for="email" class="input-label">Email</label>
+                        <input type="email" id="email" name="correo" class="input-field" placeholder="Ingrese su Correo Electrónico"
+                        value="{{ usuario['correo'] }}" required autocomplete="off">
+                    </div>
+                    <div class="form-input">
+                        <label for="password" class="input-label">Contraseña</label>
+                        <input type="password" id="password" name="password" class="input-field" placeholder="Ingrese su contraseña"
+                        value="{{ usuario['password'] }}" required autocomplete="off">
+                    </div>
+                </div>
+        
+                <div class="form-row">
+                    <div class="form-input">
+                        <label for="profilePhoto" class="input-label">Cambiar foto</label>
+                        <input type="file" id="profilePhoto" name="foto" class="input-field">
+                    </div>
+                    <div class="form-input">
+                        <label for="phone" class="input-label">Número de Celular o Telefónico</label>
+                        <input type="tel" id="phone" name="telefono" class="input-field" placeholder="Ingrese su Celular o Teléfono"
+                        value="{{ usuario['telefono'] }}" required autocomplete="off">
+                    </div>
+                </div>
+        
+                <div class="form-row">
+                    <div class="form-selection">
+                        <div class="input-label">Género</div>
+                        <div class="chip-group">
+                            <label class="chip"><input type="radio" name="genero" value="Masculino" {% if usuario['genero'] == 'Masculino' %}checked{% endif %}> Masculino</label>
+                            <label class="chip"><input type="radio" name="genero" value="Femenino" {% if usuario['genero'] == 'Femenino' %}checked{% endif %}> Femenino</label>
+                        </div>
+                    </div>
+        
+                    <div class="form-selection">
+                        <div class="input-label">¿Desea cambiar la membresía?</div>
+                        <div class="chip-group">
+                            <label class="chip"><input type="radio" name="cambiar_membresia" value="Si"> Sí</label>
+                            <label class="chip"><input type="radio" name="cambiar_membresia" value="No" checked> No</label>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="form-row">
+                    <div class="form-selection">
+                        <div class="input-label">
+                            ¿Tienes un negocio y deseas incluir tu catálogo?
+                        </div>
+                        <div class="chip-group">
+                            <label class="chip"><input type="radio" name="tiene_negocio" value="Si"> Sí</label>
+                            <label class="chip"><input type="radio" name="tiene_negocio" value="No" checked> No</label>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="form-actions">
+                    <button type="reset" class="form-btn-secondary">Descartar</button>
+                    <button type="submit" id="saveButton" class="form-btn-primary">Guardar cambios</button>
+                </div>
+            </div>
+        </form>
     </div>
-    <div id="alertOverlay" class="overlay">
-        <div class="overlay-form">
-            <div class="overlay-container">
-                <div class="overlay-title">Tus datos han sido actualizados.</div>
-            </div>
-            <div class="overlay-primary" onclick="closeAlert()">
-                <div class="overlay-title1">Volver</div>
-            </div>
-        </div>
-    </div>
+    
+
+
     <script>
         // Mostrar la alerta al hacer clic en "Guardar cambios"
         document.getElementById('saveButton').addEventListener('click', function (event) {

@@ -729,15 +729,6 @@ body {
   text-align: center;
 }
 
-.member-image {
-  width: 100%;
-  height: 180px; /* Se asegura que todas las imágenes tengan la misma altura */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background: #f0f0f0; /* Color de fondo en caso de que la imagen no cargue */
-}
 
 .member-photo {
   width: 100%;
