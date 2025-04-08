@@ -99,7 +99,7 @@
                 <div class="form-row">
                     <div class="form-input">
                         <label for="email" class="input-label">Email</label>
-                        <input type="email" id="email" name="correo" class="input-field" placeholder="Ingrese su Correo Electrónico"
+                        <input type="email" id="email" name="email" class="input-field" placeholder="Ingrese su Correo Electrónico"
                         value="{{ usuario['correo'] }}" required autocomplete="off">
                     </div>
                     <div class="form-input">
@@ -162,16 +162,15 @@
 
 
     <script>
-        // Mostrar la alerta al hacer clic en "Guardar cambios"
-        document.getElementById('saveButton').addEventListener('click', function (event) {
-            event.preventDefault();  // Evita comportamiento predeterminado
-            document.getElementById('alertOverlay').style.display = 'flex'; // Mostrar alerta
-        });
-
-        // Cerrar alerta al hacer clic en "Volver"
-        function closeAlert() {
-            document.getElementById('alertOverlay').style.display = 'none';
-        }
+        //document.getElementById('saveButton').addEventListener('click', function (event) {
+        //    event.preventDefault();  // Evita comportamiento predeterminado
+        //    document.getElementById('alertOverlay').style.display = 'flex'; // Mostrar alerta
+        //});
+//
+//
+        //function closeAlert() {
+        //    document.getElementById('alertOverlay').style.display = 'none';
+        //}
 
         document.addEventListener("DOMContentLoaded", () => {
             const deleteAccountBtn = document.getElementById("deleteAccountBtn")

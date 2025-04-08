@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Query, Request, Form,  Response
+from fastapi import FastAPI, File, Query, Request, Form,  Response, UploadFile
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -182,16 +182,15 @@ async def page(request: Request):
     return templates.TemplateResponse("page.html", {"request": request})
 
 
-
 @app.get("/cuenta", name="cuenta")
 async def cuenta(request: Request):
     user = get_current_user(request)
     if not user:
         return RedirectResponse(url="/login", status_code=303)
     usuario = users_collection.find_one({"correo": user["email"]})
-    usuario["foto"] = usuario.get("foto", "").decode("utf-8") if usuario.get("foto") else ""
+    if not usuario: # Añade verificación por si el usuario no se encuentra
+        return RedirectResponse(url="/login", status_code=303)
     return templates.TemplateResponse("Mi_Cuenta.html", {"request": request, "usuario": usuario})
-
 
 @app.get("/logout", name="logout")
 async def logout(response: Response):
@@ -222,36 +221,36 @@ async def actualizar_perfil(
     email: str = Form(...),
     telefono: str = Form(...),
     password: str = Form(...),
-    foto: bytes = Form(None),
+    foto: UploadFile = File(None),
 ):
     # Actualiza los datos del usuario en la base de datos
-    if foto:
-        users_collection.update_one(
-            {"correo": email},
-            {
-                "$set": {
-                    "nombre": nombre,
-                    "apellido": apellido,
-                    "telefono": telefono,
-                    "foto": foto,  # Guarda la foto como bytes
-                }
-            },
-        )
-    else:
-        users_collection.update_one(
-            {"correo": email},
-            {
-                "$set": {
-                    "nombre": nombre,
-                    "apellido": apellido,
-                    "telefono": telefono,
-                }
-            },
-        )
-    return templates.TemplateResponse(
-        "mi_informacion.html",
-        {"request": request, "success": "Tus datos han sido actualizados."},
+    update_data = {
+        "nombre": nombre,
+        "apellido": apellido,
+        "telefono": telefono,
+        "foto": foto,
+        "correo": email,
+        "password": password,
+    }
+   # Lee los bytes de la foto si se subió una
+    if foto and foto.filename: # Verifica que se subió un archivo y tiene nombre
+        contenido_foto = await foto.read() # Lee el contenido del archivo como bytes
+        update_data["foto"] = contenido_foto # Añade los bytes al diccionario de actualización
+
+    # Actualiza los datos del usuario en la base de datos
+    result = users_collection.update_one(
+        {"correo": email}, # Usa el email correcto para encontrar al usuario
+        {"$set": update_data},
     )
+
+    # Verifica si la actualización fue exitosa (opcional pero recomendado)
+    if result.modified_count == 0 and not (foto and foto.filename):
+         # Podrías mostrar un mensaje indicando que no hubo cambios
+         pass
+
+    # --- OPCIONAL PERO RECOMENDADO: Redirigir a la página de cuenta ---
+    # para que vea los cambios reflejados (incluida la nueva foto).
+    return RedirectResponse(url=request.url_for('cuenta'), status_code=303)
 
 @app.post("/eliminar_cuenta", name="eliminar_cuenta")
 async def eliminar_cuenta(request: Request, email: str = Form(...)):
