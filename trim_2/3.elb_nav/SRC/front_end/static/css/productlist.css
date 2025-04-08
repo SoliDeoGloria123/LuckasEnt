@@ -421,20 +421,24 @@ body {
 }
 
 .page-number {
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
+  padding: 5px 10px;
+  margin: 0 2px;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  cursor: pointer;
+  text-decoration: none;
+  color: #333;
 }
 
 .page-number.active {
   background-color: #0033ff;
   color: white;
+  border-color: #0033ff;
 }
+
+.page-number:hover {
+  background-color: #f0f0f0;
+}
+
 
 .page-dots {
   margin: 0 5px;
