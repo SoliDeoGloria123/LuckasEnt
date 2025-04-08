@@ -44,53 +44,67 @@
         <div class="page-header">
             <h1 class="letra">Frutas &amp; Verduras</h1>
             <div class="pagination-controls">
-                <button class="pagination-btn" id="prev-page"><i class="fas fa-chevron-left"></i></button>
-
-                <span class="page-number active">1</span>
-                <span class="page-number">2</span>
-                <span class="page-number">3</span>
+                <button class="pagination-btn" id="prev-page" {% if pagina_actual==1 %}disabled{% endif %}>
+                    <i class="fas fa-chevron-left"></i></button>
+                </button>
+                {% for i in range(1, total_paginas + 1) %}
+                {% if i == pagina_actual %}
+                <span class="page-number active">{{ i }}</span>
+                {% else %}
+                <span class="page-number">{{ i }}</span>
+                {% endif %}
+                {% endfor %}
                 <span class="page-dots">...</span>
-                <span class="page-number">10</span>
-                
-                <button class="pagination-btn" id="next-page"><i class="fas fa-chevron-right"></i></button>
-              </div>
+                <span class="page-number">{{ total_paginas }}</span>
+
+                <button class="pagination-btn" id="next-page" {% if pagina_actual == total_paginas %}disabled{% endif %}><i class="fas fa-chevron-right"></i></button>
+            </div>
         </div>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
-              const prevBtn = document.getElementById("prev-page");
-              const nextBtn = document.getElementById("next-page");
-              const pageNumbers = document.querySelectorAll(".page-number");
-            
-              function getCurrentPageIndex() {
-                return [...pageNumbers].findIndex(p => p.classList.contains("active"));
-              }
-            
-              function setActivePage(index) {
-                pageNumbers.forEach(p => p.classList.remove("active"));
-                pageNumbers[index].classList.add("active");
-              }
-            
-              prevBtn.addEventListener("click", function () {
-                const currentIndex = getCurrentPageIndex();
-                if (currentIndex > 0) {
-                  setActivePage(currentIndex - 1);
+                const prevBtn = document.getElementById("prev-page");
+                const nextBtn = document.getElementById("next-page");
+                const pageNumbers = document.querySelectorAll(".page-number");
+
+                function getCurrentPageIndex() {
+                    return [...pageNumbers].findIndex(p => p.classList.contains("active"));
                 }
-              });
-            
-              nextBtn.addEventListener("click", function () {
-                const currentIndex = getCurrentPageIndex();
-                if (currentIndex < pageNumbers.length - 1) {
-                  setActivePage(currentIndex + 1);
+
+                function setActivePage(index) {
+                    pageNumbers.forEach(p => p.classList.remove("active"));
+                    pageNumbers[index].classList.add("active");
                 }
-              });
-            
-              pageNumbers.forEach((btn, index) => {
-                btn.addEventListener("click", () => {
-                  setActivePage(index);
+
+                prevBtn.addEventListener("click", function () {
+                    const currentIndex = getCurrentPageIndex();
+                    if (currentIndex > 0) {
+                        // Get the current active page number
+                        const currentPage = parseInt(pageNumbers[currentIndex].textContent);
+                        // Redirect to the previous page
+                        window.location.href = `/categoria?page=${currentPage - 1}`;
+                    }
                 });
-              });
+
+                nextBtn.addEventListener("click", function () {
+                    const currentIndex = getCurrentPageIndex();
+                    if (currentIndex < pageNumbers.length - 1) {
+                        // Get the current active page number
+                        const currentPage = parseInt(pageNumbers[currentIndex].textContent);
+                        // Redirect to the next page
+                        window.location.href = `/categoria?page=${currentPage + 1}`;
+                    }
+                });
+
+                pageNumbers.forEach((btn, index) => {
+                    btn.addEventListener("click", () => {
+                        // Get the page number from the clicked button
+                        const pageNumber = parseInt(btn.textContent);
+                        // Redirect to the selected page
+                        window.location.href = `/categoria?page=${pageNumber}`;
+                    });
+                });
             });
-            </script>
+        </script>
 
         <!-- Contenedor de contenido -->
         <div class="content-wrapper">

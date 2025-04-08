@@ -1,12 +1,11 @@
-    from fastapi import FastAPI, Request, Form, HTTPException, Response, Depends
-from fastapi.responses import FileResponse, HTMLResponse, RedirectResponse
+from fastapi import FastAPI, Query, Request, Form,  Response
+from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
 from pymongo import MongoClient
 from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException as StarletteHTTPException
-from starlette.responses import JSONResponse
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -226,18 +225,29 @@ async def actualizar_perfil(
     foto: bytes = Form(None),
 ):
     # Actualiza los datos del usuario en la base de datos
-    users_collection.update_one(
-        {"correo": email},
-        {
-            "$set": {
-                "nombre": nombre,
-                "apellido": apellido,
-                "telefono": telefono,
-                "password": password,
-                "foto": foto,  # Guarda la foto como bytes o en un servicio externo
-            }
-        },
-    )
+    if foto:
+        users_collection.update_one(
+            {"correo": email},
+            {
+                "$set": {
+                    "nombre": nombre,
+                    "apellido": apellido,
+                    "telefono": telefono,
+                    "foto": foto,  # Guarda la foto como bytes
+                }
+            },
+        )
+    else:
+        users_collection.update_one(
+            {"correo": email},
+            {
+                "$set": {
+                    "nombre": nombre,
+                    "apellido": apellido,
+                    "telefono": telefono,
+                }
+            },
+        )
     return templates.TemplateResponse(
         "mi_informacion.html",
         {"request": request, "success": "Tus datos han sido actualizados."},
@@ -294,10 +304,35 @@ async def detalleproducto(request: Request):  # ✔️ Nombre correcto de la fun
 
 
 @app.get("/categoria", name="categoria")
-async def categoria(request: Request):  # ✔️ Nombre correcto de la función
-    productos = list(collection.find())  # Obtiene los productos de MongoDB
+async def categoria(request: Request, page: int = Query(1, gt=0)):
+    """
+    Muestra una lista paginada de productos.
+
+    Args:
+        request: El objeto de solicitud.
+        page: El número de página actual (por defecto es 1).
+
+    Returns:
+        Una respuesta de plantilla con la lista de productos paginada.
+    """
+    productos_por_pagina = 38  # Define la cantidad de productos por página
+    skip = (page - 1) * productos_por_pagina  # Calcula cuántos productos saltar
+
+    # Obtiene los productos de MongoDB con skip y limit
+    productos = list(collection.find().skip(skip).limit(productos_por_pagina))
+
+    # Calcula el total de páginas
+    total_productos = collection.count_documents({})
+    total_paginas = (total_productos + productos_por_pagina - 1) // productos_por_pagina
+
     return templates.TemplateResponse(
-        "categorias.html", {"request": request, "productos": productos}
+        "categorias.html",
+        {
+            "request": request,
+            "productos": productos,
+            "pagina_actual": page,
+            "total_paginas": total_paginas,
+        },
     )
 
 
