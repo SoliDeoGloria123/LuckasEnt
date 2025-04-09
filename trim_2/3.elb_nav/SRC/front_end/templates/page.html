@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luckas Header</title>
     <link rel="icon" href="{{ url_for('static', path='img/lOGO PROYECTO LuckasEnt.png') }}">
-    <link rel="stylesheet" href="{{ url_for('static', path='css/page.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/page_content.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&display=swap" />
 
@@ -29,7 +29,7 @@
             <a href="{{ url_for('nosotros')}}">Nosotros</a>
             <a href="{{ url_for('cuenta') }}">Mi perfil</a>
         </nav>
-       
+
     </nav>
     <!-- Menú de arriba -->
     <nav class="menu-container">
@@ -69,17 +69,17 @@
             <!-- Flecha izquierda -->
             <button class="arrow left">&lt;</button>
             <script>
-               document.addEventListener('DOMContentLoaded', function () {
-    // Seleccionar todos los botones con la clase .btn-detalles
-    const detalleBtns = document.querySelectorAll('.btn-detalles');
+                document.addEventListener('DOMContentLoaded', function () {
+                    // Seleccionar todos los botones con la clase .btn-detalles
+                    const detalleBtns = document.querySelectorAll('.btn-detalles');
 
-    // Agregar un evento de clic a cada botón
-    detalleBtns.forEach(btn => {
-        btn.addEventListener('click', function () {
-            window.location.href = "{{ url_for('detalle_producto') }}";  // Redirige a Flask
-        });
-    });
-});
+                    // Agregar un evento de clic a cada botón
+                    detalleBtns.forEach(btn => {
+                        btn.addEventListener('click', function () {
+                            window.location.href = "{{ url_for('detalle_producto') }}";  // Redirige a Flask
+                        });
+                    });
+                });
             </script>
             <!-- Cards de productos -->
             <div class="carousel">
@@ -412,13 +412,13 @@
                         inteligentes para tu hogar.
                     </div>
                 </div>
-               <div class="footer-actions">
+                <div class="footer-actions">
                     <button class="footer-btn-primary">
-                        <a  href="#"class="footer-btn-text-primary">Explorar</a>
+                        <a href="#" class="footer-btn-text-primary">Explorar</a>
                     </button>
 
-                    <button class="footer-btn-secondary" >
-                        <a id="Ayuda"  href="#"class="footer-btn-text-secondary">Ayuda</a>
+                    <button class="footer-btn-secondary">
+                        <a id="Ayuda" href="#" class="footer-btn-text-secondary">Ayuda</a>
                     </button>
                 </div>
             </div>
@@ -453,7 +453,7 @@
                 <div class="footer-copyright">
                     © 2024 LuckasEnt. Todos los derechos reservados.
                 </div>
-                <div  id="contacto" class="footer-social-links">
+                <div id="contacto" class="footer-social-links">
                     <a href="https://facebook.com" target="_blank">
                         <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}"
                             alt="Facebook" />
