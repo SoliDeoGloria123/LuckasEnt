@@ -89,8 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 500)
     }, 2500)
   }
-
-  // Script para mostrar mensaje al agregar productos
   document.querySelectorAll(".product-card__btn--primary").forEach((btn) => {
     btn.addEventListener("click", () => {
       showMessage("Producto añadido al carrito")
@@ -100,9 +98,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // En static/js/categoriasP.js, dentro del DOMContentLoaded
 
-const agregarBotones = document.querySelectorAll('.btn-agregar-lista'); // Selecciona por la nueva clase
+const botonesAgregar = document.querySelectorAll('.btn-agregar-lista');
+const mensajeDiv = document.querySelector('.message'); // O como selecciones el div del mensaje
 
-agregarBotones.forEach(button => {
+
+botonesAgregar.forEach(button => {
     button.addEventListener('click', function() {
         const productId = this.dataset.productId; // Obtiene el _id del atributo data-product-id
 
@@ -134,12 +134,6 @@ agregarBotones.forEach(button => {
             }
             // Si fue exitosa, parsea la respuesta JSON
             return response.json();
-        })
-        .then(data => {
-            // Éxito: Muestra el mensaje del backend
-            console.log(data.message);
-            // Usa tu función showMessage para notificar al usuario
-            showMessage(`✅ ${data.message || 'Producto agregado'}`);
         })
         .catch(error => {
             // Error: Muestra el mensaje de error
