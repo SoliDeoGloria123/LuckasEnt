@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, Query, Request, Form,  Response, UploadFile
+from fastapi import FastAPI, File, HTTPException, Query, Request, Form,  Response, UploadFile
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -10,6 +10,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from itsdangerous import URLSafeSerializer
+from bson import ObjectId
 import secrets
 import base64
 import re
@@ -18,11 +19,13 @@ import re
 client = MongoClient(
     "mongodb+srv://juanjuanddev:hR7m3QxGgMf5BOKv@cluster0.mnzsa9g.mongodb.net/LuckasEnt?retryWrites=true&w=majority&tlsAllowInvalidCertificates=true"
 )
-db = client.LuckasEnt  # Cambia 'nombre_de_tu_bd' por el nombre de tu base de datos
-collection = db["productos"]  # type: ignore # Cambia 'nombre_de_tu_coleccion' por el nombre de tu colección
+db = client.LuckasEnt
+collection = db["productos"]  # type: ignore 
+listas_collection = db["lists"]
 users_collection = db[
     "users"
-]  # Cambia 'users' por el nombre de tu colección de usuarios
+] 
+
 
 
 app = FastAPI()
@@ -272,10 +275,107 @@ async def ubicacionproduc(request: Request):  # ✔️ Nombre correcto de la fun
 async def reseñaproduc(request: Request):  # ✔️ Nombre correcto de la función
     return templates.TemplateResponse("productoreseña.html", {"request": request})
 
+@app.post("/agregar_a_lista/{product_id}", name="agregar_a_lista")
+async def agregar_a_lista(request: Request, product_id: str):
+    # 1. Verificar si el usuario está logueado
+    user_session_data = get_current_user(request)
+    if not user_session_data:
+        raise HTTPException(status_code=401, detail="Debes iniciar sesión para agregar productos")
+
+    user_email = user_session_data["email"]
+
+    # 2. Validar el product_id (que es el _id de MongoDB)
+    try:
+        obj_product_id = ObjectId(product_id)
+    except Exception:
+        raise HTTPException(status_code=400, detail="ID de producto inválido")
+
+    # 3. (Opcional pero recomendado) Verificar si el producto existe en la colección original
+    if not collection.find_one({"_id": obj_product_id}):
+         raise HTTPException(status_code=404, detail="Producto no encontrado")
+
+    # 4. Añadir el ID del producto a la lista del usuario en la colección 'listas_usuarios'
+    #    Usamos $addToSet para evitar duplicados y upsert=True para crear el documento si no existe.
+    result = listas_collection.update_one(
+        {"user_email": user_email}, # Busca el documento por el email del usuario
+        {"$addToSet": {"productos_ids": obj_product_id}}, # Añade el ObjectId al array
+        upsert=True # Crea el documento si el usuario no tiene lista aún
+    )
+
+    # 5. Devolver una respuesta
+    if result.upserted_id:
+        return {"status": "success", "message": "Producto agregado a tu lista"}
+    elif result.modified_count > 0:
+        return {"status": "success", "message": "Producto agregado a tu lista"}
+    elif result.matched_count > 0:
+         # Si encontró el documento pero no modificó (el producto ya estaba)
+         return {"status": "info", "message": "Este producto ya está en tu lista"}
+    else:
+         # Error inesperado
+         raise HTTPException(status_code=500, detail="Error al actualizar la lista")
+
 
 @app.get("/tulista", name="tulista")
-async def tulista(request: Request):  # ✔️ Nombre correcto de la función
-    return templates.TemplateResponse("cardgrid.html", {"request": request})
+async def tulista(request: Request):
+    # 1. Verificar si el usuario está logueado
+    user_session_data = get_current_user(request)
+    if not user_session_data:
+        return RedirectResponse(url=request.url_for('login'), status_code=303)
+
+    user_email = user_session_data["email"]
+
+    # 2. Buscar la lista del usuario en 'listas_usuarios'
+    lista_doc = listas_collection.find_one({"user_email": user_email})
+
+    productos_lista_completa = [] # Lista para los datos completos
+    if lista_doc and "productos_ids" in lista_doc:
+        lista_ids = lista_doc.get("productos_ids", []) # Obtiene el array de ObjectIds
+        if lista_ids:
+            # 3. Buscar los productos completos en la colección 'productos' usando los IDs
+            productos_lista_completa = list(collection.find({"_id": {"$in": lista_ids}}))
+
+    # 4. (Opcional pero necesario para la foto de perfil en cardgrid.html) Obtener datos del usuario
+    usuario_info = users_collection.find_one({"correo": user_email})
+    if not usuario_info:
+         # Si por alguna razón no se encuentra, usa un default para evitar errores
+         usuario_info = {'foto': None, 'nombre': 'Usuario', 'apellido': ''}
+
+    # 5. Renderizar cardgrid.html pasando la lista de productos y la info del usuario
+    return templates.TemplateResponse(
+        "cardgrid.html",
+        {
+            "request": request,
+            "productos_lista": productos_lista_completa, # La lista de productos encontrados
+            "usuario": usuario_info # Para la foto de perfil en la barra de navegación
+        }
+    )
+
+@app.post("/eliminar_de_lista/{product_id}", name="eliminar_de_lista") # Puedes usar POST o DELETE
+async def eliminar_de_lista(request: Request, product_id: str):
+    user_session_data = get_current_user(request)
+    if not user_session_data:
+        raise HTTPException(status_code=401, detail="No autenticado")
+
+    user_email = user_session_data["email"]
+
+    try:
+        obj_product_id = ObjectId(product_id)
+    except Exception:
+        raise HTTPException(status_code=400, detail="ID de producto inválido")
+
+    # Elimina el ObjectId del producto del array 'productos_ids' usando $pull
+    result = listas_collection.update_one(
+        {"user_email": user_email},
+        {"$pull": {"productos_ids": obj_product_id}}
+    )
+
+    if result.modified_count > 0:
+        return {"status": "success", "message": "Producto eliminado de la lista"}
+    elif result.matched_count == 0:
+         raise HTTPException(status_code=404, detail="Lista de usuario no encontrada")
+    else:
+         # No se modificó (quizás el producto ya no estaba en la lista)
+         return {"status": "info", "message": "Producto no encontrado en la lista"}
 
 
 @app.get("/termino", name="termino")
@@ -284,13 +384,20 @@ async def termino(request: Request):  # ✔️ Nombre correcto de la función
 
 
 @app.get("/home", name="home")
-async def home(request: Request):  # ✔️ Nombre correcto de la función
+async def home(request: Request):  # ✔️ Nombre correcto de la función  # noqa: F811
     return templates.TemplateResponse("home.html", {"request": request})
 
 
 @app.get("/tienda", name="tienda")
 async def tienda(request: Request):  # ✔️ Nombre correcto de la función
-    return templates.TemplateResponse("tienda.html", {"request": request})
+    user_session_data = get_current_user(request)
+    usuario = None # Inicializa como None
+    if user_session_data:
+    # 2. Buscar los datos completos del usuario en la BD
+        usuario = users_collection.find_one({"correo": user_session_data["email"]})
+    if not usuario:
+        usuario = {'foto': None}
+    return templates.TemplateResponse("tienda.html", {"request": request, "usuario": usuario})
 
 
 @app.get("/productlista", name="productlista")
@@ -340,11 +447,6 @@ async def categoria(request: Request, q: str = "", page: int = Query(1, gt=0)):
         "total_paginas": total_paginas,
         "query": q  # para mantener el valor en el input de búsqueda
     })
-
-
-@app.get("/tienda", name="tienda")
-async def tienda(request: Request):  # ✔️ Nombre correcto de la función
-    return templates.TemplateResponse("tienda.html", {"request": request})
 
 
 @app.get("/nosotros", name="nosotros")

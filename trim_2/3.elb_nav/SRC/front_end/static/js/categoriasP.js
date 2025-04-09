@@ -89,11 +89,113 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 500)
     }, 2500)
   }
-
-  // Script para mostrar mensaje al agregar productos
   document.querySelectorAll(".product-card__btn--primary").forEach((btn) => {
     btn.addEventListener("click", () => {
       showMessage("Producto añadido al carrito")
     })
   })
 })
+
+// En static/js/categoriasP.js, dentro del DOMContentLoaded
+
+const botonesAgregar = document.querySelectorAll('.btn-agregar-lista');
+const mensajeDiv = document.querySelector('.message'); // O como selecciones el div del mensaje
+
+
+botonesAgregar.forEach(button => {
+    button.addEventListener('click', function() {
+        const productId = this.dataset.productId; // Obtiene el _id del atributo data-product-id
+
+        if (!productId) {
+            console.error("No se encontró el ID del producto en el botón.");
+            showMessage("❌ Error: No se pudo identificar el producto.");
+            return;
+        }
+
+        // Opcional: Deshabilitar botón para evitar clics repetidos
+        button.disabled = true;
+        const originalText = button.textContent;
+        button.textContent = 'Agregando...';
+
+        fetch(`/agregar_a_lista/${productId}`, { // Llama al nuevo endpoint
+            method: 'POST',
+            headers: {
+                // La cookie de sesión se envía automáticamente por el navegador
+            }
+        })
+        .then(response => {
+            // Es importante verificar si la respuesta fue exitosa (status 2xx)
+            if (!response.ok) {
+                // Si no fue exitosa, intenta leer el error del cuerpo JSON
+                return response.json().then(err => {
+                    // Lanza un error con el mensaje del backend o un mensaje genérico
+                    throw new Error(err.detail || `Error ${response.status}`);
+                });
+            }
+            // Si fue exitosa, parsea la respuesta JSON
+            return response.json();
+        })
+        .catch(error => {
+            // Error: Muestra el mensaje de error
+            console.error('Error al agregar producto:', error);
+            showMessage(`❌ Error: ${error.message}`);
+        })
+        .finally(() => {
+            // Siempre se ejecuta, re-habilita el botón
+            button.disabled = false;
+            button.textContent = originalText; // Restaura texto original
+        });
+    });
+});
+
+// --- Asegúrate de tener tu función showMessage definida ---
+// (La que usas para los favoritos, adaptada si es necesario)
+function showMessage(msg) {
+    const messageBox = document.querySelector('.message'); // Asegúrate que este selector exista
+    const closeBtn = messageBox ? messageBox.querySelector('.message__close-btn') : null;
+    const progressBar = messageBox ? messageBox.querySelector('.message__progress-bar') : null;
+    let messageTimeout;
+
+    if (!messageBox) {
+        console.warn("Elemento .message no encontrado para mostrar notificaciones.");
+        return;
+    }
+
+    // Actualiza el texto (considera si hay otros nodos dentro)
+    const textNode = messageBox.firstChild;
+    if (textNode && textNode.nodeType === Node.TEXT_NODE) {
+        textNode.nodeValue = msg + " ";
+    } else {
+         // Si no hay nodo de texto o es otra cosa, inserta al principio
+         const spanText = document.createElement('span');
+         spanText.textContent = msg + " ";
+         // Elimina texto anterior si existe para evitar duplicados
+         while (messageBox.firstChild && messageBox.firstChild !== closeBtn && messageBox.firstChild !== progressBar) {
+             messageBox.removeChild(messageBox.firstChild);
+         }
+         messageBox.prepend(spanText);
+    }
+
+    messageBox.classList.add('show');
+
+    if (progressBar) {
+        progressBar.style.animation = 'none'; // Resetea animación
+        progressBar.offsetHeight; /* Forzar reflow */
+        progressBar.style.animation = null;
+        progressBar.style.animation = 'progress 3s linear forwards'; // Reinicia animación CSS
+    }
+
+    clearTimeout(messageTimeout);
+    messageTimeout = setTimeout(() => {
+        messageBox.classList.remove('show');
+    }, 3000); // Oculta después de 3 segundos
+
+    // Asegura que el botón de cerrar funcione (solo añade el listener una vez)
+    if (closeBtn && !closeBtn.dataset.listenerAttached) {
+         closeBtn.addEventListener('click', () => {
+            messageBox.classList.remove('show');
+            clearTimeout(messageTimeout);
+         });
+         closeBtn.dataset.listenerAttached = 'true'; // Marca que ya tiene listener
+    }
+}
