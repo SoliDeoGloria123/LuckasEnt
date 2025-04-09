@@ -1,4 +1,10 @@
-@import "~@fortawesome/fontawesome-free/css/all.min.css";
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('path/to/bebas-neue.woff2') format('woff2'),
+       url('path/to/bebas-neue.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
 .lista-container {
   width: 700px;
   margin: 190px auto;
@@ -44,33 +50,21 @@
 
 .luckas {
   display: block;
-  position: relative;
-  height: 52px;
-  margin: 0 0 0 0;
   color: #0033ff;
   font-family: 'Bebas Neue', sans-serif;
   font-size: 56px;
-  font-weight: 400;
   line-height: 52px;
-  text-align: left;
-  white-space: nowrap;
-  z-index: 6;
+  font-weight: 400;
 }
 
 .ent {
   display: block;
-  position: relative;
-  height: 14px;
-  margin: -2px 0 0 90px;
   color: #0033ff;
   font-family: 'Bebas Neue', sans-serif;
   font-size: 12px;
-  font-weight: 400;
-  line-height: 14px;
-  text-align: left;
-  white-space: nowrap;
   letter-spacing: 0.96px;
-  z-index: 7;
+  line-height: 14px;
+  font-weight: 400;
 }
 .nav-bar {
   background: #ffffff;
@@ -178,7 +172,7 @@
 }
 
 .btn-descargar {
-  width: 100%;
+  width: 20%;
   background-color: #0033ff;
   color: white;
   padding: 12px;
@@ -500,7 +494,7 @@
   padding: var(--var-sds-size-space-1600, 64px);
   display: flex;
   flex-direction: column;
-  gap: var(--var-sds-size-space-1200, 48px);
+  gap: var(--var-sds-size-space-1200, 0px);
   align-items: flex-start;
   justify-content: flex-start;
   height: 1265px;
@@ -549,34 +543,27 @@
 .cards {
   display: flex;
   flex-direction: column;
-  gap: var(--var-sds-size-space-600, 24px);
+  gap: var(--var-sds-size-space-100, 0px);
   align-items: flex-start;
   justify-content: flex-start;
-  align-self: stretch;
+  align-self: center;
   flex-shrink: 0;
   position: relative;
 }
 
 .card {
-  background: var(--var-sds-color-background-default-default, #ffffff);
-  border-radius: var(--var-sds-size-radius-200, 8px);
-  border-style: solid;
-  border-color: var(--var-sds-color-border-default-default, #d9d9d9);
-  border-width: 1px;
-  padding: var(--var-sds-size-space-600, 24px);
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.12);
+  padding: 24px;
   display: flex;
   flex-direction: row;
-  gap: var(--var-sds-size-space-600, 24px);
-  row-gap: 24px;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  align-self: stretch;
-  flex-shrink: 0;
-  min-width: 240px;
-  position: relative;
-  box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.12);
+  gap: 0px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 900px;
 }
 
 .image {
@@ -596,15 +583,23 @@
 }
 
 .body {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: var(--var-sds-size-space-400, 16px);
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  height: 160px;
-  min-width: 160px;
-  position: relative;
+  gap: 12px;
+}
+
+.body .product-title {
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #202020;
+}
+
+.body .product-meta {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  color: #757575;
 }
 
 .text {
@@ -621,7 +616,7 @@
 .frame-427318925 {
   display: flex;
   flex-direction: row;
-  gap: 555px;
+  gap: 400px;
   align-items: center;
   justify-content: center;
   align-self: stretch;
@@ -653,16 +648,13 @@
 }
 
 .trash-icon {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
   display: flex;
-  flex-direction: row;
-  gap: 12px;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  width: 36px;
-  position: relative;
 }
-
 .delete-outline {
   flex-shrink: 0;
   width: 28.8px;
@@ -695,19 +687,14 @@
 
 .button {
   background: #0033ff;
-  border-radius: var(--var-sds-size-radius-200, 8px);
-  border-style: solid;
-  border-color: #ffffff;
-  border-width: 1px;
-  padding: var(--var-sds-size-space-300, 12px);
-  display: flex;
-  flex-direction: row;
-  gap: var(--var-sds-size-space-200, 8px);
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  position: relative;
-  overflow: hidden;
+  border-radius: 8px;
+  padding: 12px 24px;
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
 }
 
 .button2 {
@@ -842,7 +829,6 @@
 }
 
 .bebas-neue-regular {
-  font-family: "Bebas Neue", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
