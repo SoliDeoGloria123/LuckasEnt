@@ -192,3 +192,657 @@
 .btn-descargar:hover {
   background-color: #001faa;
 }
+
+/* Figma Styles of your File */
+:root {
+  /* Colors */
+  --primary-50: #ccd6ff;
+  --primary-100: #99adff;
+  --primary-200: #6685ff;
+  --primary-300: #335cff;
+  --primary-400: #0033ff;
+  --primary-500: #002ad5;
+  --primary-600: #0022aa;
+  --primary-700: #001980;
+  --primary-800: #001155;
+  --primary-900: #00082a;
+  --neutrals-50: #ffffff;
+  --neutrals-100: #e6e6e6;
+  --neutrals-200: #cccccc;
+  --neutrals-300: #cccccc;
+  --neutrals-400: #999999;
+  --neutrals-500: #808080;
+  --neutrals-600: #666666;
+  --neutrals-700: #4d4d4d;
+  --neutrals-800: #202020;
+  --neutrals-900: #000000;
+
+  /* Fonts */
+  --desktop-body-regular-xs-font-family: Roboto-Regular, sans-serif;
+  --desktop-body-regular-xs-font-size: 12px;
+  --desktop-body-regular-xs-line-height: 18px;
+  --desktop-body-regular-xs-font-weight: 400;
+  --desktop-body-regular-xs-font-style: normal;
+  --desktop-body-medium-xs-font-family: Roboto-Medium, sans-serif;
+  --desktop-body-medium-xs-font-size: 12px;
+  --desktop-body-medium-xs-line-height: normal;
+  --desktop-body-medium-xs-font-weight: 500;
+  --desktop-body-medium-xs-font-style: normal;
+  --desktop-titles-display-1-semibold-xxl-3-font-family: Roboto-SemiBold,
+    sans-serif;
+  --desktop-titles-display-1-semibold-xxl-3-font-size: 32px;
+  --desktop-titles-display-1-semibold-xxl-3-line-height: normal;
+  --desktop-titles-display-1-semibold-xxl-3-font-weight: 600;
+  --desktop-titles-display-1-semibold-xxl-3-font-style: normal;
+  --heading-desktop-h1-font-family: Roboto-Bold, sans-serif;
+  --heading-desktop-h1-font-size: 56px;
+  --heading-desktop-h1-line-height: 120%;
+  --heading-desktop-h1-font-weight: 700;
+  --heading-desktop-h1-font-style: normal;
+  --heading-desktop-h2-font-family: Roboto-Bold, sans-serif;
+  --heading-desktop-h2-font-size: 48px;
+  --heading-desktop-h2-line-height: 120%;
+  --heading-desktop-h2-font-weight: 700;
+  --heading-desktop-h2-font-style: normal;
+  --heading-desktop-h3-font-family: Roboto-Bold, sans-serif;
+  --heading-desktop-h3-font-size: 40px;
+  --heading-desktop-h3-line-height: 120%;
+  --heading-desktop-h3-font-weight: 700;
+  --heading-desktop-h3-font-style: normal;
+  --heading-desktop-h4-font-family: Roboto-Bold, sans-serif;
+  --heading-desktop-h4-font-size: 32px;
+  --heading-desktop-h4-line-height: 130%;
+  --heading-desktop-h4-font-weight: 700;
+  --heading-desktop-h4-font-style: normal;
+  --heading-desktop-h5-font-family: Roboto-Bold, sans-serif;
+  --heading-desktop-h5-font-size: 24px;
+  --heading-desktop-h5-line-height: 140%;
+  --heading-desktop-h5-font-weight: 700;
+  --heading-desktop-h5-font-style: normal;
+  --heading-desktop-h6-font-family: Roboto-Bold, sans-serif;
+  --heading-desktop-h6-font-size: 20px;
+  --heading-desktop-h6-line-height: 140%;
+  --heading-desktop-h6-font-weight: 700;
+  --heading-desktop-h6-font-style: normal;
+  --heading-desktop-tagline-font-family: Roboto-SemiBold, sans-serif;
+  --heading-desktop-tagline-font-size: 16px;
+  --heading-desktop-tagline-line-height: 150%;
+  --heading-desktop-tagline-font-weight: 600;
+  --heading-desktop-tagline-font-style: normal;
+  --heading-mobile-h1-font-family: Roboto-Bold, sans-serif;
+  --heading-mobile-h1-font-size: 40px;
+  --heading-mobile-h1-line-height: 120%;
+  --heading-mobile-h1-font-weight: 700;
+  --heading-mobile-h1-font-style: normal;
+  --heading-mobile-h2-font-family: Roboto-Bold, sans-serif;
+  --heading-mobile-h2-font-size: 36px;
+  --heading-mobile-h2-line-height: 120%;
+  --heading-mobile-h2-font-weight: 700;
+  --heading-mobile-h2-font-style: normal;
+  --heading-mobile-h3-font-family: Roboto-Bold, sans-serif;
+  --heading-mobile-h3-font-size: 32px;
+  --heading-mobile-h3-line-height: 120%;
+  --heading-mobile-h3-font-weight: 700;
+  --heading-mobile-h3-font-style: normal;
+  --heading-mobile-h4-font-family: Roboto-Bold, sans-serif;
+  --heading-mobile-h4-font-size: 24px;
+  --heading-mobile-h4-line-height: 140%;
+  --heading-mobile-h4-font-weight: 700;
+  --heading-mobile-h4-font-style: normal;
+  --heading-mobile-h5-font-family: Roboto-Bold, sans-serif;
+  --heading-mobile-h5-font-size: 20px;
+  --heading-mobile-h5-line-height: 140%;
+  --heading-mobile-h5-font-weight: 700;
+  --heading-mobile-h5-font-style: normal;
+  --heading-mobile-h6-font-family: Roboto-Bold, sans-serif;
+  --heading-mobile-h6-font-size: 18px;
+  --heading-mobile-h6-line-height: 140%;
+  --heading-mobile-h6-font-weight: 700;
+  --heading-mobile-h6-font-style: normal;
+  --text-large-light-font-family: Roboto-Light, sans-serif;
+  --text-large-light-font-size: 20px;
+  --text-large-light-line-height: 150%;
+  --text-large-light-font-weight: 300;
+  --text-large-light-font-style: normal;
+  --text-large-normal-font-family: Roboto-Regular, sans-serif;
+  --text-large-normal-font-size: 20px;
+  --text-large-normal-line-height: 150%;
+  --text-large-normal-font-weight: 400;
+  --text-large-normal-font-style: normal;
+  --text-large-medium-font-family: Roboto-Medium, sans-serif;
+  --text-large-medium-font-size: 20px;
+  --text-large-medium-line-height: 150%;
+  --text-large-medium-font-weight: 500;
+  --text-large-medium-font-style: normal;
+  --text-large-semi-bold-font-family: Roboto-SemiBold, sans-serif;
+  --text-large-semi-bold-font-size: 20px;
+  --text-large-semi-bold-line-height: 150%;
+  --text-large-semi-bold-font-weight: 600;
+  --text-large-semi-bold-font-style: normal;
+  --text-large-bold-font-family: Roboto-Bold, sans-serif;
+  --text-large-bold-font-size: 20px;
+  --text-large-bold-line-height: 150%;
+  --text-large-bold-font-weight: 700;
+  --text-large-bold-font-style: normal;
+  --text-large-extra-bold-font-family: Roboto-ExtraBold, sans-serif;
+  --text-large-extra-bold-font-size: 20px;
+  --text-large-extra-bold-line-height: 150%;
+  --text-large-extra-bold-font-weight: 800;
+  --text-large-extra-bold-font-style: normal;
+  --text-large-link-font-family: Roboto-Regular, sans-serif;
+  --text-large-link-font-size: 20px;
+  --text-large-link-line-height: 150%;
+  --text-large-link-font-weight: 400;
+  --text-large-link-font-style: normal;
+  --text-medium-light-font-family: Roboto-Light, sans-serif;
+  --text-medium-light-font-size: 18px;
+  --text-medium-light-line-height: 150%;
+  --text-medium-light-font-weight: 300;
+  --text-medium-light-font-style: normal;
+  --text-medium-normal-font-family: Roboto-Regular, sans-serif;
+  --text-medium-normal-font-size: 18px;
+  --text-medium-normal-line-height: 150%;
+  --text-medium-normal-font-weight: 400;
+  --text-medium-normal-font-style: normal;
+  --text-medium-medium-font-family: Roboto-Medium, sans-serif;
+  --text-medium-medium-font-size: 18px;
+  --text-medium-medium-line-height: 150%;
+  --text-medium-medium-font-weight: 500;
+  --text-medium-medium-font-style: normal;
+  --text-medium-semi-bold-font-family: Roboto-SemiBold, sans-serif;
+  --text-medium-semi-bold-font-size: 18px;
+  --text-medium-semi-bold-line-height: 150%;
+  --text-medium-semi-bold-font-weight: 600;
+  --text-medium-semi-bold-font-style: normal;
+  --text-medium-bold-font-family: Roboto-Bold, sans-serif;
+  --text-medium-bold-font-size: 18px;
+  --text-medium-bold-line-height: 150%;
+  --text-medium-bold-font-weight: 700;
+  --text-medium-bold-font-style: normal;
+  --text-medium-extra-bold-font-family: Roboto-Bold, sans-serif;
+  --text-medium-extra-bold-font-size: 18px;
+  --text-medium-extra-bold-line-height: 150%;
+  --text-medium-extra-bold-font-weight: 700;
+  --text-medium-extra-bold-font-style: normal;
+  --text-medium-link-font-family: Roboto-Regular, sans-serif;
+  --text-medium-link-font-size: 18px;
+  --text-medium-link-line-height: 150%;
+  --text-medium-link-font-weight: 400;
+  --text-medium-link-font-style: normal;
+  --text-regular-light-font-family: Roboto-Light, sans-serif;
+  --text-regular-light-font-size: 16px;
+  --text-regular-light-line-height: 150%;
+  --text-regular-light-font-weight: 300;
+  --text-regular-light-font-style: normal;
+  --text-regular-normal-font-family: Roboto-Regular, sans-serif;
+  --text-regular-normal-font-size: 16px;
+  --text-regular-normal-line-height: 150%;
+  --text-regular-normal-font-weight: 400;
+  --text-regular-normal-font-style: normal;
+  --text-regular-medium-font-family: Roboto-Medium, sans-serif;
+  --text-regular-medium-font-size: 16px;
+  --text-regular-medium-line-height: 150%;
+  --text-regular-medium-font-weight: 500;
+  --text-regular-medium-font-style: normal;
+  --text-regular-semi-bold-font-family: Roboto-SemiBold, sans-serif;
+  --text-regular-semi-bold-font-size: 16px;
+  --text-regular-semi-bold-line-height: 150%;
+  --text-regular-semi-bold-font-weight: 600;
+  --text-regular-semi-bold-font-style: normal;
+  --text-regular-bold-font-family: Roboto-Bold, sans-serif;
+  --text-regular-bold-font-size: 16px;
+  --text-regular-bold-line-height: 150%;
+  --text-regular-bold-font-weight: 700;
+  --text-regular-bold-font-style: normal;
+  --text-regular-extra-bold-font-family: Roboto-ExtraBold, sans-serif;
+  --text-regular-extra-bold-font-size: 16px;
+  --text-regular-extra-bold-line-height: 150%;
+  --text-regular-extra-bold-font-weight: 800;
+  --text-regular-extra-bold-font-style: normal;
+  --text-regular-link-font-family: Roboto-Regular, sans-serif;
+  --text-regular-link-font-size: 16px;
+  --text-regular-link-line-height: 150%;
+  --text-regular-link-font-weight: 400;
+  --text-regular-link-font-style: normal;
+  --text-small-light-font-family: Roboto-Light, sans-serif;
+  --text-small-light-font-size: 14px;
+  --text-small-light-line-height: 150%;
+  --text-small-light-font-weight: 300;
+  --text-small-light-font-style: normal;
+  --text-small-normal-font-family: Roboto-Regular, sans-serif;
+  --text-small-normal-font-size: 14px;
+  --text-small-normal-line-height: 150%;
+  --text-small-normal-font-weight: 400;
+  --text-small-normal-font-style: normal;
+  --text-small-medium-font-family: Roboto-Medium, sans-serif;
+  --text-small-medium-font-size: 14px;
+  --text-small-medium-line-height: 150%;
+  --text-small-medium-font-weight: 500;
+  --text-small-medium-font-style: normal;
+  --text-small-semi-bold-font-family: Roboto-SemiBold, sans-serif;
+  --text-small-semi-bold-font-size: 14px;
+  --text-small-semi-bold-line-height: 150%;
+  --text-small-semi-bold-font-weight: 600;
+  --text-small-semi-bold-font-style: normal;
+  --text-small-bold-font-family: Roboto-Bold, sans-serif;
+  --text-small-bold-font-size: 14px;
+  --text-small-bold-line-height: 150%;
+  --text-small-bold-font-weight: 700;
+  --text-small-bold-font-style: normal;
+  --text-small-extra-bold-font-family: Roboto-ExtraBold, sans-serif;
+  --text-small-extra-bold-font-size: 14px;
+  --text-small-extra-bold-line-height: 150%;
+  --text-small-extra-bold-font-weight: 800;
+  --text-small-extra-bold-font-style: normal;
+  --text-small-link-font-family: Roboto-Regular, sans-serif;
+  --text-small-link-font-size: 14px;
+  --text-small-link-line-height: 150%;
+  --text-small-link-font-weight: 400;
+  --text-small-link-font-style: normal;
+  --text-tiny-light-font-family: Roboto-Light, sans-serif;
+  --text-tiny-light-font-size: 12px;
+  --text-tiny-light-line-height: 150%;
+  --text-tiny-light-font-weight: 300;
+  --text-tiny-light-font-style: normal;
+  --text-tiny-normal-font-family: Roboto-Regular, sans-serif;
+  --text-tiny-normal-font-size: 12px;
+  --text-tiny-normal-line-height: 150%;
+  --text-tiny-normal-font-weight: 400;
+  --text-tiny-normal-font-style: normal;
+  --text-tiny-medium-font-family: Roboto-Medium, sans-serif;
+  --text-tiny-medium-font-size: 12px;
+  --text-tiny-medium-line-height: 150%;
+  --text-tiny-medium-font-weight: 500;
+  --text-tiny-medium-font-style: normal;
+  --text-tiny-semi-bold-font-family: Roboto-SemiBold, sans-serif;
+  --text-tiny-semi-bold-font-size: 12px;
+  --text-tiny-semi-bold-line-height: 150%;
+  --text-tiny-semi-bold-font-weight: 600;
+  --text-tiny-semi-bold-font-style: normal;
+  --text-tiny-bold-font-family: Roboto-Bold, sans-serif;
+  --text-tiny-bold-font-size: 12px;
+  --text-tiny-bold-line-height: 150%;
+  --text-tiny-bold-font-weight: 700;
+  --text-tiny-bold-font-style: normal;
+  --text-tiny-extra-bold-font-family: Roboto-ExtraBold, sans-serif;
+  --text-tiny-extra-bold-font-size: 12px;
+  --text-tiny-extra-bold-line-height: 150%;
+  --text-tiny-extra-bold-font-weight: 800;
+  --text-tiny-extra-bold-font-style: normal;
+  --text-tiny-link-font-family: Roboto-Regular, sans-serif;
+  --text-tiny-link-font-size: 12px;
+  --text-tiny-link-line-height: 150%;
+  --text-tiny-link-font-weight: 400;
+  --text-tiny-link-font-style: normal;
+
+  /* Effects */
+  --xxsmall-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+  --xsmall-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.06),
+    0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+  --small-box-shadow: 0px 2px 4px -2px rgba(0, 0, 0, 0.06),
+    0px 4px 8px -2px rgba(0, 0, 0, 0.1);
+  --medium-box-shadow: 0px 4px 6px -2px rgba(0, 0, 0, 0.03),
+    0px 12px 16px -4px rgba(0, 0, 0, 0.08);
+  --large-box-shadow: 0px 8px 8px -4px rgba(0, 0, 0, 0.03),
+    0px 20px 24px -4px rgba(0, 0, 0, 0.08);
+  --xlarge-box-shadow: 0px 24px 48px -12px rgba(0, 0, 0, 0.18);
+  --xxlarge-box-shadow: 0px 32px 64px -12px rgba(0, 0, 0, 0.14);
+}
+
+
+.card-grid-content-list,
+.card-grid-content-list * {
+  box-sizing: border-box;
+}
+
+.card-grid-content-list {
+  background: var(--var-sds-color-background-default-default, #ffffff);
+  padding: var(--var-sds-size-space-1600, 64px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--var-sds-size-space-1200, 48px);
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: 1265px;
+  position: relative;
+}
+
+
+.text-content-heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--var-sds-size-space-200, 8px);
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 1049px;
+  height: 135px;
+  position: relative;
+}
+
+.heading {
+  color: var(--var-sds-color-text-default-default, #1e1e1e);
+  text-align: left;
+  font-family: var(--heading-font-family, "Inter-SemiBold", sans-serif);
+  font-size: var(--heading-font-size, 24px);
+  line-height: var(--heading-line-height, 120%);
+  letter-spacing: var(--heading-letter-spacing, -0.02em);
+  font-weight: var(--heading-font-weight, 600);
+  position: relative;
+  align-self: stretch;
+}
+
+.subheading {
+  color: var(--var-sds-color-text-default-secondary, #757575);
+  text-align: left;
+  font-family: var(--subheading-font-family, "Inter-Regular", sans-serif);
+  font-size: var(--subheading-font-size, 20px);
+  line-height: var(--subheading-line-height, 120%);
+  font-weight: var(--subheading-font-weight, 400);
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--var-sds-size-space-600, 24px);
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.card {
+  background: var(--var-sds-color-background-default-default, #ffffff);
+  border-radius: var(--var-sds-size-radius-200, 8px);
+  border-style: solid;
+  border-color: var(--var-sds-color-border-default-default, #d9d9d9);
+  border-width: 1px;
+  padding: var(--var-sds-size-space-600, 24px);
+  display: flex;
+  flex-direction: row;
+  gap: var(--var-sds-size-space-600, 24px);
+  row-gap: 24px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  min-width: 240px;
+  position: relative;
+  box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.12);
+}
+
+.image {
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 160px;
+  height: 160px;
+  min-width: 160px;
+  position: relative;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--var-sds-size-space-400, 16px);
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 160px;
+  min-width: 160px;
+  position: relative;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--var-sds-size-space-200, 8px);
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.frame-427318925 {
+  display: flex;
+  flex-direction: row;
+  gap: 555px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.frame-427318923 {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 259px;
+  position: relative;
+}
+
+.lechuga-manojo-light {
+  color: var(--neutrals-800, #202020);
+  text-align: left;
+  font-family: var(--heading-font-family, "Inter-SemiBold", sans-serif);
+  font-size: var(--heading-font-size, 24px);
+  line-height: var(--heading-line-height, 120%);
+  letter-spacing: var(--heading-letter-spacing, -0.02em);
+  font-weight: var(--heading-font-weight, 600);
+  position: relative;
+  flex: 1;
+}
+
+.trash-icon {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  position: relative;
+}
+
+.delete-outline {
+  flex-shrink: 0;
+  width: 28.8px;
+  height: 28.8px;
+  position: relative;
+  overflow: visible;
+}
+
+.makro-7-000-2 {
+  color: var(--var-sds-color-text-default-secondary, #757575);
+  text-align: left;
+  font-family: var(--body-base-font-family, "Inter-Regular", sans-serif);
+  font-size: var(--body-base-font-size, 16px);
+  line-height: var(--body-base-line-height, 140%);
+  font-weight: var(--body-base-font-weight, 400);
+  position: relative;
+  width: 252px;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: row;
+  gap: var(--var-sds-size-space-400, 16px);
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.button {
+  background: #0033ff;
+  border-radius: var(--var-sds-size-radius-200, 8px);
+  border-style: solid;
+  border-color: #ffffff;
+  border-width: 1px;
+  padding: var(--var-sds-size-space-300, 12px);
+  display: flex;
+  flex-direction: row;
+  gap: var(--var-sds-size-space-200, 8px);
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.button2 {
+  color: #ffffff;
+  text-align: left;
+  font-family: var(--single-line-body-base-font-family,
+      "Inter-Regular",
+      sans-serif);
+  font-size: var(--single-line-body-base-font-size, 16px);
+  line-height: var(--single-line-body-base-line-height, 100%);
+  font-weight: var(--single-line-body-base-font-weight, 400);
+  position: relative;
+}
+
+.card2 {
+  background: var(--var-sds-color-background-default-default, #ffffff);
+  border-radius: var(--var-sds-size-radius-200, 8px);
+  border-style: solid;
+  border-color: var(--var-sds-color-border-default-default, #d9d9d9);
+  border-width: 1px;
+  padding: var(--var-sds-size-space-600, 24px);
+  display: flex;
+  flex-direction: row;
+  gap: var(--var-sds-size-space-600, 24px);
+  row-gap: 24px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  min-width: 240px;
+  position: relative;
+  box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.12);
+}
+
+.body2 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--var-sds-size-space-400, 16px);
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex: 1;
+  min-width: 160px;
+  position: relative;
+}
+
+.papa-pastusa {
+  color: var(--neutrals-800, #202020);
+  text-align: left;
+  font-family: var(--heading-font-family, "Inter-SemiBold", sans-serif);
+  font-size: var(--heading-font-size, 24px);
+  line-height: var(--heading-line-height, 120%);
+  letter-spacing: var(--heading-letter-spacing, -0.02em);
+  font-weight: var(--heading-font-weight, 600);
+  position: relative;
+  flex: 1;
+}
+
+.delete-outline2 {
+  flex-shrink: 0;
+  width: 28.8px;
+  height: 28.8px;
+  position: relative;
+  overflow: visible;
+}
+
+.isimo-12-000-3 {
+  color: var(--var-sds-color-text-default-secondary, #757575);
+  text-align: left;
+  font-family: var(--body-base-font-family, "Inter-Regular", sans-serif);
+  font-size: var(--body-base-font-size, 16px);
+  line-height: var(--body-base-line-height, 140%);
+  font-weight: var(--body-base-font-weight, 400);
+  position: relative;
+  width: 252px;
+}
+
+.carne-para-asar {
+  color: var(--neutrals-800, #202020);
+  text-align: left;
+  font-family: var(--heading-font-family, "Inter-SemiBold", sans-serif);
+  font-size: var(--heading-font-size, 24px);
+  line-height: var(--heading-line-height, 120%);
+  letter-spacing: var(--heading-letter-spacing, -0.02em);
+  font-weight: var(--heading-font-weight, 600);
+  position: relative;
+  flex: 1;
+}
+
+.delete-outline3 {
+  flex-shrink: 0;
+  width: 28.8px;
+  height: 28.8px;
+  position: relative;
+  overflow: visible;
+}
+
+.existo-17-000-2-1 {
+  color: var(--var-sds-color-text-default-secondary, #757575);
+  text-align: left;
+  font-family: var(--body-base-font-family, "Inter-Regular", sans-serif);
+  font-size: var(--body-base-font-size, 16px);
+  line-height: var(--body-base-line-height, 140%);
+  font-weight: var(--body-base-font-weight, 400);
+  position: relative;
+  width: 252px;
+}
+
+.button-primary {
+  background: #0033ff;
+  border-radius: 8px;
+  padding: 9px 24px 9px 24px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.button3 {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-SemiBold", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  position: relative;
+}
+
+.bebas-neue-regular {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}

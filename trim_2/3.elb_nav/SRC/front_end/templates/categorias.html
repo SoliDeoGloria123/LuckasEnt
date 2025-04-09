@@ -57,7 +57,8 @@
                 <span class="page-dots">...</span>
                 <span class="page-number">{{ total_paginas }}</span>
 
-                <button class="pagination-btn" id="next-page" {% if pagina_actual == total_paginas %}disabled{% endif %}><i class="fas fa-chevron-right"></i></button>
+                <button class="pagination-btn" id="next-page" {% if pagina_actual==total_paginas %}disabled{% endif
+                    %}><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
         <script>
@@ -177,7 +178,7 @@
                         <label class="checkbox-item">
                             <input type="checkbox" class="checkbox-input">
                             <span class="checkbox-custom"></span>
-                            <span class="checkbox-label">Olímpica</span>
+                            <span class="checkbox-label">Jumbo</span>
                         </label>
                         <label class="checkbox-item">
                             <input type="checkbox" class="checkbox-input">
@@ -268,10 +269,11 @@
                         </div>
                         <div class="product-card__content">
                             <h3 class="product-card__title">{{ producto.Product_Name }}</h3>
-                            <p class="product-card__weight">{{ producto.Weight }}</p> <!--{{ producto.Weight }}-->
-                            <p class="product-card__price">Precio: {{ producto.Total_Price }}</p>
+                            <p class="product-card__weight">{{ producto.Weight | default('') }}</p> <!--{{ producto.Weight }}-->
+                            <p class="product-card__price">Precio: {{ producto.Total_Price | default('N/A')}}</p>
                             <div class="product-card__actions">
-                                <button class="product-card__btn product-card__btn--primary">
+                                <button class="product-card__btn product-card__btn--primary btn-agregar-lista"
+                                    data-product-id="{{ producto._id }}"> <!-- <--- AÑADIDO data-product-id y clase -->
                                     <span class="product-card__btn-icon"></span>
                                     Agregar
                                 </button>
