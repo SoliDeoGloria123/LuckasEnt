@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="{{ url_for('static', path='css/cardgrid.css') }}">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2w?family=Bebas+Neue:wght@400&display=swap" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -93,7 +94,9 @@
                 <div class="frame-427318925">
                   <div class="frame-427318923">
                     <!-- Nombre del producto (Clase genérica recomendada) -->
+                     <br>
                     <div class="product-name">{{ producto.Product_Name }}</div>
+                    <br>
                   </div>
                   <div class="trash-icon">
                     <!-- Botón Eliminar con data-product-id -->
@@ -103,6 +106,7 @@
                   </div>
                 </div>
                 <!-- Detalles: Muestra tienda (Parner), precio, peso, etc. (Clase genérica recomendada) -->
+                 <br>
                 <div class="product-details">
                   {{ producto.Parner | default('') }} | {{ producto.Total_Price | default('N/A') }}
                   {% if producto.Precio_con_Descuento != 'NOT_FOUND' and producto.Precio_con_Descuento %}
@@ -110,6 +114,7 @@
                   {% endif %}
                   | {{ producto.Weight | default('') }}
                 </div>
+                <br>
               </div>
               <div class="button-group">
                 <div class="button">
