@@ -181,12 +181,13 @@ body {
 .featured-product {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 300px;
     padding: 20px;
 }
 
 .product-image img {
-    width: 300px;
+    width: 700px;
+    height: 500px;
     border-radius: 10px;
 }
 
@@ -196,12 +197,14 @@ body {
 
 .product-cards {
   display: flex;
-  gap: 15px;
+  gap: 100px;
 }
 
 .card {
   background: #fff;
-  padding: 80px;
+  padding: 0px;
+  width: 500px;
+    height: 300px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -274,7 +277,8 @@ body {
 }
 
 .info-image img {
-    width: 400px;
+    width: 750px;
+    height: 500px;
     border-radius: 10px;
 }
 .carousel {

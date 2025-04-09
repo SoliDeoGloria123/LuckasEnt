@@ -14,7 +14,7 @@
 <body>
   <nav class="nav-bar">
     <a href="{{ url_for('page') }}" class="logo">
-      <span class="luckas">Luckas</span>
+      <span class="luckas bebas-neue-regular">Luckas</span>
       <span class="ent">ent</span>
     </a>
     <div class="search-bar">
@@ -28,15 +28,14 @@
     </nav>
   </nav>
   <section>
-    <div class="lista-container">
-      <div class="header">
+    <!-- <div class="header">
         <h2>Tu Lista</h2>
         <p>Personaliza tu lista como más te guste</p>
         <div class="contador-productos">Tienes <span id="contador">3</span> productos en tu lista</div>
       </div>
 
       <!-- Producto 1 -->
-      <div class="producto-item">
+    <!-- <div class="producto-item">
         <img src="{{ url_for('static', path='img/OIP_2.jpg') }}" alt="Lechuga" class="producto-img">
         <div class="producto-info">
           <h3>Lechuga manojo Light</h3>
@@ -44,10 +43,10 @@
           <button class="btn-opciones">Buscar otras opciones</button>
         </div>
         <button class="btn-eliminar" onclick="eliminarProducto(this)">🗑️</button>
-      </div>
+      </div> -->
 
-      <!-- Producto 2 -->
-      <div class="producto-item">
+    <!-- Producto 2 -->
+    <!-- <div class="producto-item">
         <img src="{{ url_for('static', path='img/OIP_2.jpg') }}" alt="Papa" class="producto-img">
         <div class="producto-info">
           <h3>Papa Pastusa</h3>
@@ -55,10 +54,10 @@
           <button class="btn-opciones">Buscar otras opciones</button>
         </div>
         <button class="btn-eliminar" onclick="eliminarProducto(this)">🗑️</button>
-      </div>
+      </div> -->
 
-      <!-- Producto 3 -->
-      <div class="producto-item">
+    <!-- Producto 3 -->
+    <!-- <div class="producto-item">
         <img src="{{ url_for('static', path='img/OIP_2.jpg') }}" alt="Carne" class="producto-img">
         <div class="producto-info">
           <h3>Carne para asar</h3>
@@ -67,19 +66,78 @@
         </div>
         <button class="btn-eliminar" onclick="eliminarProducto(this)">🗑️</button>
       </div>
-
-      <!-- Precio Total -->
-      <div class="precio-total">
-        <strong>Total estimado:</strong> <span id="precioTotal">$36.200</span>
-      </div>
-
-      <!-- Botón PDF -->
-      <button id="btn-descargar" class="btn-descargar">
-        📄 Descargar Lista PDF
-    </button>
     </div>
-  </section>
-  <script src="{{ url_for('static', path='js/Eliminar.js') }}"></script>
+  </section> -->
+
+    <!-- En cardgrid.html -->
+    <section>
+      <div class="card-grid-content-list">
+        <div class="text-content-heading">
+          <div class="heading">Tu Lista</div>
+          <div class="subheading">Personaliza tu lista como más te guste</div>
+        </div>
+        <div class="cards">
+
+          <!-- INICIO DEL BUCLE -->
+          {% if productos_lista %}
+          {% for producto in productos_lista %}
+          <!-- Usaremos la estructura de 'card' como plantilla. Adapta si tienes más estilos. -->
+          <!-- Añade la clase 'producto-item' si tu JS la necesita -->
+          <div class="card producto-item">
+            <!-- Imagen: Usa la URL de la imagen del producto. Añade un placeholder si no hay imagen. -->
+            <img class="image" src="{{ producto.Imagen | default(url_for('static', path='img/placeholder.png')) }}"
+              alt="{{ producto.Product_Name }}" />
+
+            <div class="body">
+              <div class="text producto-info">
+                <div class="frame-427318925">
+                  <div class="frame-427318923">
+                    <!-- Nombre del producto (Clase genérica recomendada) -->
+                    <div class="product-name">{{ producto.Product_Name }}</div>
+                  </div>
+                  <div class="trash-icon">
+                    <!-- Botón Eliminar con data-product-id -->
+                    <button class="btn-eliminar" onclick="eliminarProducto(this)" data-product-id="{{ producto._id }}">
+                      <img class="delete-outline" src="{{ url_for('static', path='img/Vector.svg') }}" />
+                    </button>
+                  </div>
+                </div>
+                <!-- Detalles: Muestra tienda (Parner), precio, peso, etc. (Clase genérica recomendada) -->
+                <div class="product-details">
+                  {{ producto.Parner | default('') }} | {{ producto.Total_Price | default('N/A') }}
+                  {% if producto.Precio_con_Descuento != 'NOT_FOUND' and producto.Precio_con_Descuento %}
+                  (Oferta: {{ producto.Precio_con_Descuento }})
+                  {% endif %}
+                  | {{ producto.Weight | default('') }}
+                </div>
+              </div>
+              <div class="button-group">
+                <div class="button">
+                  <button class="btn-opciones">Buscar otras opciones</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          {% else %}
+          <!-- Mensaje si la lista está vacía -->
+          <p style="text-align: center; width: 100%; padding: 20px;">Aún no has agregado productos a tu lista.</p>
+          {% endif %}
+          <!-- FIN DEL BUCLE -->
+
+        </div>
+        <!-- Precio Total -->
+        <div class="precio-total">
+          <strong>Total estimado:</strong> <span id="precioTotal">$0</span>
+        </div>
+
+        <button id="btn-descargar" class="btn-descargar">
+          📄 Descargar Lista PDF
+        </button>
+      </div>
+    </section>
+
+    <script src="{{ url_for('static', path='js/Eliminar.js') }}"></script>
 </body>
 
 </html>
