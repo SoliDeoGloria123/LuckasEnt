@@ -4,7 +4,6 @@ from pandas import Series
 from returns.io import IOResult, IOSuccess, IOFailure
 from SRC.back_end.web_scrapping.class_error import unite_indexError
 from SRC.back_end.web_scrapping.index import (
-    access_to_HTML,
     access_to_HTML_general,
     extract_urls,
     extraer_info,
@@ -26,11 +25,11 @@ def unite_index(URLS: Series) -> IOResult[list[str | int | float], unite_indexEr
                     lambda soup: scrapper(  # Pasa el objeto soup a scrapper
                         soup=soup,
                         Tag="div",
-                        attrs="vtex-flex-layout-0-x-flexRow",
+                        attrs="card-product-vertical",
                      
                     )
                 )
-                .bind(lambda ResultSet: access_to_HTML_general(ResultSet, parner="Jumbo"))
+                .bind(lambda ResultSet: access_to_HTML_general(ResultSet, parner="D1"))
                 .unwrap()
                 for URL in URLS
             ]
@@ -40,7 +39,7 @@ def unite_index(URLS: Series) -> IOResult[list[str | int | float], unite_indexEr
 
 
 def main() -> None:
-    read_exel_py("SRC/back_end/web_scrapping/Jumbo/Jumbo_URLs.csv").bind(
+    read_exel_py("SRC/back_end/web_scrapping/D1/D1_URLs.csv").bind(
         extract_urls
     ).bind(
         unite_index
