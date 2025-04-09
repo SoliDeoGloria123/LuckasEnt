@@ -12,6 +12,7 @@ from email.mime.multipart import MIMEMultipart
 from itsdangerous import URLSafeSerializer
 import secrets
 import base64
+import re
 
 # Conectar a MongoDB
 client = MongoClient(
@@ -303,36 +304,42 @@ async def detalleproducto(request: Request):  # ✔️ Nombre correcto de la fun
 
 
 @app.get("/categoria", name="categoria")
-async def categoria(request: Request, page: int = Query(1, gt=0)):
+async def categoria(request: Request, q: str = "", page: int = Query(1, gt=0)):
     """
-    Muestra una lista paginada de productos.
+    Muestra una lista paginada de productos con opción de búsqueda.
 
     Args:
         request: El objeto de solicitud.
-        page: El número de página actual (por defecto es 1).
+        q: Término de búsqueda opcional.
+        page: Número de página actual.
 
     Returns:
-        Una respuesta de plantilla con la lista de productos paginada.
+        Plantilla con productos filtrados y paginados.
     """
-    productos_por_pagina = 38  # Define la cantidad de productos por página
-    skip = (page - 1) * productos_por_pagina  # Calcula cuántos productos saltar
+    productos_por_pagina = 38
+    skip = (page - 1) * productos_por_pagina
 
-    # Obtiene los productos de MongoDB con skip y limit
-    productos = list(collection.find().skip(skip).limit(productos_por_pagina))
+    # Si hay término de búsqueda, filtra
+    filtro = {}
+    if q:
+        filtro = {
+            "Product_Name": {"$regex": re.escape(q), "$options": "i"}
+        }
 
-    # Calcula el total de páginas
-    total_productos = collection.count_documents({})
+    # Consulta MongoDB con filtro + paginación
+    productos = list(collection.find(filtro).skip(skip).limit(productos_por_pagina))
+
+    # Total de productos para la paginación
+    total_productos = collection.count_documents(filtro)
     total_paginas = (total_productos + productos_por_pagina - 1) // productos_por_pagina
 
-    return templates.TemplateResponse(
-        "categorias.html",
-        {
-            "request": request,
-            "productos": productos,
-            "pagina_actual": page,
-            "total_paginas": total_paginas,
-        },
-    )
+    return templates.TemplateResponse("categorias.html", {
+        "request": request,
+        "productos": productos,
+        "pagina_actual": page,
+        "total_paginas": total_paginas,
+        "query": q  # para mantener el valor en el input de búsqueda
+    })
 
 
 @app.get("/tienda", name="tienda")
