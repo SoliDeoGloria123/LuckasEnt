@@ -97,41 +97,64 @@ function calcularTotal() {
 // (El código de descarga de PDF en tu Eliminar.js ya usa clases específicas,
 //  si cambiaste a genéricas en cardgrid.html, actualiza también los selectores aquí)
 const btnDescargar = document.getElementById('btn-descargar');
+
 if (btnDescargar) {
     btnDescargar.addEventListener('click', function () {
-        if (typeof jspdf === 'undefined') { /*...*/ return; }
+        if (typeof jspdf === 'undefined') {
+            console.warn('jsPDF no está cargado');
+            return;
+        }
+
         const { jsPDF } = jspdf;
         const doc = new jsPDF();
         let y = 15;
-        doc.setFontSize(18);
+
+        // Título
+        doc.setFontSize(20);
         doc.text("Mi Lista de Compras", 105, y, { align: 'center' });
-        y += 15;
-        doc.setFontSize(12);
-        const productos = document.querySelectorAll('.card, .card2, .producto-item'); // Usa selectores genéricos
+        y += 20;
+
+        // Productos
+        doc.setFontSize(14);
+        const productos = document.querySelectorAll('.card, .card2, .producto-item');
 
         productos.forEach((producto, index) => {
-            if (y > 270) { doc.addPage(); y = 15; }
+            if (y > 270) {
+                doc.addPage();
+                y = 15;
+            }
 
-            // *** USA LAS CLASES GENÉRICAS SI LAS IMPLEMENTASTE ***
             const nombreElement = producto.querySelector('.product-name, .lechuga-manojo-light, .papa-pastusa, .carne-para-asar');
             const detalleElement = producto.querySelector('.product-details, .makro-7-000-2, .isimo-12-000-3, .existo-17-000-2-1');
+            const pesoElement = producto.querySelector('.peso');
 
             const nombre = nombreElement ? nombreElement.textContent.trim() : 'Producto Desconocido';
             const detalle = detalleElement ? detalleElement.textContent.trim() : 'Detalle Desconocido';
+            const peso = pesoElement ? pesoElement.textContent.trim() : '';
 
-            doc.text(`${index + 1}. ${nombre}`, 15, y);
-            y += 7;
-            doc.setFontSize(10);
-            doc.text(`   - ${detalle}`, 15, y);
-            y += 10;
-            doc.setFontSize(12);
+            // Construye la línea completa para evitar que se encime
+            let textoCompleto = `${index + 1}. ${nombre} - ${detalle}`;
+            if (peso) {
+                textoCompleto += ` | ${peso}`;
+            }
+
+            // Imprime toda la línea de producto
+            const lineas = doc.splitTextToSize(textoCompleto, 180); // Por si se pasa de ancho
+            doc.text(lineas, 15, y);
+            y += lineas.length * 8 + 4; // Aumenta según el número de líneas generadas
         });
 
+        // Total
         const totalTexto = document.getElementById('precioTotal').textContent;
-        if (y > 270) { doc.addPage(); y = 15; }
-        doc.setFontSize(14);
+        if (y > 270) {
+            doc.addPage();
+            y = 15;
+        }
+
+        doc.setFontSize(16);
         doc.setFont(undefined, 'bold');
         doc.text(`Total Estimado: ${totalTexto}`, 15, y + 5);
+
         doc.save('mi_lista_compras.pdf');
     });
 }
