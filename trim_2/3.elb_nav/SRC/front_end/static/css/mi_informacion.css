@@ -195,11 +195,8 @@
   align-self: stretch;
 }
 
-<<<<<<< HEAD
-/* Botones generales */
-=======
-/* Botones generales 
->>>>>>> 3d7e0e3 (The scraping of the Makro and D1 products was done and they were uploaded to the database. The stores page and my information page were adjusted.)
+
+/* Botones generales*/
 button {
   border: none;
   padding: 12px 20px;
@@ -209,11 +206,7 @@ button {
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s ease;
-<<<<<<< HEAD
 }
-=======
-}*/
->>>>>>> 3d7e0e3 (The scraping of the Makro and D1 products was done and they were uploaded to the database. The stores page and my information page were adjusted.)
 
 /* Botones del perfil */
 .profile-buttons {
