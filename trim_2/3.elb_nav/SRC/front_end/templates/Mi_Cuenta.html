@@ -15,9 +15,7 @@
 <body>
     <!-- Barra de navegación -->
     <div class="top-bar">
-        <img class="logo"
-        src="data:image/png;base64,{{ usuario['foto'] | b64encode }}"
-            alt="Logo" />
+        <img class="logo" src="data:image/png;base64,{{ usuario['foto'] | b64encode }}" alt="Logo" />
         <div class="nav-title">Perfil</div>
         <div class="navigation">
             <a href="{{ url_for('page') }}" class="nav-link">Inicio</a>
@@ -67,7 +65,8 @@
             <!-- Sección de perfil -->
             <div class="profile-section">
                 <div class="profile-frame">
-                    <img class="profile-avatar" src="data:image/png;base64,{{ usuario['foto'] | b64encode }}" alt="Avatar de Usuario">
+                    <img class="profile-avatar" src="data:image/png;base64,{{ usuario['foto'] | b64encode }}"
+                        alt="Avatar de Usuario">
                     <div class="profile-container">
                         <div class="profile-title">Hola {{ usuario["nombre"] }} {{ usuario["apellido"] }}!</div>
                         <div class="profile-selection">
@@ -101,7 +100,7 @@
                                     <div class="products-tag-text">Nuevo</div>
                                 </div>
                             </div>
-                            <img src="#"  class="product-img">
+                            <img src="#" class="product-img">
                         </div>
                     </div>
                     <div class="products-title-container">
@@ -195,7 +194,8 @@
                         <!-- Producto 1 -->
                         <div class="favorito-card">
                             <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                            <img src="https://images.unsplash.com/photo-1548692972-dd5753b37b9f?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Arándanos">
+                            <img src="https://images.unsplash.com/photo-1548692972-dd5753b37b9f?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                alt="Arándanos">
                             <h3>Arándanos</h3>
                             <button class="btn-ver">Ver</button>
                         </div>
@@ -203,7 +203,8 @@
                         <!-- Producto 2 -->
                         <div class="favorito-card">
                             <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                            <img src="https://images.unsplash.com/photo-1690047003756-46c3a91a5215?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Lechuga crespa">
+                            <img src="https://images.unsplash.com/photo-1690047003756-46c3a91a5215?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                alt="Lechuga crespa">
                             <h3>Lechuga crespa</h3>
                             <button class="btn-ver">Ver</button>
                         </div>
@@ -211,7 +212,8 @@
                         <!-- Producto 3 -->
                         <div class="favorito-card">
                             <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-                            <img src="https://images.unsplash.com/photo-1601493700750-58796129ebb5?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Zanahorias">
+                            <img src="https://images.unsplash.com/photo-1601493700750-58796129ebb5?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                alt="Zanahorias">
                             <h3>Zanahorias</h3>
                             <button class="btn-ver">Ver</button>
                         </div>
@@ -230,30 +232,27 @@
                 </div>
             </section>
             <!-- Banner promocional -->
-<<<<<<< HEAD
+
             <div class="promo-banner">
-=======
-           <!-- <div class="promo-banner">
->>>>>>> 3d7e0e3 (The scraping of the Makro and D1 products was done and they were uploaded to the database. The stores page and my information page were adjusted.)
-                <div class="promo-img-wrapper">
-                    <div class="promo-img-box">
-                        <div class="promo-img-title">Discover the best deals in town!</div>
-                        <div class="promo-dots">
-                            <div class="promo-dot-active"></div>
-                            <div class="promo-dot"></div>
-                            <div class="promo-dot"></div>
-                            <div class="promo-dot"></div>
+
+                <div class="promo-banner">
+
+                    <div class="promo-img-wrapper">
+                        <div class="promo-img-box">
+                            <div class="promo-img-title">Discover the best deals in town!</div>
+                            <div class="promo-dots">
+                                <div class="promo-dot-active"></div>
+                                <div class="promo-dot"></div>
+                                <div class="promo-dot"></div>
+                                <div class="promo-dot"></div>
+                            </div>
+
                         </div>
+
                     </div>
                 </div>
-<<<<<<< HEAD
             </div>
-=======
-            </div>-->
->>>>>>> 3d7e0e3 (The scraping of the Makro and D1 products was done and they were uploaded to the database. The stores page and my information page were adjusted.)
-        </div>
-    </div>
-    <script src="{{ url_for('static', path='js/carousel2.js') }}"></script>
+            <script src="{{ url_for('static', path='js/carousel2.js') }}"></script>
 </body>
 <footer>
     <div class="footer">
@@ -268,11 +267,11 @@
                 </div>
                 <div class="footer-actions">
                     <button class="footer-btn-primary">
-                        <span class="footer-btn-text-primary">Explorar</span>
+                        <a href="#" class="footer-btn-text-primary">Explorar</a>
                     </button>
 
                     <button class="footer-btn-secondary">
-                        <span class="footer-btn-text-secondary">Ayuda</span>
+                        <a id="Ayuda" href="{{ url_for('registro') }}" class="footer-btn-text-secondary">Ayuda</a>
                     </button>
                 </div>
             </div>
@@ -291,7 +290,7 @@
                         <a href="#" class="footer-link">Política de Privacidad</a>
                     </div>
                     <div class="footer-link-item">
-                        <a href="#" class="footer-link">Términos de Uso</a>
+                        <a href="{{ url_for('termino') }}" class="footer-link">Términos de Uso</a>
                     </div>
                 </div>
             </div>
@@ -307,7 +306,7 @@
                 <div class="footer-copyright">
                     © 2024 LuckasEnt. Todos los derechos reservados.
                 </div>
-                <div class="footer-social-links">
+                <div id="contacto" class="footer-social-links">
                     <a href="https://facebook.com" target="_blank">
                         <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}"
                             alt="Facebook" />
@@ -328,6 +327,7 @@
                             alt="YouTube" />
                     </a>
                 </div>
+
             </div>
         </div>
     </div>

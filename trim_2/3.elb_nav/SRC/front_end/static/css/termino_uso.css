@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
-<<<<<<< HEAD
-=======
 * {
   box-sizing: border-box;
   margin: 0;
@@ -9,7 +7,6 @@
   font-family: Arial, sans-serif;
 }
 
->>>>>>> 3d7e0e3 (The scraping of the Makro and D1 products was done and they were uploaded to the database. The stores page and my information page were adjusted.)
 .nav-bar {
   background: #0033ff;
   padding: 18px 48px;
