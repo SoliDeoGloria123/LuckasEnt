@@ -34,22 +34,42 @@
         </div>
     </div>
 
-    <section class="store-highlight">
+    <!-- <section class="store-highlight">
         <div class="store-content">
             <img src="#" alt="Makro" class="store-logo">
             <div class="store-info">
                 <h2>Makro</h2>
-                <!--<span class="badge">Desde 1968</span>
+                <span class="badge">Desde 1968</span>
                 <span class="badge">Calidad Garantizada</span>
-                <p>Descubre nuestra historia y propuesta única</p>-->
+                <p>Descubre nuestra historia y propuesta única</p>
             </div>
         </div>
         <a href="#" class="store-button">Ver más</a>
-    </section>
+    </section>-->
+    <div class="tienda-section">
+        <div class="tienda-avatar">
+            <img class="tienda-image-2" src="{{ url_for('static', path='img/makro-tienda.png') }}" />
+        </div>
+        <div class="tienda-container">
+            <div class="tienda-title">Makro</div>
+            <div class="tienda-selection">
+                <div class="tienda-label-normal">
+                    <div class="tienda-label-text">Desde 1968</div>
+                </div>
+                <div class="tienda-label-normal">
+                    <div class="tienda-label-text">Calidad Garantizada</div>
+                </div>
+            </div>
+            <div class="tienda-description">Descubre nuestra historia y propuesta única</div>
+        </div>
+        <div class="tienda-button">
+            <a href="#" class="tienda-store-button">Ver más</a>
+        </div>
+    </div>
     <section class="map-section">
         <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093706!2d144.95373531531593!3d-37.81627927975171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf4c5f0b0a1b1cd37!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2s!4v1614123456789"
-            width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
+            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
         </iframe>
         <p class="map-text">
             📍 Encuentra nuestra tienda y puntos de distribución cercanos
@@ -57,7 +77,7 @@
     </section>
     <section class="featured-product">
         <div class="product-image">
-            <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Aguacate">
+            <img src="https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?q=80&w=1375&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Aguacate">
         </div>
         <div class="product-info">
             <h2>Producto Destacado</h2>
@@ -65,13 +85,13 @@
             <div class="product-cards">
                 <div class="card">
                     <span class="badge new">Nuevo Lanzamiento</span>
-                    <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Tomate Chonto">
+                    <img src="https://images.unsplash.com/photo-1574963835461-30ca3b4ef239?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tomate Chonto"  width="195" height="230">
                     <p>Tomate Chonto Paquete 1kg</p>
                     <strong>$2.500</strong>
                 </div>
                 <div class="card">
                     <span class="badge offer">Oferta Especial</span>
-                    <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Arándanos">
+                    <img src="https://images.unsplash.com/photo-1457296898342-cdd24585d095?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Arándanos">
                     <p>Arándanos Estuche 249G</p>
                     <strong>$13.600</strong>
                 </div>
