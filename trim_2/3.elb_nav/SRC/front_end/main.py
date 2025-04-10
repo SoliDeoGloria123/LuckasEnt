@@ -434,7 +434,7 @@ async def home(request: Request):  # ✔️ Nombre correcto de la función  # no
 
 
 @app.get("/tienda", name="tienda")
-async def tienda(request: Request, current_user = Depends(require_login)):  # ✔️ Nombre correcto de la función
+async def tienda(request: Request, current_user = Depends(require_login)): 
     if isinstance(current_user, RedirectResponse):
         print("### DEBUG: tienda - current_user es RedirectResponse, retornando... ###")
         return current_user
