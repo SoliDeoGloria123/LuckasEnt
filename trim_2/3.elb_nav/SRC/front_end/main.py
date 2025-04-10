@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, HTTPException, Query, Request, Form,  Response, UploadFile
+from fastapi import FastAPI, File, HTTPException, Query, Request, Form,  Response, UploadFile, Depends, status
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -59,9 +59,24 @@ async def home(request: Request):
     return templates.TemplateResponse("home.html", {"request": request})
 
 
-@app.get("/login")
+@app.get("/login", name="login")
 async def login(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
+
+async def require_api_login(request: Request):
+    """
+    Dependencia para rutas API. Verifica login y devuelve 401 si no está autenticado.
+    """
+    user_session_data = get_current_user(request)
+    if not user_session_data:
+        # Para APIs, es estándar devolver 401 Unauthorized, no redirigir.
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="No autenticado",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    return user_session_data
+
 
 @app.post("/login", name="login_post")
 async def login_post(request: Request, response: Response, email: str = Form(...), password: str = Form(...)):
@@ -89,13 +104,32 @@ async def login_post(request: Request, response: Response, email: str = Form(...
         )
 
 def get_current_user(request: Request):
+    print("--- DEBUG: Entrando a get_current_user ---") # DEBUG
     session_cookie = request.cookies.get("session")
+    print(f"--- DEBUG: Cookie 'session' encontrada: {session_cookie is not None} ---") # DEBUG
     if not session_cookie:
+        print("--- DEBUG: No hay cookie, retornando None ---") # DEBUG
         return None
     try:
-        return serializer.loads(session_cookie)
-    except Exception:
+        data = serializer.loads(session_cookie)
+        print(f"--- DEBUG: Cookie decodificada: {data} ---") # DEBUG
+        return data
+    except Exception as e:
+        print(f"--- DEBUG: ERROR al decodificar cookie: {e} ---") # DEBUG
+        print("--- DEBUG: Retornando None por error en cookie ---") # DEBUG
         return None
+
+async def require_login(request: Request):
+    print(">>> DEBUG: Entrando a require_login <<<") # DEBUG
+    user_session_data = get_current_user(request)
+    print(f">>> DEBUG: user_session_data es: {user_session_data} <<<") # DEBUG
+    if not user_session_data:
+        print(">>> DEBUG: NO hay sesión, REDIRIGIENDO a login <<<") # DEBUG
+        login_url = request.url_for('login')
+        return RedirectResponse(url=login_url, status_code=status.HTTP_303_SEE_OTHER)
+
+    print(">>> DEBUG: SI hay sesión, PERMITIENDO acceso <<<") # DEBUG
+    return user_session_data
 
 @app.get("/registro", name="registro")
 async def registro(request: Request):
@@ -140,6 +174,9 @@ async def register_post(
     # Redirige al usuario a la página de inicio de sesión
     return RedirectResponse(url="/login", status_code=303)
 
+
+
+
 @app.get("/olvidar", name="olvidar")
 async def olvidar(request: Request):  # ✔️ Nombre correcto de la función
     return templates.TemplateResponse("olvidar_contraseña.html", {"request": request})
@@ -178,23 +215,21 @@ async def olvidar_post(request: Request, email: str = Form(...)):
         )
     except Exception as e:
         return templates.TemplateResponse(
-            "olvidar_contraseña.html", {"request": request, "error": f"No se pudo enviar el correo: {e}"}
-        )
+            "olvidar_contraseña.html", {"request": request, "error": f"No se pudo enviar el correo: {e}"})
 
-@app.get("/page", name="page")
-async def page(request: Request):
-    return templates.TemplateResponse("page.html", {"request": request})
 
 
 @app.get("/cuenta", name="cuenta")
-async def cuenta(request: Request):
-    user = get_current_user(request)
-    if not user:
-        return RedirectResponse(url="/login", status_code=303)
-    usuario = users_collection.find_one({"correo": user["email"]})
-    if not usuario: # Añade verificación por si el usuario no se encuentra
-        return RedirectResponse(url="/login", status_code=303)
+async def cuenta(request: Request, current_user: dict = Depends(require_login)): # <-- Usar dependencia
+    # La dependencia ya verificó que current_user existe
+    usuario = users_collection.find_one({"correo": current_user["email"]})
+    if not usuario:
+        # Esto no debería pasar si la base de datos es consistente, pero es una buena verificación.
+        # Podrías redirigir al login o mostrar un error interno.
+        return RedirectResponse(url=request.url_for('login'), status_code=status.HTTP_303_SEE_OTHER)
     return templates.TemplateResponse("Mi_Cuenta.html", {"request": request, "usuario": usuario})
+
+
 
 @app.get("/logout", name="logout")
 async def logout(response: Response):
@@ -202,20 +237,14 @@ async def logout(response: Response):
     response.delete_cookie("session")
     return response
 
+
 @app.get("/perfil", name="perfil")
-async def perfil(request: Request):
-    # Obtén el usuario actual desde la cookie de sesión
-    user = get_current_user(request)
-    if not user:
-        return RedirectResponse(url="/login", status_code=303)
-
-    # Busca al usuario en la base de datos
-    usuario = users_collection.find_one({"correo": user["email"]})
+async def perfil(request: Request, current_user: dict = Depends(require_login)): # <-- Usar dependencia
+    usuario = users_collection.find_one({"correo": current_user["email"]})
     if not usuario:
-        return RedirectResponse(url="/login", status_code=303)
-
-    # Pasa el usuario al template
+        return RedirectResponse(url=request.url_for('login'), status_code=status.HTTP_303_SEE_OTHER)
     return templates.TemplateResponse("mi_informacion.html", {"request": request, "usuario": usuario})
+
 
 @app.post("/perfil", name="actualizar_perfil")
 async def actualizar_perfil(
@@ -226,7 +255,12 @@ async def actualizar_perfil(
     telefono: str = Form(...),
     password: str = Form(...),
     foto: UploadFile = File(None),
+    current_user: dict = Depends(require_login)
 ):
+        # Validar que el email del formulario coincide con el de la sesión
+    if email != current_user["email"]:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="No tienes permiso para actualizar este perfil")
+     
     # Actualiza los datos del usuario en la base de datos
     update_data = {
         "nombre": nombre,
@@ -256,6 +290,15 @@ async def actualizar_perfil(
     # para que vea los cambios reflejados (incluida la nueva foto).
     return RedirectResponse(url=request.url_for('cuenta'), status_code=303)
 
+@app.get("/page", name="page")
+async def page(request: Request, current_user = Depends(require_login)): # Quita el type hint 'dict' temporalmente
+    print("### DEBUG: Ejecutando ruta /page ###")
+    if isinstance(current_user, RedirectResponse):
+        print("### DEBUG: current_user es RedirectResponse, retornando... ###")
+        return current_user
+    print(f"### DEBUG: Usuario en /page: {current_user.get('email')} ###")
+    return templates.TemplateResponse("page.html", {"request": request, "usuario": current_user})
+
 @app.post("/eliminar_cuenta", name="eliminar_cuenta")
 async def eliminar_cuenta(request: Request, email: str = Form(...)):
     users_collection.delete_one({"correo": email})
@@ -276,7 +319,8 @@ async def reseñaproduc(request: Request):  # ✔️ Nombre correcto de la funci
     return templates.TemplateResponse("productoreseña.html", {"request": request})
 
 @app.post("/agregar_a_lista/{product_id}", name="agregar_a_lista")
-async def agregar_a_lista(request: Request, product_id: str):
+async def agregar_a_lista(request: Request, product_id: str, current_user: dict = Depends(require_api_login)):
+    user_email = current_user["email"]
     # 1. Verificar si el usuario está logueado
     user_session_data = get_current_user(request)
     if not user_session_data:
@@ -316,13 +360,14 @@ async def agregar_a_lista(request: Request, product_id: str):
 
 
 @app.get("/tulista", name="tulista")
-async def tulista(request: Request):
-    # 1. Verificar si el usuario está logueado
-    user_session_data = get_current_user(request)
-    if not user_session_data:
-        return RedirectResponse(url=request.url_for('login'), status_code=303)
-
-    user_email = user_session_data["email"]
+async def tulista(request: Request, current_user: dict = Depends(require_login)):
+    
+    if isinstance(current_user, RedirectResponse):
+        print("### DEBUG: categoria - current_user es RedirectResponse, retornando... ###")
+        return current_user
+    print(f"### DEBUG: categoria - Usuario en /categoria: {current_user.get('email')} ###")
+    
+    user_email = current_user["email"]
 
     # 2. Buscar la lista del usuario en 'listas_usuarios'
     lista_doc = listas_collection.find_one({"user_email": user_email})
@@ -389,14 +434,22 @@ async def home(request: Request):  # ✔️ Nombre correcto de la función  # no
 
 
 @app.get("/tienda", name="tienda")
-async def tienda(request: Request):  # ✔️ Nombre correcto de la función
-    user_session_data = get_current_user(request)
-    usuario = None # Inicializa como None
-    if user_session_data:
-    # 2. Buscar los datos completos del usuario en la BD
-        usuario = users_collection.find_one({"correo": user_session_data["email"]})
+async def tienda(request: Request, current_user = Depends(require_login)):  # ✔️ Nombre correcto de la función
+    if isinstance(current_user, RedirectResponse):
+        print("### DEBUG: tienda - current_user es RedirectResponse, retornando... ###")
+        return current_user
+    # Si no es una redirección, entonces es el diccionario del usuario.
+    # Ahora podemos usar ["email"] de forma segura.
+    print(f"### DEBUG: tienda - Usuario en /tienda: {current_user.get('email')} ###")
+    # Busca los datos completos del usuario usando el email de la sesión
+    usuario = users_collection.find_one({"correo": current_user["email"]})
+
+    # Manejar el caso (raro) de que el usuario exista en la sesión pero no en la BD
     if not usuario:
-        usuario = {'foto': None}
+        # Redirigir a logout es una opción segura para limpiar la cookie
+        return RedirectResponse(url=request.url_for('logout'), status_code=status.HTTP_303_SEE_OTHER)
+
+    # Pasa los datos completos del usuario al template
     return templates.TemplateResponse("tienda.html", {"request": request, "usuario": usuario})
 
 
@@ -411,7 +464,7 @@ async def detalleproducto(request: Request):  # ✔️ Nombre correcto de la fun
 
 
 @app.get("/categoria", name="categoria")
-async def categoria(request: Request, q: str = "", page: int = Query(1, gt=0)):
+async def categoria(request: Request, q: str = "", page: int = Query(1, gt=0), current_user = Depends(require_login)):
     """
     Muestra una lista paginada de productos con opción de búsqueda.
 
@@ -423,6 +476,11 @@ async def categoria(request: Request, q: str = "", page: int = Query(1, gt=0)):
     Returns:
         Plantilla con productos filtrados y paginados.
     """
+    
+    if isinstance(current_user, RedirectResponse):
+        print("### DEBUG: categoria - current_user es RedirectResponse, retornando... ###")
+        return current_user
+    print(f"### DEBUG: categoria - Usuario en /categoria: {current_user.get('email')} ###")
     productos_por_pagina = 38
     skip = (page - 1) * productos_por_pagina
 
