@@ -54,7 +54,7 @@ def extraer_info(URL: str) -> IOResult[str, extraer_infoError]:
             page = browser.new_page()
             page.goto(URL)
             print(f"Navigated to URL: {URL}")  # Mensaje de depuración
-            #page.wait_for_load_state("networkidle")
+            page.wait_for_load_state("networkidle")
             content = page.content()
             print("Page content retrieved.")  # Mensaje de depuración
             browser.close()
@@ -223,7 +223,7 @@ def extract_object_PLP_general(card: Tag, parner: str = "") -> IOResult[dict, ex
         return {
             "Parner": parner,
             "Imagen": extract_image_src(card),
-            "Product Name": (
+            "Product_Name": (
                 card.select_one('p[class*="prod__name"]').text.strip()
                 if card.select_one('p[class*="prod__name"]')
                 else NOT_FOUND
