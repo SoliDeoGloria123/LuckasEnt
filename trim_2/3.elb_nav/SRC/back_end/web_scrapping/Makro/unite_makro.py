@@ -1,5 +1,6 @@
 import sys
 import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../..")))
 from pandas import Series
 from returns.io import IOResult, IOSuccess, IOFailure
 from SRC.back_end.web_scrapping.class_error import unite_indexError
@@ -12,7 +13,6 @@ from SRC.back_end.web_scrapping.index import (
     soup_bs4,
 )
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../..")))
 
 
 def unite_index(URLS: Series) -> IOResult[list[str | int | float], unite_indexError]:
