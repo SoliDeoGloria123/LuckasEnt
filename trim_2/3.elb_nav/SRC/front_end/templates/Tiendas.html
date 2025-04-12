@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tienda</title>
     <link rel="icon" href="{{ url_for('static', path='img/lOGO PROYECTO LuckasEnt.png') }}">
-    <link rel="stylesheet" href="{{ url_for('static', path='css/tienda.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/Tiendas.css') }}">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
@@ -33,124 +33,89 @@
             </div>
         </div>
     </div>
-
-    <!-- <section class="store-highlight">
-        <div class="store-content">
-            <img src="#" alt="Makro" class="store-logo">
-            <div class="store-info">
-                <h2>Makro</h2>
-                <span class="badge">Desde 1968</span>
-                <span class="badge">Calidad Garantizada</span>
-                <p>Descubre nuestra historia y propuesta única</p>
-            </div>
-        </div>
-        <a href="#" class="store-button">Ver más</a>
-    </section>-->
-    <div class="tienda-section">
-        <div class="tienda-avatar">
-            <img class="tienda-image-2" src="{{ url_for('static', path='img/makro-tienda.png') }}" />
-        </div>
-        <div class="tienda-container">
-            <div class="tienda-title">Makro</div>
-            <div class="tienda-selection">
-                <div class="tienda-label-normal">
-                    <div class="tienda-label-text">Desde 1968</div>
-                </div>
-                <div class="tienda-label-normal">
-                    <div class="tienda-label-text">Calidad Garantizada</div>
-                </div>
-            </div>
-            <div class="tienda-description">Descubre nuestra historia y propuesta única</div>
-        </div>
-        <div class="tienda-button">
-            <a href="{{ url_for('Tiendas') }}" class="tienda-store-button">Ver más</a>
-        </div>
-    </div>
-    <section class="map-section">
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093706!2d144.95373531531593!3d-37.81627927975171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf4c5f0b0a1b1cd37!2sMelbourne%20VIC%2C%20Australia!5e0!3m2!1sen!2s!4v1614123456789"
-            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
-        </iframe>
-        <p class="map-text">
-            📍 Encuentra nuestra tienda y puntos de distribución cercanos
-        </p>
-    </section>
-    <section class="featured-product">
-        <div class="product-image">
-            <img src="https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?q=80&w=1375&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Aguacate">
-        </div>
-        <div class="product-info">
-            <h2>Producto Destacado</h2>
-            <p>Descubre todas las características y beneficios</p>
-            <div class="product-cards">
+    <section>
+        <div class="container">
+            <h1>Nuestros convenios</h1>
+            <div class="grid">
+    
                 <div class="card">
-                    <span class="badge new">Nuevo Lanzamiento</span>
-                    <img src="https://images.unsplash.com/photo-1574963835461-30ca3b4ef239?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tomate Chonto"  width="195" height="230">
-                    <p>Tomate Chonto Paquete 1kg</p>
-                    <strong>$2.500</strong>
+                    <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Makro">
+                    <button>Explorar Tienda</button>
                 </div>
+    
                 <div class="card">
-                    <span class="badge offer">Oferta Especial</span>
-                    <img src="https://images.unsplash.com/photo-1457296898342-cdd24585d095?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Arándanos">
-                    <p>Arándanos Estuche 249G</p>
-                    <strong>$13.600</strong>
+                    <img src="img/jumbo.png" alt="Jumbo">
+                    <button>Explorar Tienda</button>
                 </div>
+    
+                <div class="card">
+                    <img src="img/isimo.png" alt="Isimo">
+                    <button>Explorar Tienda</button>
+                </div>
+    
+                <div class="card">
+                    <img src="img/exito.png" alt="Éxito">
+                    <button>Explorar Tienda</button>
+                </div>
+    
+                <div class="card">
+                    <img src="img/alkosto.png" alt="Alkosto">
+                    <button>Explorar Tienda</button>
+                </div>
+    
+                <div class="card">
+                    <img src="img/olimpica.png" alt="Olímpica">
+                    <button>Explorar Tienda</button>
+                </div>
+    
+                <div class="card">
+                    <img src="img/d1.png" alt="D1">
+                    <button>Explorar Tienda</button>
+                </div>
+    
+                <div class="card">
+                    <img src="img/metro.png" alt="Metro">
+                    <button>Explorar Tienda</button>
+                </div>
+    
+                <div class="card">
+                    <img src="img/zapatoca.png" alt="Zapatoca">
+                    <button>Explorar Tienda</button>
+                </div>
+    
+                <div class="card">
+                    <img src="img/mercado.png" alt="Mercado Colsubsidio">
+                    <button>Explorar Tienda</button>
+                </div>
+    
+                <div class="card">
+                    <img src="img/ara.png" alt="Ara">
+                    <button>Explorar Tienda</button>
+                </div>
+    
+                <div class="card">
+                    <img src="img/surtimax.png" alt="Surtimax">
+                    <button>Explorar Tienda</button>
+                </div>
+    
+                <div class="card">
+                    <img src="img/oxxo.png" alt="OXXO">
+                    <button>Explorar Tienda</button>
+                </div>
+    
+                <div class="card">
+                    <img src="img/tiendasd1.png" alt="Tiendas D1">
+                    <button>Explorar Tienda</button>
+                </div>
+    
+                <div class="card">
+                    <img src="img/carulla.png" alt="Carulla">
+                    <button>Explorar Tienda</button>
+                </div>
+    
             </div>
         </div>
     </section>
-    <section class="more-info">
-        <div class="info-content">
-            <h2>Más Información</h2>
-            <p>Descubre detalles adicionales sobre la marca</p>
-
-            <div class="info-card">
-                <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Historia de la Tienda">
-                <div class="info-text">
-                    <h3>Historia de la Tienda</h3>
-                    <p>Desde nuestros inicios hasta nuestros logros actuales</p>
-                    <!-- <span class="badge">Calidad</span>
-                    <span class="badge">Innovación</span>-->
-                    <p class="ceo">👤 CEO XYZ</p>
-                </div>
-            </div>
-
-            <div class="info-card">
-                <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Valores de la Marca">
-                <div class="info-text">
-                    <h3>Valores de la Marca</h3>
-                    <p>Compromiso con la sostenibilidad y la excelencia</p>
-                    <!-- <span class="badge">Compromiso Social</span>
-                    <span class="badge">Calidad</span>-->
-                </div>
-            </div>
-        </div>
-
-        <div class="info-image">
-            <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Tienda de frutas">
-        </div>
-    </section>
-    <section class="carousel">
-        <div class="carousel-container">
-            <div class="carousel-slide">
-                <img src="#" alt="Producto 1">
-                <p>¡Descubre más productos y ofertas exclusivas!</p>
-            </div>
-            <div class="carousel-slide">
-                <img src="#" alt="Producto 2">
-                <p>Oferta especial en frutas frescas</p>
-            </div>
-            <div class="carousel-slide">
-                <img src="#" alt="Producto 3">
-                <p>¡Nuevos productos disponibles!</p>
-            </div>
-        </div>
-        <div class="carousel-dots">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </div>
-    </section>
-
 </body>
 <footer>
     <div class="footer">

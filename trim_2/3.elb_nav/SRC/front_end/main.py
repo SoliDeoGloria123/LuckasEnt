@@ -308,6 +308,11 @@ async def eliminar_cuenta(request: Request, email: str = Form(...)):
 async def precioproduc(request: Request):  # ✔️ Nombre correcto de la función
     return templates.TemplateResponse("productoprecio.html", {"request": request})
 
+@app.get("/Tiendas", name="Tiendas")
+async def Tiendas(request: Request):
+    usuario = {"nombre": "Luis Felipe"}  # o lo que corresponda según tu app
+    return templates.TemplateResponse("Tiendas.html", {"request": request, "usuario": usuario})
+
 
 @app.get("/ubicacionproduc", name="ubicacionproduc")
 async def ubicacionproduc(request: Request):  # ✔️ Nombre correcto de la función
@@ -535,7 +540,6 @@ async def categoria_dulce(request: Request):  # ✔️ Nombre correcto de la fun
 @app.get("/categoria_bebida", name="categoria_bebida")
 async def categoria_bebida(request: Request):  # ✔️ Nombre correcto de la función
     return templates.TemplateResponse("categoria_bebida.html", {"request": request})
-
 
 @app.exception_handler(StarletteHTTPException)
 async def custom_http_exception_handler(request: Request, exc: StarletteHTTPException):
