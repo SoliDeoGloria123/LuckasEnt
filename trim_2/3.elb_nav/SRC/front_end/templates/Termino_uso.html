@@ -31,9 +31,9 @@
             <h3>Documentación</h3>
             <ul class="doc-list">
                 <li><a href="#" onclick="loadPDF('Propuesta_tecnica.pdf'); return false;" class="active">Propuesta Técnica</a></li>
-                <li><a href="#" onclick="loadPDF('Despligue1.pdf'); return false;">Diagrama de despligue</a></li>
+                <li><a href="#" onclick="loadPDF('DespliegueV1.pdf'); return false;">Diagrama de despligue</a></li>
                 <li><a href="#" onclick="loadPDF('DiagramaClasesV1.pdf'); return false;">Diagrama de clases</a></li>
-                <li><a href="#" onclick="loadPDF('Especificaciones.pdf'); return false;">Especificaciones</a></li>
+                <li><a href="#" onclick="loadPDF('Diagrama_clasesV2.pdf'); return false;">Especificaciones</a></li>
                 <li><a href="#" onclick="loadPDF('Contrato.pdf'); return false;">Contrato</a></li>
             </ul>
         </div>
@@ -41,8 +41,9 @@
         <div class="pdf-viewer">
             <!-- Cambia la ruta inicial si quieres que empiece con otro PDF -->
             <iframe id="pdf-viewer" src="{{ url_for('static', path='propuesta/Propuesta_tecnica.pdf') }}" width="100%" height="600px"></iframe>
-            <iframe id="pdf-viewer" src="{{ url_for('static', path='depliegue/Despligue1.pdf') }}" width="100%" height="600px"></iframe>
+            <iframe id="pdf-viewer" src="{{ url_for('static', path='despliegue/DespligueV1.pdf') }}" width="100%" height="600px"></iframe>
             <iframe id="pdf-viewer" src="{{ url_for('static', path='DiagramaClasesV1/DiagramaClasesV1.pdf') }}" width="100%" height="600px"></iframe>
+            <iframe id="pdf-viewer" src="{{ url_for('static', path='Diagrama_clasesV2/Diagrama_clasesV2.pdf') }}" width="100%" height="600px"></iframe>
         </div>
     </div>
 
