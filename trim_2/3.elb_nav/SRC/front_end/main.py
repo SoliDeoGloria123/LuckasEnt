@@ -14,19 +14,27 @@ from bson import ObjectId
 import secrets
 import base64
 import re
+from dotenv import load_dotenv
+import os
+
+# Cargar variables de entorno desde .env
+load_dotenv()
 
 # Conectar a MongoDB
-client = MongoClient(
-    "mongodb+srv://juanjuanddev:hR7m3QxGgMf5BOKv@cluster0.mnzsa9g.mongodb.net/LuckasEnt?retryWrites=true&w=majority&tlsAllowInvalidCertificates=true"
-)
+MONGO_URI = os.getenv("MONGO_URI")
+client = MongoClient(MONGO_URI)
 db = client.LuckasEnt
 collection = db["productos"]  # type: ignore 
 listas_collection = db["lists"]
-users_collection = db[
-    "users"
-] 
+users_collection = db["users"]
 
+# Configurar correo electrónico
+SENDER_EMAIL = os.getenv("SENDER_EMAIL")
+SENDER_PASSWORD = os.getenv("SENDER_PASSWORD")
 
+# Configurar clave secreta
+SECRET_KEY = os.getenv("SECRET_KEY")
+serializer = URLSafeSerializer(SECRET_KEY)
 
 app = FastAPI()
 
@@ -38,9 +46,6 @@ app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 
 # ✅ Configurar templates con el path absoluto
 templates = Jinja2Templates(directory=BASE_DIR / "templates")
-
-SECRET_KEY = secrets.token_urlsafe(32)
-serializer = URLSafeSerializer(SECRET_KEY)
 
 # Agregar un filtro personalizado para codificar en Base64
 def b64encode_filter(data):
@@ -192,8 +197,8 @@ async def olvidar_post(request: Request, email: str = Form(...)):
     password = users_collection.find_one({"correo": email}).get("password")
 
     # Configurar el correo electrónico
-    sender_email = "luckas.entorno@gmail.com"
-    sender_password = "bchh iail wbao ykjv"
+    sender_email = SENDER_EMAIL
+    sender_password = SENDER_PASSWORD
     subject = "Recuperación de contraseña - LuckasEnt"
     body = f"Hola {users_collection.find_one({"correo": email}).get('nombre')},\n\nTu contraseña es: {password}\n\nPor favor, cámbiala si crees que alguien más tiene acceso a ella.\n\nSaludos,\nLuckasEnt"
 
@@ -378,7 +383,7 @@ async def tulista(request: Request, current_user: dict = Depends(require_login))
     lista_doc = listas_collection.find_one({"user_email": user_email})
 
     productos_lista_completa = [] # Lista para los datos completos
-    if lista_doc and "productos_ids" in lista_doc:
+    if lista_doc & "productos_ids" in lista_doc: 
         lista_ids = lista_doc.get("productos_ids", []) # Obtiene el array de ObjectIds
         if lista_ids:
             # 3. Buscar los productos completos en la colección 'productos' usando los IDs
