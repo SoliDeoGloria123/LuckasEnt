@@ -28,6 +28,8 @@ load_dotenv()
 MONGO_URI = os.getenv("MONGO_URI")
 client = MongoClient(MONGO_URI)
 db = client.LuckasEnt
+
+#colecciones
 collection = db["productos"]  # type: ignore 
 listas_collection = db["lists"]
 users_collection = db["users"]
@@ -45,60 +47,80 @@ app = FastAPI()
 
 # Crear la subaplicación Flask
 flask_app = Flask(__name__)
+SECRET_KEY = os.getenv("SECRET_KEY")
 flask_app.secret_key = SECRET_KEY
+serializer = URLSafeSerializer(SECRET_KEY)
+
+#Hash de la contraseña:
 bcrypt = Bcrypt(flask_app)
 
-# Implementación de Google OAuth
+# Configurar la Implementación de Google OAuth
 google_bp = make_google_blueprint(
-    client_id=os.getenv("GOOGLE_CLIENT_ID"),
-    client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),
-    redirect_to="google_login_callback",  # Esta ruta debe coincidir
+    client_id=os.getenv("GOOGLE_CLIENT_ID"), #Esto sirve para identificar la aplicación
+    client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),#Esto sirve para autenticar la aplicación
+    redirect_to=None, # Usa None para que Flask-Dance genere automáticamente el URI correcto
     scope=["openid", 
-           "https://www.googleapis.com/auth/userinfo.profile", 
-           "https://www.googleapis.com/auth/userinfo.email"],
+           "https://www.googleapis.com/auth/userinfo.profile", # #Mediante esto se obtiene el nombre y la foto
+           "https://www.googleapis.com/auth/userinfo.email",# #Mediante esto se obtiene el correo
+           "https://www.googleapis.com/auth/user.phonenumbers.read"], #Mediante esto se obtiene el numero de telefono
+            
 )
 
+#Aqui se une fastapi y flask en una sola aplicación para que funcione el login de google, ejecutando fastapi y flask al mismo tiempo
 flask_app.register_blueprint(google_bp, url_prefix="/login/google")
 
+# Configurar la ruta de inicio de sesión de Google
+# Esto redirige a la ruta de inicio de sesión de Google
+# y luego redirige a la ruta de callback
+# que maneja la respuesta de Google
 @flask_app.route("/login/google")
 def google_login():
     return redirect(url_for("google.login"))
 
 @flask_app.route("/google_login_callback")
 def google_login_callback():
+    print("--- DEBUG: Entrando a google_login_callback ---")
     if 'usuario' in session:
-        return redirect(url_for('home'))
+        print(f"--- DEBUG: Usuario ya en sesión: {session['usuario']} ---")
+        return redirect(url_for("page"))  # Redirige a 'page'
     if not google.authorized:
+        print("--- DEBUG: Usuario no autorizado con Google ---")
         return redirect(url_for('google.login'))
     
     resp = google.get("https://www.googleapis.com/oauth2/v3/userinfo")
-    
     if not resp.ok:
+        print("--- DEBUG: Error al obtener información del usuario ---")
         flash("Error al obtener información del usuario de Google.", "error")
         return redirect(url_for('login'))
     
     user_info = resp.json()
-    
-    print(f"--- DEBUG: Información del usuario de Google: {user_info} ---")  # DEBUG
+    print(f"--- DEBUG: Información del usuario de Google: {user_info} ---")
     
     if 'email' not in user_info:
+        print("--- DEBUG: No se pudo obtener el correo electrónico del usuario ---")
         flash("No se pudo obtener el correo electrónico del usuario.", "error")
         return redirect(url_for('login'))
     
     google_id = user_info.get("sub")
-    
     user = users_collection.find_one({"google_id": google_id})
     if not user:
-        collection.insert_one({
+        print("--- DEBUG: Usuario no encontrado en la base de datos, creando uno nuevo ---")
+        users_collection.insert_one({
             "google_id": google_id,
             "email": user_info["email"],
             "name": user_info.get("name"),
             "picture": user_info.get("picture"),
+            "phone_number": user_info.get("phone_number")
         })
     
-    session['usuario'] = user_info.get("name", "Usuario sin nombre")
+    session['usuario'] = user_info.get("email")  # Configura la sesión en Flask
+    print(f"--- DEBUG: Sesión configurada: {session['usuario']} ---")
     
-    return redirect(url_for('home'))
+    response = redirect(url_for("page"))  # Redirige a 'page'
+    response.set_cookie("session", serializer.dumps({"email": user_info.get("email")}), httponly=True)
+    return response
+
+#-----------------------------------------------------------------------------------------------------------
 
 # Montar la subaplicación Flask en FastAPI
 app.mount("/flask", WSGIMiddleware(flask_app))
@@ -124,10 +146,43 @@ templates.env.filters["b64encode"] = b64encode_filter
 # Registrar el filtro personalizado
 templates.env.filters["b64encode"] = b64encode_filter
 
+
+#-----------------------------------------------------------------------------------------------------------
+#Esto sirve para obtener el usuario actual de la cookie usando el serializer de Flask
+def get_current_user(request: Request):
+    print("--- DEBUG: Entrando a get_current_user ---")  # DEBUG
+    session_cookie = request.cookies.get("session")
+    print(f"--- DEBUG: Cookie 'session' encontrada: {session_cookie is not None} ---")  # DEBUG
+    if not session_cookie:
+        print("--- DEBUG: No hay cookie, retornando None ---")  # DEBUG
+        return None
+    try:
+        data = serializer.loads(session_cookie)
+        print(f"--- DEBUG: Cookie decodificada: {data} ---")  # DEBUG
+        return data
+    except Exception as e:
+        print(f"--- DEBUG: ERROR al decodificar cookie: {e} ---")  # DEBUG
+        print("--- DEBUG: Retornando None por error en cookie ---")  # DEBUG
+        return None
+
+async def require_login(request: Request):
+    print(">>> DEBUG: Entrando a require_login <<<")  # DEBUG
+    user_session_data = get_current_user(request)
+    print(f">>> DEBUG: user_session_data es: {user_session_data} <<<")  # DEBUG
+    if not user_session_data:
+        print(">>> DEBUG: NO hay sesión, REDIRIGIENDO a login <<<")  # DEBUG
+        login_url = request.url_for('login')
+        return RedirectResponse(url=login_url, status_code=status.HTTP_303_SEE_OTHER)
+
+    print(">>> DEBUG: SI hay sesión, PERMITIENDO acceso <<<")  # DEBUG
+    return user_session_data
+#-----------------------------------------------------------------------------------------------------------
+
+
+# Rutas de la aplicación FastAPI para manejar la autenticación y el acceso a las páginas del sitio LuckasEnt
 @app.get("/")
 async def home(request: Request):
     return templates.TemplateResponse("home.html", {"request": request})
-
 
 @app.get("/login", name="login")
 async def login(request: Request):
@@ -147,7 +202,6 @@ async def require_api_login(request: Request):
         )
     return user_session_data
 
-
 @app.post("/login", name="login_post")
 async def login_post(request: Request, response: Response, email: str = Form(...), password: str = Form(...)):
     # Verifica si los campos están vacíos
@@ -158,53 +212,24 @@ async def login_post(request: Request, response: Response, email: str = Form(...
         )
 
     # Verifica si el usuario existe en la base de datos
-    usuario = users_collection.find_one({"correo": email, "password": password})
+    usuario = users_collection.find_one({"correo": email})
 
-    if usuario:
+    if usuario and bcrypt.check_password_hash(usuario["password"], password):
         session_data = {"email": email}
         session_cookie = serializer.dumps(session_data)
         response = RedirectResponse(url="/page", status_code=303)
         response.set_cookie(key="session", value=session_cookie, httponly=True)
         return response
     else:
-        # Si no existe, muestra un mensaje de error
+        # Si no existe o la contraseña no coincide, muestra un mensaje de error
         error = "Correo o contraseña incorrectos"
         return templates.TemplateResponse(
             "login.html", {"request": request, "error": error}
         )
 
-def get_current_user(request: Request):
-    print("--- DEBUG: Entrando a get_current_user ---") # DEBUG
-    session_cookie = request.cookies.get("session")
-    print(f"--- DEBUG: Cookie 'session' encontrada: {session_cookie is not None} ---") # DEBUG
-    if not session_cookie:
-        print("--- DEBUG: No hay cookie, retornando None ---") # DEBUG
-        return None
-    try:
-        data = serializer.loads(session_cookie)
-        print(f"--- DEBUG: Cookie decodificada: {data} ---") # DEBUG
-        return data
-    except Exception as e:
-        print(f"--- DEBUG: ERROR al decodificar cookie: {e} ---") # DEBUG
-        print("--- DEBUG: Retornando None por error en cookie ---") # DEBUG
-        return None
-
-async def require_login(request: Request):
-    print(">>> DEBUG: Entrando a require_login <<<") # DEBUG
-    user_session_data = get_current_user(request)
-    print(f">>> DEBUG: user_session_data es: {user_session_data} <<<") # DEBUG
-    if not user_session_data:
-        print(">>> DEBUG: NO hay sesión, REDIRIGIENDO a login <<<") # DEBUG
-        login_url = request.url_for('login')
-        return RedirectResponse(url=login_url, status_code=status.HTTP_303_SEE_OTHER)
-
-    print(">>> DEBUG: SI hay sesión, PERMITIENDO acceso <<<") # DEBUG
-    return user_session_data
-
 @app.get("/registro", name="registro")
 async def registro(request: Request):
     return templates.TemplateResponse("registro.html", {"request": request})
-
 
 @app.post("/register", name="register_post")
 async def register_post(
@@ -231,21 +256,21 @@ async def register_post(
             "registro.html", {"request": request, "error": error}
         )
 
+    # Encriptar la contraseña antes de guardarla
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+
     # Inserta el nuevo usuario en la base de datos
     nuevo_usuario = {
         "nombre": nombre,
         "apellido": apellido,
         "correo": correo,
         "telefono": telefono,
-        "password": password,  # Nota: Considera encriptar la contraseña antes de guardarla
+        "password": hashed_password,  # Guardar la contraseña encriptada
     }
     users_collection.insert_one(nuevo_usuario)
 
     # Redirige al usuario a la página de inicio de sesión
     return RedirectResponse(url="/login", status_code=303)
-
-
-
 
 @app.get("/olvidar", name="olvidar")
 async def olvidar(request: Request):  # ✔️ Nombre correcto de la función
@@ -361,13 +386,15 @@ async def actualizar_perfil(
     return RedirectResponse(url=request.url_for('cuenta'), status_code=303)
 
 @app.get("/page", name="page")
-async def page(request: Request, current_user = Depends(require_login)): # Quita el type hint 'dict' temporalmente
+async def page(request: Request, current_user = Depends(require_login)):
     print("### DEBUG: Ejecutando ruta /page ###")
     if isinstance(current_user, RedirectResponse):
         print("### DEBUG: current_user es RedirectResponse, retornando... ###")
         return current_user
     print(f"### DEBUG: Usuario en /page: {current_user.get('email')} ###")
     return templates.TemplateResponse("page.html", {"request": request, "usuario": current_user})
+
+
 
 @app.post("/eliminar_cuenta", name="eliminar_cuenta")
 async def eliminar_cuenta(request: Request, email: str = Form(...)):

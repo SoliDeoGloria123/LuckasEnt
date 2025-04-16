@@ -18,6 +18,7 @@ COPY . .
 
 # Agrega el directorio /app al PYTHONPATH para que Python encuentre bien tus módulos
 ENV PYTHONPATH=/app
+ENV OAUTHLIB_INSECURE_TRANSPORT=1
 
 # Expone el puerto donde corre la app dentro del contenedor
 EXPOSE 5001
