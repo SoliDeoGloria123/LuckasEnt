@@ -32,8 +32,8 @@
                 <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required>
 
                 <button type="submit" class="btn-primary">Ingresar</button>
-                <button type="button" class="btn-google">
-                    <img src="{{ url_for('static', path='img/Google.png') }}" alt="Google"> Iniciar sesión con Google
+                <button type="button" class="btn-google" onclick="window.location.href='/flask/login/google'">
+                    <img src="{{ url_for('static', path='img/Google.png') }}" alt="Google logo" class="google-logo"> Iniciar sesión con Google
                 </button>
             </form>
             <a href="{{ url_for('olvidar') }}" class="forgot-password">¿Olvidaste tu contraseña?</a>

@@ -8,3 +8,7 @@ requests==2.32.3
 pymongo==4.11.1
 returns==0.25.0
 colorama
+Flask==2.2.2
+Flask-Dance
+Werkzeug==2.2.3
+flask-bcrypt

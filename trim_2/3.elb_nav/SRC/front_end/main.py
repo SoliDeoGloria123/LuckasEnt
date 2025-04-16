@@ -1,8 +1,12 @@
 from fastapi import FastAPI, File, HTTPException, Query, Request, Form,  Response, UploadFile, Depends, status
+from fastapi.middleware.wsgi import WSGIMiddleware
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
+from flask import Flask, session, redirect, url_for, flash
+from flask_bcrypt import Bcrypt
+from flask_dance.contrib.google import make_google_blueprint, google
 from pymongo import MongoClient
 from fastapi.exceptions import RequestValidationError
 from starlette.exceptions import HTTPException as StarletteHTTPException
@@ -36,7 +40,68 @@ SENDER_PASSWORD = os.getenv("SENDER_PASSWORD")
 SECRET_KEY = os.getenv("SECRET_KEY")
 serializer = URLSafeSerializer(SECRET_KEY)
 
+# Crear la aplicación principal de FastAPI
 app = FastAPI()
+
+# Crear la subaplicación Flask
+flask_app = Flask(__name__)
+flask_app.secret_key = SECRET_KEY
+bcrypt = Bcrypt(flask_app)
+
+# Implementación de Google OAuth
+google_bp = make_google_blueprint(
+    client_id=os.getenv("GOOGLE_CLIENT_ID"),
+    client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),
+    redirect_to="google_login_callback",  # Esta ruta debe coincidir
+    scope=["openid", 
+           "https://www.googleapis.com/auth/userinfo.profile", 
+           "https://www.googleapis.com/auth/userinfo.email"],
+)
+
+flask_app.register_blueprint(google_bp, url_prefix="/login/google")
+
+@flask_app.route("/login/google")
+def google_login():
+    return redirect(url_for("google.login"))
+
+@flask_app.route("/google_login_callback")
+def google_login_callback():
+    if 'usuario' in session:
+        return redirect(url_for('home'))
+    if not google.authorized:
+        return redirect(url_for('google.login'))
+    
+    resp = google.get("https://www.googleapis.com/oauth2/v3/userinfo")
+    
+    if not resp.ok:
+        flash("Error al obtener información del usuario de Google.", "error")
+        return redirect(url_for('login'))
+    
+    user_info = resp.json()
+    
+    print(f"--- DEBUG: Información del usuario de Google: {user_info} ---")  # DEBUG
+    
+    if 'email' not in user_info:
+        flash("No se pudo obtener el correo electrónico del usuario.", "error")
+        return redirect(url_for('login'))
+    
+    google_id = user_info.get("sub")
+    
+    user = users_collection.find_one({"google_id": google_id})
+    if not user:
+        collection.insert_one({
+            "google_id": google_id,
+            "email": user_info["email"],
+            "name": user_info.get("name"),
+            "picture": user_info.get("picture"),
+        })
+    
+    session['usuario'] = user_info.get("name", "Usuario sin nombre")
+    
+    return redirect(url_for('home'))
+
+# Montar la subaplicación Flask en FastAPI
+app.mount("/flask", WSGIMiddleware(flask_app))
 
 # 📂 Base directory dinámico (donde está este archivo)
 BASE_DIR = Path(__file__).resolve().parent
