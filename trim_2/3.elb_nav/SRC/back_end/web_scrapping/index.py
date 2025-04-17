@@ -44,6 +44,23 @@ def extract_urls(pd: DataFrame) -> IOResult[Series, ExtractUrlsError]:
 
 # Usa Playwright para obtener el HTML de la página web
 def extraer_info(URL: str) -> IOResult[str, extraer_infoError]:
+    global guardar_en_db
+    if guardar_en_db is None:
+        opcion = (
+            input("¿Desea guardar los datos en la base de datos de MongoDB? (s/n): ")
+            .strip()
+            .lower()
+        )
+        guardar_en_db = opcion == "s"
+
+        if guardar_en_db:
+            print(
+                f"{colorama.Fore.YELLOW}Se guardarán todos los datos en MongoDB.{colorama.Style.RESET_ALL}"
+            )
+        else:
+            print(
+                f"{colorama.Fore.RED}Los datos NO se guardarán. Se mostrarán solamente en la terminal.{colorama.Style.RESET_ALL}"
+            )
     try:
         print(f"Launching Playwright for URL: {URL}")  # Mensaje de depuración
         with sync_playwright() as p:
@@ -98,26 +115,44 @@ def access_to_HTML(
         )
     except Exception as Error:
         return IOFailure(access_to_HTMLError(Error))
-    
+
+
 def access_to_HTML_general(
     CardsTag: ResultSet[Tag], parner: str = ""
 ) -> IOResult[list[dict], access_to_HTMLError]:
     try:
         return IOSuccess(
-            [print_and_return(extract_object_PLP_general(card, parner)) for card in CardsTag]
+            [
+                print_and_return(extract_object_PLP_general(card, parner))
+                for card in CardsTag
+            ]
         )
     except Exception as Error:
         return IOFailure(access_to_HTMLError(Error))
-        
 
 
-def print_and_return(result: dict) -> dict:
+"""def print_and_return(result: dict) -> dict:
     print("")  # Imprime una línea en blanco
     print(
         f"{colorama.Fore.GREEN}{result}{colorama.Style.RESET_ALL}"
     )  # Imprime el resultado
     insert_date(result)  # Inserta los datos en MongoDB
-    return result  # Devuelve el resultado
+    return result  # Devuelve el resultado"""
+
+
+def print_and_return(result: dict) -> dict:
+    global guardar_en_db
+
+    print("")  # Línea en blanco para separar
+    print(
+        f"{colorama.Fore.GREEN}{result}{colorama.Style.RESET_ALL}"
+    )  # Mostrar resultado
+
+    # Usar la decisión global que ya se tomó
+    if guardar_en_db:
+        insert_date(result)
+
+    return result
 
 
 # Ajusta los precios según la lógica
@@ -216,9 +251,9 @@ def extract_object_PLP(
         }
     except Exception as Error:
         return extract_object_PLPError(Error)
-    
-        
-def extract_object_PLP_general(card: Tag, parner: str = "") -> IOResult[dict, extract_object_PLPError]:
+
+
+"""def extract_object_PLP_general(card: Tag, parner: str = "") -> IOResult[dict, extract_object_PLPError]:
     try:
         return {
             "Parner": parner,
@@ -241,8 +276,195 @@ def extract_object_PLP_general(card: Tag, parner: str = "") -> IOResult[dict, ex
 
         }
     except Exception as Error:
+        return IOFailure(extract_object_PLPError(Error))"""
+
+
+def extract_object_PLP_general(
+    card: Tag, parner: str = ""
+) -> IOResult[dict, extract_object_PLPError]:
+    try:
+        if parner == "D1":
+            return {
+                "Parner": parner,
+                "Imagen": extract_image_src(card),
+                "Product_Name": (
+                    card.select_one('p[class*="prod__name"]').text.strip()
+                    if card.select_one('p[class*="prod__name"]')
+                    else NOT_FOUND
+                ),
+                "Weight": (
+                    # Extraer el peso exactamente como aparece en el texto
+                    re.search(
+                        r"(\d+\s*(?:kg|gr|g|ml|l|un|unidad))",
+                        card.select_one('p[class*="prod__name"]').text.strip(),
+                        re.IGNORECASE,
+                    ).group(0)
+                    if card.select_one('p[class*="prod__name"]')
+                    and re.search(
+                        r"(\d+\s*(?:kg|gr|g|ml|l|un|unidad))",
+                        card.select_one('p[class*="prod__name"]').text.strip(),
+                        re.IGNORECASE,
+                    )
+                    else NOT_FOUND
+                ),
+                "Total_Price": (
+                    card.select_one('p[class*="base__price"]').text.strip()
+                    if card.select_one('p[class*="base__price"]')
+                    else NOT_FOUND
+                ),
+                "Precio_con_Descuento": (
+                    card.select_one('p[class*="base__price"]').text.strip()
+                    if card.select_one('p[class*="base__price"]')
+                    else NOT_FOUND
+                ),
+            }
+
+        elif parner == "Exito":
+            return {
+                "Parner": parner,
+                "Imagen": extract_image_src(card),
+                "Product_Name": (
+                    card.select_one('h3[class*="styles_name__qQJiK"]').text.strip()
+                    if card.select_one('h3[class*="styles_name__qQJiK"]')
+                    else NOT_FOUND
+                ),
+                "Weight": (
+                    # Extraer el peso exactamente como aparece en el texto
+                    re.search(
+                        r"(\d+\s*(?:kg|gr|g|ml|l|un|und|unidad))",
+                        card.select_one('h3[class*="styles_name__qQJiK"]').text.strip(),
+                        re.IGNORECASE,
+                    ).group(0)
+                    if card.select_one('h3[class*="styles_name__qQJiK"]')
+                    and re.search(
+                        r"(\d+\s*(?:kg|gr|g|ml|l|un|und|unidad))",
+                        card.select_one('h3[class*="styles_name__qQJiK"]').text.strip(),
+                        re.IGNORECASE,
+                    )
+                    else NOT_FOUND
+                ),
+                "Total_Price": (
+                    card.select_one(
+                        'p[class*="ProductPrice_container__price__XmMWA"]'
+                    ).text.strip()
+                    if card.select_one(
+                        'p[class*="ProductPrice_container__price__XmMWA"]'
+                    )
+                    else NOT_FOUND
+                ),
+                "Precio_con_Descuento": (
+                    card.select_one(
+                        'div[class*="priceSection_container-promotion_discount__iY3EO"]'
+                    ).text.strip()
+                    if card.select_one(
+                        'div[class*="priceSection_container-promotion_discount__iY3EO"]'
+                    )
+                    else NOT_FOUND
+                ),
+            }
+        elif parner == "Jumbo":
+            return {
+                "Parner": parner,
+                "Imagen": extract_image_src(card),
+                "Product_Name": (
+                    card.select_one(
+                        'h3[class*="vtex-product-summary-2-x-productNameContainer"]'
+                    ).text.strip()
+                    if card.select_one(
+                        'h3[class*="vtex-product-summary-2-x-productNameContainer"]'
+                    )
+                    else NOT_FOUND
+                ),
+                "Weight": (
+                    # Extraer el peso exactamente como aparece en el texto
+                    re.search(
+                        r"(\d+\s*(?:kg|gr|g|ml|l|un|und|unidad))",
+                        card.select_one(
+                            'h3[class*="vtex-product-summary-2-x-productNameContainer"]'
+                        ).text.strip(),
+                        re.IGNORECASE,
+                    ).group(0)
+                    if card.select_one(
+                        'h3[class*="vtex-product-summary-2-x-productNameContainer"]'
+                    )
+                    and re.search(
+                        r"(\d+\s*(?:kg|gr|g|ml|l|un|und|unidad))",
+                        card.select_one(
+                            'h3[class*="vtex-product-summary-2-x-productNameContainer"]'
+                        ).text.strip(),
+                        re.IGNORECASE,
+                    )
+                    else NOT_FOUND
+                ),
+                "Total_Price": (
+                    card.select_one('div[class*="pr2 items-stretch"]').text.strip()
+                    if card.select_one('div[class*="pr2 items-stretch"]')
+                    else NOT_FOUND
+                ),
+                "Precio_con_Descuento": (
+                    card.select_one(
+                        'div[class*=tiendasjumboqaio-jumbo-minicart-2-x-price--product-prime"]'
+                    ).text.strip()
+                    if card.select_one(
+                        'div[class*="tiendasjumboqaio-jumbo-minicart-2-x-price--product-prime"]'
+                    )
+                    else NOT_FOUND
+                ),
+            }
+        elif parner == "Carulla":
+            return {
+                "Parner": parner,
+                "Imagen": extract_image_src(card),
+                "Product_Name": (
+                    card.select_one('h3[class*="styles_name__qQJiK"]').text.strip()
+                    if card.select_one('h3[class*="styles_name__qQJiK"]')
+                    else NOT_FOUND
+                ),
+                "Weight": (
+                    # Extraer el peso exactamente como aparece en el texto
+                    re.search(
+                        r"(\d+\s*(?:kg|gr|g|ml|l|un|und|unidad))",
+                        card.select_one('h3[class*="styles_name__qQJiK"]').text.strip(),
+                        re.IGNORECASE,
+                    ).group(0)
+                    if card.select_one('h3[class*="styles_name__qQJiK"]')
+                    and re.search(
+                        r"(\d+\s*(?:kg|gr|g|ml|l|un|und|unidad))",
+                        card.select_one('h3[class*="styles_name__qQJiK"]').text.strip(),
+                        re.IGNORECASE,
+                    )
+                    else NOT_FOUND
+                ),
+                "Total_Price": (
+                    card.select_one(
+                        'p[class*="ProductPrice_container__price__XmMWA"]'
+                    ).text.strip()
+                    if card.select_one(
+                        'p[class*="ProductPrice_container__price__XmMWA"]'
+                    )
+                    else NOT_FOUND
+                ),
+                "Precio_con_Descuento": (
+                    card.select_one(
+                        'div[class*="priceSection_container-promotion_discount__iY3EO"]'
+                    ).text.strip()
+                    if card.select_one(
+                        'div[class*="priceSection_container-promotion_discount__iY3EO"]'
+                    )
+                    else NOT_FOUND
+                ),
+            }
+
+        else:
+            return IOFailure(
+                extract_object_PLPError(
+                    Exception(f"Parner '{parner}' no implementado aún.")
+                )
+            )
+
+    except Exception as Error:
         return IOFailure(extract_object_PLPError(Error))
- 
+
 
 # Extrae el atributo 'src' de una etiqueta <img> directamente con funciones encadenadas
 def extract_image_src(card: Tag) -> str:
