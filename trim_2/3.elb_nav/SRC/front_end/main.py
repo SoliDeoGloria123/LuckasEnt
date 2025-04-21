@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, HTTPException, Query, Request, Form,  Response, UploadFile, Depends, status
+from fastapi import FastAPI, File, HTTPException, Query, Request, Form, Response, UploadFile, Depends, status
 from fastapi.middleware.wsgi import WSGIMiddleware
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
@@ -39,8 +39,8 @@ MONGO_URI = os.getenv("MONGO_URI")
 client = MongoClient(MONGO_URI)
 db = client.LuckasEnt
 
-#colecciones
-collection = db["productos"]  # type: ignore 
+# Colecciones
+collection = db["productos"]
 listas_collection = db["lists"]
 users_collection = db["users"]
 
@@ -48,60 +48,67 @@ users_collection = db["users"]
 SENDER_EMAIL = os.getenv("SENDER_EMAIL")
 SENDER_PASSWORD = os.getenv("SENDER_PASSWORD")
 
-# Configurar clave secreta
+# Configurar clave secreta, el cual, sirve para firmar cookies y datos, y firmar significa que se puede verificar su autenticidad.
 SECRET_KEY = os.getenv("SECRET_KEY")
+if not SECRET_KEY:
+    raise ValueError("SECRET_KEY no está configurada en el archivo .env")
+print(f"--- DEBUG: SECRET_KEY cargada: {SECRET_KEY} ---")
+
 serializer = URLSafeSerializer(SECRET_KEY)
+print(f"--- DEBUG: Serializer inicializado: {serializer} ---")
 
 # Crear la aplicación principal de FastAPI
 app = FastAPI()
 
 # Crear la subaplicación Flask
 flask_app = Flask(__name__)
-SECRET_KEY = os.getenv("SECRET_KEY")
 flask_app.secret_key = SECRET_KEY
-serializer = URLSafeSerializer(SECRET_KEY)
 
-#Hash de la contraseña:
+# Hash de la contraseña
 bcrypt = Bcrypt(flask_app)
 
 # Configurar la Implementación de Google OAuth
 google_bp = make_google_blueprint(
-    client_id=os.getenv("GOOGLE_CLIENT_ID"), #Esto sirve para identificar la aplicación
-    client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),#Esto sirve para autenticar la aplicación
-    redirect_to=None, # Usa None para que Flask-Dance genere automáticamente el URI correcto
-    scope=["openid", 
-           "https://www.googleapis.com/auth/userinfo.profile", # #Mediante esto se obtiene el nombre y la foto
-           "https://www.googleapis.com/auth/userinfo.email",# #Mediante esto se obtiene el correo
-           "https://www.googleapis.com/auth/user.phonenumbers.read"], #Mediante esto se obtiene el numero de telefono
-            
+    client_id=os.getenv("GOOGLE_CLIENT_ID"),
+    client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),
+    redirect_to="google_login_callback",
+    scope=[
+        "openid",
+        "https://www.googleapis.com/auth/userinfo.profile",
+        "https://www.googleapis.com/auth/userinfo.email",
+    ],
 )
 
-#Aqui se une fastapi y flask en una sola aplicación para que funcione el login de google, ejecutando fastapi y flask al mismo tiempo
+# Registrar el blueprint de Google OAuth
 flask_app.register_blueprint(google_bp, url_prefix="/login/google")
 
-# Configurar la ruta de inicio de sesión de Google
-# Esto redirige a la ruta de inicio de sesión de Google
-# y luego redirige a la ruta de callback
-# que maneja la respuesta de Google
+# Ruta de inicio de sesión de Google
 @flask_app.route("/login/google")
 def google_login():
     return redirect(url_for("google.login"))
 
+# Callback de Google OAuth
 @flask_app.route("/google_login_callback")
 def google_login_callback():
+    print(f"--- DEBUG: Serializer en google_login_callback: {serializer} ---")
     print("--- DEBUG: Entrando a google_login_callback ---")
+    
+    # Verificar si el usuario ya está en sesión
     if 'usuario' in session:
         print(f"--- DEBUG: Usuario ya en sesión: {session['usuario']} ---")
-        return redirect(url_for("page"))  # Redirige a 'page'
+        return redirect("/page")
+
+    # Verificar si el usuario está autorizado con Google
     if not google.authorized:
         print("--- DEBUG: Usuario no autorizado con Google ---")
         return redirect(url_for('google.login'))
     
+    # Obtener información del usuario desde Google
     resp = google.get("https://www.googleapis.com/oauth2/v3/userinfo")
     if not resp.ok:
         print("--- DEBUG: Error al obtener información del usuario ---")
         flash("Error al obtener información del usuario de Google.", "error")
-        return redirect(url_for('login'))
+        return redirect("/login")
     
     user_info = resp.json()
     print(f"--- DEBUG: Información del usuario de Google: {user_info} ---")
@@ -109,85 +116,91 @@ def google_login_callback():
     if 'email' not in user_info:
         print("--- DEBUG: No se pudo obtener el correo electrónico del usuario ---")
         flash("No se pudo obtener el correo electrónico del usuario.", "error")
-        return redirect(url_for('login'))
+        return redirect("/login")
     
-    google_id = user_info.get("sub")
-    user = users_collection.find_one({"google_id": google_id})
-    if not user:
-        print("--- DEBUG: Usuario no encontrado en la base de datos, creando uno nuevo ---")
-        users_collection.insert_one({
-            "google_id": google_id,
-            "email": user_info["email"],
-            "name": user_info.get("name"),
-            "picture": user_info.get("picture"),
-            "phone_number": user_info.get("phone_number")
-        })
-    
-    session['usuario'] = user_info.get("email")  # Configura la sesión en Flask
-    print(f"--- DEBUG: Sesión configurada: {session['usuario']} ---")
-    
-    response = redirect(url_for("page"))  # Redirige a 'page'
-    response.set_cookie("session", serializer.dumps({"email": user_info.get("email")}), httponly=True)
-    return response
+    # Guardar o actualizar la información del usuario en la base de datos
+    users_collection.update_one(
+        {"correo": user_info.get("email")},
+        {
+            "$set": {
+                "nombre": user_info.get("given_name"),
+                "apellido": user_info.get("family_name"),
+                "foto": user_info.get("picture"),  # Guardar la URL de la foto de perfil
+            }
+        },
+        upsert=True  # Crear el documento si no existe
+    )
 
-#-----------------------------------------------------------------------------------------------------------
+    # Depuración: Verifica si la foto se guardó correctamente
+    usuario = users_collection.find_one({"correo": user_info.get("email")})
+    print(f"--- DEBUG: Usuario actualizado en la base de datos: {usuario} ---")
+    
+    # Configurar la cookie de sesión
+    cookie_value = serializer.dumps({"email": user_info.get("email")})
+    print(f"--- DEBUG: Valor de la cookie firmada: {cookie_value} ---")
+    response = redirect("/page")
+    response.set_cookie(
+        "session",
+        cookie_value,
+        httponly=True,
+        max_age=86400,
+        secure=False,
+        samesite="Lax"
+    )
+    return response
 
 # Montar la subaplicación Flask en FastAPI
 app.mount("/flask", WSGIMiddleware(flask_app))
 
-# 📂 Base directory dinámico (donde está este archivo)
+# Configurar templates y archivos estáticos
 BASE_DIR = Path(__file__).resolve().parent
-
-# ✅ Servir archivos estáticos con el path absoluto
 app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
-
-# ✅ Configurar templates con el path absoluto
 templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
-# Agregar un filtro personalizado para codificar en Base64
+# Filtro personalizado para codificar en Base64
 def b64encode_filter(data):
-    if data:
+    if isinstance(data, bytes):  # Si es binario, codificar en Base64
         return base64.b64encode(data).decode("utf-8")
-    return ""
-
-# Registrar el filtro en Jinja2
+    elif isinstance(data, str):  # Si es una URL, devolverla tal cual
+        return data
+    return ""  # Si no hay datos, devolver una cadena vacía
 templates.env.filters["b64encode"] = b64encode_filter
 
-# Registrar el filtro personalizado
-templates.env.filters["b64encode"] = b64encode_filter
-
-
-#-----------------------------------------------------------------------------------------------------------
-#Esto sirve para obtener el usuario actual de la cookie usando el serializer de Flask
+# Obtener el usuario actual desde la cookie
 def get_current_user(request: Request):
-    print("--- DEBUG: Entrando a get_current_user ---")  # DEBUG
+    print("--- DEBUG: Entrando a get_current_user ---")
     session_cookie = request.cookies.get("session")
-    print(f"--- DEBUG: Cookie 'session' encontrada: {session_cookie is not None} ---")  # DEBUG
+    print(f"--- DEBUG: Valor de la cookie recibida: {session_cookie} ---")
     if not session_cookie:
-        print("--- DEBUG: No hay cookie, retornando None ---")  # DEBUG
+        print("--- DEBUG: No hay cookie, retornando None ---")
         return None
     try:
         data = serializer.loads(session_cookie)
-        print(f"--- DEBUG: Cookie decodificada: {data} ---")  # DEBUG
+        print(f"--- DEBUG: Cookie decodificada: {data} ---")
         return data
     except Exception as e:
-        print(f"--- DEBUG: ERROR al decodificar cookie: {e} ---")  # DEBUG
-        print("--- DEBUG: Retornando None por error en cookie ---")  # DEBUG
+        print(f"--- DEBUG: ERROR al decodificar cookie: {e} ---")
         return None
-
+    
+# Dependencia para verificar inicio de sesión
 async def require_login(request: Request):
-    print(">>> DEBUG: Entrando a require_login <<<")  # DEBUG
+    print(">>> DEBUG: Entrando a require_login <<<")
     user_session_data = get_current_user(request)
-    print(f">>> DEBUG: user_session_data es: {user_session_data} <<<")  # DEBUG
+    print(f">>> DEBUG: user_session_data es: {user_session_data} <<<")
     if not user_session_data:
-        print(">>> DEBUG: NO hay sesión, REDIRIGIENDO a login <<<")  # DEBUG
-        login_url = request.url_for('login')
-        return RedirectResponse(url=login_url, status_code=status.HTTP_303_SEE_OTHER)
-
-    print(">>> DEBUG: SI hay sesión, PERMITIENDO acceso <<<")  # DEBUG
+        print(">>> DEBUG: NO hay sesión, REDIRIGIENDO a login <<<")
+        return RedirectResponse(url="/login", status_code=status.HTTP_303_SEE_OTHER)
+    print(">>> DEBUG: SI hay sesión, PERMITIENDO acceso <<<")
     return user_session_data
-#-----------------------------------------------------------------------------------------------------------
 
+# Ruta protegida de ejemplo
+@app.get("/page", name="page")
+async def page(request: Request, current_user=Depends(require_login)):
+    print("### DEBUG: Ejecutando ruta /page ###")
+    if isinstance(current_user, RedirectResponse):
+        return current_user
+    print(f"### DEBUG: Usuario en /page: {current_user.get('email')} ###")
+    return templates.TemplateResponse("page.html", {"request": request, "usuario": current_user})
 
 # Rutas de la aplicación FastAPI para manejar la autenticación y el acceso a las páginas del sitio LuckasEnt
 @app.get("/")
@@ -214,6 +227,7 @@ async def require_api_login(request: Request):
 
 @app.post("/login", name="login_post")
 async def login_post(request: Request, response: Response, email: str = Form(...), password: str = Form(...)):
+    print(f"--- DEBUG: Serializer en login_post: {serializer} ---")
     # Verifica si los campos están vacíos
     if not email or not password:
         error = "Todos los campos son obligatorios"
@@ -323,17 +337,13 @@ async def olvidar_post(request: Request, email: str = Form(...)):
             "olvidar_contraseña.html", {"request": request, "error": f"No se pudo enviar el correo: {e}"})
 
 
-
 @app.get("/cuenta", name="cuenta")
-async def cuenta(request: Request, current_user: dict = Depends(require_login)): # <-- Usar dependencia
-    # La dependencia ya verificó que current_user existe
+async def cuenta(request: Request, current_user: dict = Depends(require_login)):
     usuario = users_collection.find_one({"correo": current_user["email"]})
+    print(f"--- DEBUG: Usuario obtenido para /cuenta: {usuario} ---")  # Depuración
     if not usuario:
-        # Esto no debería pasar si la base de datos es consistente, pero es una buena verificación.
-        # Podrías redirigir al login o mostrar un error interno.
         return RedirectResponse(url=request.url_for('login'), status_code=status.HTTP_303_SEE_OTHER)
     return templates.TemplateResponse("Mi_Cuenta.html", {"request": request, "usuario": usuario})
-
 
 
 @app.get("/logout", name="logout")
@@ -342,10 +352,16 @@ async def logout(response: Response):
     response.delete_cookie("session")
     return response
 
+@app.get("/clear_cookies")
+async def clear_cookies(response: Response):
+    response = RedirectResponse(url="/login", status_code=303)
+    response.delete_cookie("session")
+    return response
 
 @app.get("/perfil", name="perfil")
-async def perfil(request: Request, current_user: dict = Depends(require_login)): # <-- Usar dependencia
+async def perfil(request: Request, current_user: dict = Depends(require_login)):
     usuario = users_collection.find_one({"correo": current_user["email"]})
+    print(f"--- DEBUG: Usuario obtenido para /perfil: {usuario} ---")  # Depuración
     if not usuario:
         return RedirectResponse(url=request.url_for('login'), status_code=status.HTTP_303_SEE_OTHER)
     return templates.TemplateResponse("mi_informacion.html", {"request": request, "usuario": usuario})
@@ -385,18 +401,13 @@ async def actualizar_perfil(
         {"correo": email}, # Usa el email correcto para encontrar al usuario
         {"$set": update_data},
     )
-
     # Verifica si la actualización fue exitosa (opcional pero recomendado)
     if result.modified_count == 0 and not (foto and foto.filename):
-         # Podrías mostrar un mensaje indicando que no hubo cambios
          pass
-
-    # --- OPCIONAL PERO RECOMENDADO: Redirigir a la página de cuenta ---
-    # para que vea los cambios reflejados (incluida la nueva foto).
     return RedirectResponse(url=request.url_for('cuenta'), status_code=303)
 
 @app.get("/page", name="page")
-async def page(request: Request, current_user = Depends(require_login)):
+async def page(request: Request, current_user=Depends(require_login)):
     print("### DEBUG: Ejecutando ruta /page ###")
     if isinstance(current_user, RedirectResponse):
         print("### DEBUG: current_user es RedirectResponse, retornando... ###")
@@ -445,13 +456,8 @@ async def agregar_a_lista(request: Request, product_id: str, current_user: dict 
         obj_product_id = ObjectId(product_id)
     except Exception:
         raise HTTPException(status_code=400, detail="ID de producto inválido")
-
-    # 3. (Opcional pero recomendado) Verificar si el producto existe en la colección original
     if not collection.find_one({"_id": obj_product_id}):
          raise HTTPException(status_code=404, detail="Producto no encontrado")
-
-    # 4. Añadir el ID del producto a la lista del usuario en la colección 'listas_usuarios'
-    #    Usamos $addToSet para evitar duplicados y upsert=True para crear el documento si no existe.
     result = listas_collection.update_one(
         {"user_email": user_email}, # Busca el documento por el email del usuario
         {"$addToSet": {"productos_ids": obj_product_id}}, # Añade el ObjectId al array
@@ -483,9 +489,8 @@ async def tulista(request: Request, current_user: dict = Depends(require_login))
 
     # 2. Buscar la lista del usuario en 'listas_usuarios'
     lista_doc = listas_collection.find_one({"user_email": user_email})
-
-    productos_lista_completa = [] # Lista para los datos completos
-    if lista_doc & "productos_ids" in lista_doc: 
+    productos_lista_completa = [] # Lista paand los datos completand
+    if lista_doc and "productos_ids" in lista_doc: 
         lista_ids = lista_doc.get("productos_ids", []) # Obtiene el array de ObjectIds
         if lista_ids:
             # 3. Buscar los productos completos en la colección 'productos' usando los IDs
