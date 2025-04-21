@@ -47,40 +47,57 @@
   <!-- FontAwesome para los íconos -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-  <div class="producto-detalle">
-    <div class="producto-img">
-      <img src="https://images.unsplash.com/photo-1548692972-dd5753b37b9f?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Arándanos Pack 120g">
-      <div class="favorito">
-        <i class="icon-heart"></i>
-      </div>
-    </div>
-
-    <div class="producto-info">
-      <h2>Arándanos Pack 120g</h2>
-      <a href="#" class="tienda">Makro</a>
-      <p class="marca">Marca La Huerta</p>
-
-      <div class="precios">
-        <div>
-          <span class="label">Precio Total</span>
-          <p>$17.000</p>
+ <div class="descripcion-producto">
+        <div class="producto-imagen">
+            <img
+                src="https://images.unsplash.com/photo-1548692972-dd5753b37b9f?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3">
+            <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
         </div>
-        <div>
-          <span class="label">Precio con descuento</span>
-          <p class="precio-descuento">$13.650</p>
+        <div class="producto-info">
+            <h1 class="producto-titulo">Arándanos Pack 120g</h1>
+            <p class="producto-tienda">Makro</p>
+            <p class="producto-marca">Marca La huerta</p>
+
+            <div class="producto-precios">
+                <div class="precio-total">
+                    <span class="precio-label">Precio Total</span>
+                    <span class="precio-valor">$17.000</span>
+                </div>
+                <div class="precio-descuento">
+                    <span class="precio-label">Precio con descuento</span>
+                    <span class="precio-valor">$13.650</span>
+                </div>
+            </div>
+
+            <div class="producto-rating">
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+                <span class="star">★</span>
+            </div>
+
+            <div class="producto-compartir">
+                <button class="compartir-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
+                            fill="#000" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="producto-botones">
+                <button class="btn-agregar">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="white" />
+                    </svg>
+                    Agregar a mi lista
+                </button>
+                <button class="btn-ver-tiendas">Ver en más tiendas</button>
+            </div>
         </div>
-      </div>
-
-      <div class="estrellas">
-        ⭐⭐⭐⭐⭐
-      </div>
-
-      <div class="acciones">
-        <button class="btn-primary">+ Agregar a mi lista</button>
-        <button class="btn-secundario">Ver en más tiendas</button>
-      </div>
     </div>
-  </div>
 
   <div class="tabs">
     <a href="#" class="tab">Descripción</a>
@@ -89,43 +106,59 @@
     <a href="{{ url_for('tienda') }}" class="tab">Tiendas</a>
     <a href="{{ url_for('reseñaproduc') }}" class="tab">Reseñas</a>
   </div>
+  <div class="comparador">
+  <h2 class="comparador__titulo">Compara los precios de diferentes tiendas</h2>
   
-  <section class="comparison-container">
-    <h2>Compara los precios de <br><strong>diferentes tiendas</strong></h2>
-
-    <div class="store-selector">
-      <button>&lt;</button>
-      <span>Makro</span>
-      <button>&gt;</button>
-    </div>
-
-    <div class="product-info">
-      <p><strong>Carne para asar</strong></p>
-      <p>Precio actual: <strong>$12.300</strong></p>
-      <p>Precio por gramo: $14</p>
-    </div>
-
-    <div class="charts">
-      <div class="chart-card">
-        <p>Último Año</p>
-        <!-- Aquí va el gráfico -->
-        <canvas id="chart1"></canvas>
-        <small>Regiones</small>
-      </div>
-
-      <div class="chart-card">
-        <p>Últimos 3 meses</p>
-        <canvas id="chart2"></canvas>
-        <small>Mensual</small>
-      </div>
-
-      <div class="chart-card">
-        <p>Última semana</p>
-        <canvas id="chart3"></canvas>
-        <small>Unité/Goal</small>
+  <div class="selector-tienda">
+    <button class="selector-tienda__btn selector-tienda__btn--prev">
+      <img src="chevron-left0.svg" alt="Anterior">
+    </button>
+    <span class="selector-tienda__nombre">Makro</span>
+    <button class="selector-tienda__btn selector-tienda__btn--next">
+      <img src="chevron-right0.svg" alt="Siguiente">
+    </button>
+  </div>
+  
+  <div class="producto-info">
+    <h3 class="producto-info__nombre">Carne para asar</h3>
+    <p class="producto-info__precio">Precio Actual: $12.300</p>
+    <p class="producto-info__precio-gramo">Precio por gramo: $14</p>
+  </div>
+  
+  <div class="graficos">
+    <div class="grafico">
+      <div class="grafico__contenido">
+        <h4 class="grafico__titulo">Último Año</h4>
+        <p class="grafico__eje-y">Units</p>
+        <img class="grafico__imagen" src="graph0.svg" alt="Gráfico último año">
+        <p class="grafico__eje-x">Regions</p>
       </div>
     </div>
-  </section>
+    
+    <div class="grafico">
+      <div class="grafico__contenido">
+        <h4 class="grafico__titulo">Últimos 3 meses</h4>
+        <p class="grafico__eje-y">Revenue</p>
+        <img class="grafico__imagen" src="graph1.svg" alt="Gráfico últimos 3 meses">
+        <p class="grafico__eje-x">Months</p>
+      </div>
+    </div>
+    
+    <div class="grafico">
+      <div class="grafico__contenido">
+        <h4 class="grafico__titulo">Última semana</h4>
+        <p class="grafico__eje-y">Percentage</p>
+        <div class="grafico__circular">
+          <div class="grafico__circular-fondo"></div>
+          <div class="grafico__circular-medio"></div>
+          <div class="grafico__circular-frente"></div>
+        </div>
+        <p class="grafico__eje-x">Units Sold</p>
+      </div>
+    </div>
+  </div>
+</div>
+  
 </body>
 <footer>
   <div class="footer">

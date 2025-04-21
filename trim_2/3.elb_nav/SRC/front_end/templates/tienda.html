@@ -75,60 +75,119 @@
             📍 Encuentra nuestra tienda y puntos de distribución cercanos
         </p>
     </section>
-    <section class="featured-product">
-        <div class="product-image">
-            <img src="https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?q=80&w=1375&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Aguacate">
+    <div class="product-section">
+        <div class="main-image">
+            <img class="product-image" src="https://images.unsplash.com/photo-1519162808019-7de1683fa2ad?q=80&w=1375&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
         </div>
+
         <div class="product-info">
-            <h2>Producto Destacado</h2>
-            <p>Descubre todas las características y beneficios</p>
-            <div class="product-cards">
-                <div class="card">
-                    <span class="badge new">Nuevo Lanzamiento</span>
-                    <img src="https://images.unsplash.com/photo-1574963835461-30ca3b4ef239?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Tomate Chonto"  width="195" height="230">
-                    <p>Tomate Chonto Paquete 1kg</p>
-                    <strong>$2.500</strong>
-                </div>
-                <div class="card">
-                    <span class="badge offer">Oferta Especial</span>
-                    <img src="https://images.unsplash.com/photo-1457296898342-cdd24585d095?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Arándanos">
-                    <p>Arándanos Estuche 249G</p>
-                    <strong>$13.600</strong>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="more-info">
-        <div class="info-content">
-            <h2>Más Información</h2>
-            <p>Descubre detalles adicionales sobre la marca</p>
-
-            <div class="info-card">
-                <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Historia de la Tienda">
-                <div class="info-text">
-                    <h3>Historia de la Tienda</h3>
-                    <p>Desde nuestros inicios hasta nuestros logros actuales</p>
-                    <!-- <span class="badge">Calidad</span>
-                    <span class="badge">Innovación</span>-->
-                    <p class="ceo">👤 CEO XYZ</p>
+            <div class="product-header">
+                <div class="product-title">Producto Destacado</div>
+                <div class="product-description">
+                    Descubre todas las características y beneficios
                 </div>
             </div>
 
-            <div class="info-card">
-                <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Valores de la Marca">
-                <div class="info-text">
-                    <h3>Valores de la Marca</h3>
-                    <p>Compromiso con la sostenibilidad y la excelencia</p>
-                    <!-- <span class="badge">Compromiso Social</span>
-                    <span class="badge">Calidad</span>-->
+            <div class="product-list">
+                <div class="product-row">
+                    <div class="product-card">
+                        <div class="product-thumbnail"
+                            style="background: url(https://images.unsplash.com/photo-1574963835461-30ca3b4ef239?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D) center/cover no-repeat">
+                            <div class="tag-container">
+                                <div class="tag-label">Nuevo Lanzamiento</div>
+                            </div>
+                        </div>
+                        <div class="product-details">
+                            <div class="product-name">Tomate Chonto Paquete in</div>
+                            <div class="product-price">$2.500</div>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-thumbnail"
+                            style="background: url(https://images.unsplash.com/photo-1457296898342-cdd24585d095?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D) center/cover no-repeat">
+                            <div class="tag-container">
+                                <div class="tag-label">Oferta Especial</div>
+                            </div>
+                        </div>
+                        <div class="product-details">
+                            <div class="product-name">Arandanos Estuche 249G</div>
+                            <div class="product-price">$13.600</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="info-image">
-            <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Tienda de frutas">
+<div class="info-section">
+  <div class="info-container">
+    <div class="info-header">
+      <div class="info-title">Más Información</div>
+      <div class="info-description">
+        Descubre detalles adicionales sobre la marca
+      </div>
+    </div>
+    <div class="info-list">
+      <div class="info-row">
+        <div class="info-article">
+          <div class="info-image-container">
+            <img class="info-image" src="https://images.unsplash.com/photo-1673218892955-7bea6ad9f58e?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+          </div>
+          <div class="info-details">
+            <div class="info-subtitle">Historia de la Tienda</div>
+            <div class="info-text">
+              Desde nuestros inicios hasta nuestros logros actuales
+            </div>
+            <div class="info-tags">
+              <div class="info-tag-item">
+                <div class="info-tag-text">Calidad</div>
+              </div>
+              <div class="info-tag-item">
+                <div class="info-tag-text">Innovación</div>
+              </div>
+            </div>
+            <div class="info-user">
+              <div class="info-avatar">
+                <div class="info-avatar-img"></div>
+                <div class="info-avatar-details">
+                  <div class="info-username">CEO XYZ</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
+      </div>
+
+      <div class="info-row">
+        <div class="info-article">
+          <div class="info-image-container">
+            <img class="info-image" src="https://plus.unsplash.com/premium_photo-1679429320552-ec9038ccd550?q=80&w=1469&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+          </div>
+          <div class="info-details">
+            <div class="info-subtitle">Valores de la Marca</div>
+            <div class="info-text">
+              Compromiso con la sostenibilidad y la excelencia
+            </div>
+            <div class="info-tags">
+              <div class="info-tag-item">
+                <div class="info-tag-text">Compromiso Social</div>
+              </div>
+              <div class="info-tag-item">
+                <div class="info-tag-text">Calidad</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+ 
+  </div>
+   <div class="info-image-extra">
+    <img class="info-image" src="https://images.unsplash.com/photo-1529111160535-a15c57eba3a7?q=80&w=1499&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+  </div>
+</div>  
     <section class="carousel">
         <div class="carousel-container">
             <div class="carousel-slide">

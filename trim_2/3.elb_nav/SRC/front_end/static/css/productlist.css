@@ -183,7 +183,18 @@ body {
   font-size: 12px;
   transition: transform 0.3s ease;
 }
+/* Estilos para la información de resultados */
+.resultados-info {
+  margin: 15px 0;
+  padding: 10px 15px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  font-size: 14px;
+}
 
+.resultados-info strong {
+  color: #0033ff;
+}
 /* Submenús */
 .submenu {
   position: absolute;
@@ -417,6 +428,7 @@ body {
   display: flex;
   align-items: center;
   gap: 5px;
+  justify-content: center;
 }
 
 .pagination-btn {
@@ -614,7 +626,7 @@ body {
   position: relative;
   flex: 1;
   min-width: 0;
-  height: 330px;
+  height: 398px;
 }
 
 /* Contenedor de imagen */
@@ -660,9 +672,9 @@ body {
 .product-card__content {
   display: flex;
   flex-direction: column;
-  padding: 12px;
+  padding: 21px;
   gap: 9px;
-  height: 138px;
+  height: 194px;
 }
 
 .product-card__title {
