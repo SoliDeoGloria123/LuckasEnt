@@ -15,7 +15,7 @@
 <body>
     <!-- Barra de navegación -->
     <div class="top-bar">
-        <img class="logo" src="data:image/png;base64,{{ usuario['foto'] | b64encode }}" alt="Logo" />
+        <img class="logo" src="{{ usuario['foto'] or url_for('static', path='img/default-avatar.png') }}" alt="Logo" />
         <div class="nav-title">Perfil</div>
         <div class="navigation">
             <a href="{{ url_for('page') }}" class="nav-link">Inicio</a>
@@ -65,8 +65,7 @@
             <!-- Sección de perfil -->
             <div class="profile-section">
                 <div class="profile-frame">
-                    <img class="profile-avatar" src="data:image/png;base64,{{ usuario['foto'] | b64encode }}"
-                        alt="Avatar de Usuario">
+                    <img class="profile-avatar" src="{{ usuario['foto'] or url_for('static', path='img/default-avatar.png') }}" alt="Foto de perfil" />
                     <div class="profile-container">
                         <div class="profile-title">Hola {{ usuario["nombre"] }} {{ usuario["apellido"] }}!</div>
                         <div class="profile-selection">

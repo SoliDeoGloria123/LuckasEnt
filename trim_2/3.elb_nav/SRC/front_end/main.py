@@ -38,7 +38,7 @@ users_collection = db["users"]
 SENDER_EMAIL = os.getenv("SENDER_EMAIL")
 SENDER_PASSWORD = os.getenv("SENDER_PASSWORD")
 
-# Configurar clave secreta
+# Configurar clave secreta, el cual, sirve para firmar cookies y datos, y firmar significa que se puede verificar su autenticidad.
 SECRET_KEY = os.getenv("SECRET_KEY")
 if not SECRET_KEY:
     raise ValueError("SECRET_KEY no está configurada en el archivo .env")
@@ -108,6 +108,23 @@ def google_login_callback():
         flash("No se pudo obtener el correo electrónico del usuario.", "error")
         return redirect("/login")
     
+    # Guardar o actualizar la información del usuario en la base de datos
+    users_collection.update_one(
+        {"correo": user_info.get("email")},
+        {
+            "$set": {
+                "nombre": user_info.get("given_name"),
+                "apellido": user_info.get("family_name"),
+                "foto": user_info.get("picture"),  # Guardar la URL de la foto de perfil
+            }
+        },
+        upsert=True  # Crear el documento si no existe
+    )
+
+    # Depuración: Verifica si la foto se guardó correctamente
+    usuario = users_collection.find_one({"correo": user_info.get("email")})
+    print(f"--- DEBUG: Usuario actualizado en la base de datos: {usuario} ---")
+    
     # Configurar la cookie de sesión
     cookie_value = serializer.dumps({"email": user_info.get("email")})
     print(f"--- DEBUG: Valor de la cookie firmada: {cookie_value} ---")
@@ -132,9 +149,11 @@ templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
 # Filtro personalizado para codificar en Base64
 def b64encode_filter(data):
-    if data:
+    if isinstance(data, bytes):  # Si es binario, codificar en Base64
         return base64.b64encode(data).decode("utf-8")
-    return ""
+    elif isinstance(data, str):  # Si es una URL, devolverla tal cual
+        return data
+    return ""  # Si no hay datos, devolver una cadena vacía
 templates.env.filters["b64encode"] = b64encode_filter
 
 # Obtener el usuario actual desde la cookie
@@ -309,12 +328,10 @@ async def olvidar_post(request: Request, email: str = Form(...)):
 
 
 @app.get("/cuenta", name="cuenta")
-async def cuenta(request: Request, current_user: dict = Depends(require_login)): # <-- Usar dependencia
-    # La dependencia ya verificó que current_user existe
+async def cuenta(request: Request, current_user: dict = Depends(require_login)):
     usuario = users_collection.find_one({"correo": current_user["email"]})
+    print(f"--- DEBUG: Usuario obtenido para /cuenta: {usuario} ---")  # Depuración
     if not usuario:
-        # Esto no debería pasar si la base de datos es consistente, pero es una buena verificación.
-        # Podrías redirigir al login o mostrar un error interno.
         return RedirectResponse(url=request.url_for('login'), status_code=status.HTTP_303_SEE_OTHER)
     return templates.TemplateResponse("Mi_Cuenta.html", {"request": request, "usuario": usuario})
 
@@ -332,8 +349,9 @@ async def clear_cookies(response: Response):
     return response
 
 @app.get("/perfil", name="perfil")
-async def perfil(request: Request, current_user: dict = Depends(require_login)): # <-- Usar dependencia
+async def perfil(request: Request, current_user: dict = Depends(require_login)):
     usuario = users_collection.find_one({"correo": current_user["email"]})
+    print(f"--- DEBUG: Usuario obtenido para /perfil: {usuario} ---")  # Depuración
     if not usuario:
         return RedirectResponse(url=request.url_for('login'), status_code=status.HTTP_303_SEE_OTHER)
     return templates.TemplateResponse("mi_informacion.html", {"request": request, "usuario": usuario})
@@ -373,14 +391,9 @@ async def actualizar_perfil(
         {"correo": email}, # Usa el email correcto para encontrar al usuario
         {"$set": update_data},
     )
-
     # Verifica si la actualización fue exitosa (opcional pero recomendado)
     if result.modified_count == 0 and not (foto and foto.filename):
-         # Podrías mostrar un mensaje indicando que no hubo cambios
          pass
-
-    # --- OPCIONAL PERO RECOMENDADO: Redirigir a la página de cuenta ---
-    # para que vea los cambios reflejados (incluida la nueva foto).
     return RedirectResponse(url=request.url_for('cuenta'), status_code=303)
 
 @app.get("/page", name="page")
@@ -433,13 +446,8 @@ async def agregar_a_lista(request: Request, product_id: str, current_user: dict 
         obj_product_id = ObjectId(product_id)
     except Exception:
         raise HTTPException(status_code=400, detail="ID de producto inválido")
-
-    # 3. (Opcional pero recomendado) Verificar si el producto existe en la colección original
     if not collection.find_one({"_id": obj_product_id}):
          raise HTTPException(status_code=404, detail="Producto no encontrado")
-
-    # 4. Añadir el ID del producto a la lista del usuario en la colección 'listas_usuarios'
-    #    Usamos $addToSet para evitar duplicados y upsert=True para crear el documento si no existe.
     result = listas_collection.update_one(
         {"user_email": user_email}, # Busca el documento por el email del usuario
         {"$addToSet": {"productos_ids": obj_product_id}}, # Añade el ObjectId al array
@@ -471,9 +479,8 @@ async def tulista(request: Request, current_user: dict = Depends(require_login))
 
     # 2. Buscar la lista del usuario en 'listas_usuarios'
     lista_doc = listas_collection.find_one({"user_email": user_email})
-
-    productos_lista_completa = [] # Lista para los datos completos
-    if lista_doc & "productos_ids" in lista_doc: 
+    productos_lista_completa = [] # Lista paand los datos completand
+    if lista_doc and "productos_ids" in lista_doc: 
         lista_ids = lista_doc.get("productos_ids", []) # Obtiene el array de ObjectIds
         if lista_ids:
             # 3. Buscar los productos completos en la colección 'productos' usando los IDs

@@ -16,7 +16,7 @@
 
     <!-- Barra de navegación -->
     <div class="top-bar">
-        <img class="logo" src="data:image/png;base64,{{ usuario['foto'] | b64encode }}">
+        <img class="logo" src="{{ usuario['foto'] or url_for('static', path='img/default-avatar.png') }}">
         <div class="nav-title">Perfil
         </div>
         <div class="navigation">
@@ -37,7 +37,7 @@
     </div>
 
     <div class="profile-section">
-        <img class="profile-avatar" src="data:image/png;base64,{{ usuario['foto'] | b64encode }}" />
+        <img class="profile-avatar" src="{{ usuario['foto'] or url_for('static', path='img/default-avatar.png') }}" alt="Foto de perfil" />
         <div class="profile-info-container">
             <div class="profile-name">{{ usuario['nombre'] }} {{ usuario['apellido'] }}</div>
             <div class="badge-container">
