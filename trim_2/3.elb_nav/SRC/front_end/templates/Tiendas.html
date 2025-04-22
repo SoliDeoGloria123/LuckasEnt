@@ -15,7 +15,7 @@
 
 <body>
     <div class="top-bar">
-        <img class="logo" src="data:image/png;base64,{{ usuario['foto'] | b64encode }}" alt="Foto de perfil" />
+        <img class="logo" src="{{ usuario['foto'] or url_for('static', path='img/default-avatar.png') }}" alt="Foto de perfil" />
         <div class="nav-title">Tiendas</div>
         <div class="navigation">
             <a href="{{ url_for('page') }}" class="nav-link">Inicio</a>

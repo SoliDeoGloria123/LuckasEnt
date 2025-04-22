@@ -76,7 +76,7 @@
                     // Agregar un evento de clic a cada botón
                     detalleBtns.forEach(btn => {
                         btn.addEventListener('click', function () {
-                            window.location.href = "{{ url_for('detalle_producto') }}";  // Redirige a Flask
+                            wwindow.location.href = "{{ url_for('detalle_producto', product_id='id_del_producto') }}";  // Redirige a Flask
                         });
                     });
                 });

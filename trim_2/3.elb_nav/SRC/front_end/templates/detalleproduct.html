@@ -12,7 +12,7 @@
 
 <body>
     <div class="top-bar">
-        <img class="logo" src="https://images.unsplash.com/photo-1612368871329-946fd8ddbb89?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Logo" />
+        <img class="logo" src="" alt="Logo" />
         <div class="nav-title">Exploración de Productos</div>
         <div class="navigation">
             <a href="{{ url_for('page') }}" class="nav-link">Inicio</a>
@@ -45,30 +45,28 @@
         <div class="product-title">Detalles del producto</div>
     </div>
     <div class="tabs">
-        <a href="{{ url_for('reseñaproduc') }}" class="tab active">Descripción</a>
-        <a href="{{ url_for('ubicacionproduc') }}" class="tab">Ubicación</a>
-        <a href="{{ url_for('precioproduc') }}" class="tab">Precios</a>
+        <a href="{{ url_for('detalle_producto', product_id=producto._id) }}" class="tab active">Descripción</a>
+        <a href="{{ url_for('ubicacionproduc', product_id=producto._id) }}" class="tab  ">Ubicación</a>
+        <a href="{{ url_for('precioproduc', product_id=producto._id) }}" class="tab ">Precios</a>
         <a href="{{ url_for('tienda') }}" class="tab">Tiendas</a>
-        <a href="{{ url_for('reseñaproduc') }}" class="tab">Reseñas</a>
+        <a href="{{ url_for('reseñaproduc', product_id=producto._id) }}" class="tab ">Reseñas</a>
         
     </div>
     <div class="product-detail-wrapper">
         <div class="product-detail-container">
             <div class="product-image-container">
-                <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1024&q=80"
-                    alt="Carne para asar" class="product-image">
+                <img src="{{ producto.Imagen }}" alt="{{ producto.Product_Name }}" class="product-image">
             </div>
             <div class="product-info">
-                <div class="product-name">Carne para asar</div>
-                <div class="product-weight">500 g</div>
-                <div class="product-price">Precio: $17.000</div>
+                <div class="product-name">{{ producto.Product_Name }}</div>
+                <div class="product-weight">{{ producto.Weight }}</div>
+                <div class="product-weight">Vendido por : {{ producto.Parner | default('N/A') }}</div>
+                <div class="product-price">Precio: {{ producto.Total_Price }}</div>
                 <div class="product-buttons">
-                    <button class="primary-button add-to-cart" id="addToCartBtn">
+                    <button class="primary-button add-to-cart btn-agregar-lista " data-product-id="{{ producto._id }}">
                         <span>+ Agregar</span>
                     </button>
-                    <button class="secondary-button">
-                        <span>Ver detalles</span>
-                    </button>
+                    
                 </div>
             </div>
         </div>
@@ -92,63 +90,7 @@
                 
             </div>
         </div>
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                // Obtener referencias a los elementos
-                const addToCartBtn = document.getElementById("addToCartBtn")
-                const productAddedAlert = document.getElementById("productAddedAlert")
-                const backToShoppingBtn = document.getElementById("backToShoppingBtn")
-                const viewListBtn = document.getElementById("viewListBtn")
 
-                // Función para mostrar el alert
-                function showProductAddedAlert(productName) {
-                    // Actualizar el nombre del producto en la descripción
-                    const descriptionElement = document.querySelector(".product-alert-description")
-                    if (descriptionElement && productName) {
-                        descriptionElement.textContent = productName
-                    }
-
-                    // Mostrar el alert
-                    productAddedAlert.style.display = "flex"
-                }
-
-                // Función para cerrar el alert
-                function closeProductAddedAlert() {
-                    productAddedAlert.style.display = "none"
-                }
-
-                // Evento para el botón de agregar al carrito
-                addToCartBtn.addEventListener("click", () => {
-                    // Aquí podrías obtener el nombre del producto desde algún atributo o elemento cercano
-                    // Por ejemplo: const productName = this.closest('.product-card').querySelector('.product-name').textContent;
-                    const productName = "Carne para asar" // Por defecto o como ejemplo
-
-                    showProductAddedAlert(productName)
-                })
-
-                // Evento para el botón de volver
-                backToShoppingBtn.addEventListener("click", () => {
-                    closeProductAddedAlert()
-                })
-
-                // Evento para el botón de ver lista
-                viewListBtn.addEventListener("click", () => {
-                    // Aquí puedes agregar la lógica para redirigir a la página de la lista
-                    // window.location.href = "/mi-lista.html";
-                    closeProductAddedAlert()
-                    window.location.href = "{{ url_for('tulista') }}"; // Reemplazar con tu lógica real
-                })
-
-                // Cerrar el alert si se hace clic fuera de él
-                productAddedAlert.addEventListener("click", (event) => {
-                    if (event.target === productAddedAlert) {
-                        closeProductAddedAlert()
-                    }
-                })
-            })
-
-
-        </script>
         <div class="available-products-section">
             <div class="title">Producto Disponible en:</div>
             <div class="products-grid">
@@ -195,7 +137,12 @@
             </div>
         </div>
     </div>
-
+    <div class="message">
+        Producto añadido al carrito
+        <span class="message__close-btn">×</span>
+        <div class="message__progress-bar"></div>
+    </div>
+    <script src="{{ url_for('static', path='js/categoriasP.js') }}"></script>
 
 
 </body>
