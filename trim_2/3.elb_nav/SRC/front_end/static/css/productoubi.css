@@ -151,15 +151,7 @@ body {
 .menu-link:hover {
   color: #0033ff;
 }
-
-
-.productos-destacados {
-  padding: 40px 20px;
-  background-color: #fff;
-  text-align: center;
-}
-
-.producto-detalle {
+.descripcion-producto {
   display: flex;
   gap: 2rem;
   background: #fff;
@@ -168,86 +160,166 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.producto-img {
+.producto-imagen {
   position: relative;
+  width: 300px;
+  height: 300px;
+  flex-shrink: 0;
 }
 
-.producto-img img {
-  width: 250px;
-  height: auto;
-  border-radius: 8px;
+.producto-imagen img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  border-radius: 8px;
 }
 
-.favorito {
+/* Botón de favoritos */
+.product-card__favorite-btn {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  background: #fff;
-  border-radius: 50%;
-  padding: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  top: 9px;
+  left: 9px;
+  width: 26px;
+  height: 25px;
+  background: #0033ff;
+  border-radius: 6px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
 
-.producto-info h2 {
-  margin: 0;
-  font-size: 24px;
+.product-card__favorite-btn::after {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background: url("https://i.ibb.co/vxCD1bnN/Vector-1.png") no-repeat center;
+  background-size: contain;
 }
 
-.tienda {
-  color: #0033ff;
-  text-decoration: none;
+.product-card__favorite-btn:hover::after,
+.product-card__favorite-btn--active::after {
+  background: url("https://i.ibb.co/Zzr72p9L/Vector.png") no-repeat center;
+  background-size: contain;
+}
+
+/* Estilo para el botón de favoritos cuando está activo */
+.product-card__favorite-btn.liked::after {
+  background: url("https://i.ibb.co/Zzr72p9L/Vector.png") no-repeat center;
+  background-size: contain;
+}
+
+
+.producto-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.producto-titulo {
+  font-family: "Inter", sans-serif;
   font-weight: 600;
+  font-size: 28px;
+  margin-bottom: 5px;
+  color: #000;
 }
 
-.marca {
-  color: #666;
-  margin-bottom: 10px;
-}
-
-.precios {
-  display: flex;
-  gap: 2rem;
-  margin: 1rem 0;
-}
-
-.precios .label {
-  font-size: 12px;
-  color: #888;
-}
-
-.precio-descuento {
-  color: #0033ff;
-  font-weight: bold;
-}
-
-.estrellas {
-  margin-bottom: 15px;
+.producto-tienda {
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
   font-size: 18px;
+  color: #0033ff;
+  margin-bottom: 5px;
 }
 
-.acciones {
+.producto-marca {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.producto-precios {
   display: flex;
-  gap: 1rem;
+  gap: 30px;
+  margin-bottom: 15px;
 }
 
-.btn-primary {
-  background: #0033ff;
-  color: #fff;
-  padding: 10px 16px;
-  border-radius: 8px;
+.precio-total,
+.precio-descuento {
+  display: flex;
+  flex-direction: column;
+}
+
+.precio-label {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  color: #001155;
+  margin-bottom: 5px;
+}
+
+.precio-valor {
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: #000;
+}
+
+.precio-descuento .precio-valor {
+  color: #00082a;
+}
+
+.producto-rating {
+  display: flex;
+  margin: 15px 0;
+}
+
+.star {
+  color: #ffd700;
+  font-size: 20px;
+}
+
+.producto-compartir {
+  margin-bottom: 20px;
+}
+
+.compartir-btn {
+  background: transparent;
   border: none;
   cursor: pointer;
+  padding: 5px;
 }
 
-.btn-secundario {
-  background: #fff;
+.producto-botones {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-agregar,
+.btn-ver-tiendas {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-agregar {
+  background: #0033ff;
+  color: white;
+  border: none;
+}
+
+.btn-ver-tiendas {
+  background: transparent;
   color: #202020;
   border: 1px solid #202020;
-  padding: 10px 16px;
-  border-radius: 8px;
-  cursor: pointer;
 }
 
 .tabs {

@@ -20,6 +20,8 @@ from SRC.back_end.web_scrapping.class_error import (
 # Inicializa colorama
 colorama.init()
 
+# Variable global para almacenar la decisión del usuario
+guardar_en_db = None
 
 # Lee el archivo Excel
 def read_exel_py(exelFile: str) -> IOResult[DataFrame, ReadExcelPyError]:
@@ -45,22 +47,16 @@ def extract_urls(pd: DataFrame) -> IOResult[Series, ExtractUrlsError]:
 # Usa Playwright para obtener el HTML de la página web
 def extraer_info(URL: str) -> IOResult[str, extraer_infoError]:
     global guardar_en_db
+    
+    # Preguntar al usuario solo una vez antes de iniciar el scraping
     if guardar_en_db is None:
-        opcion = (
-            input("¿Desea guardar los datos en la base de datos de MongoDB? (s/n): ")
-            .strip()
-            .lower()
-        )
-        guardar_en_db = opcion == "s"
-
+        opcion = input("¿Desea guardar los datos en la base de datos de MongoDB? (s/n): ").strip().lower()
+        guardar_en_db = (opcion == "s")
+        
         if guardar_en_db:
-            print(
-                f"{colorama.Fore.YELLOW}Se guardarán todos los datos en MongoDB.{colorama.Style.RESET_ALL}"
-            )
+            print(f"{colorama.Fore.YELLOW}Se guardarán todos los datos en MongoDB.{colorama.Style.RESET_ALL}")
         else:
-            print(
-                f"{colorama.Fore.RED}Los datos NO se guardarán. Se mostrarán solamente en la terminal.{colorama.Style.RESET_ALL}"
-            )
+            print(f"{colorama.Fore.RED}Los datos NO se guardarán. Se mostrarán solamente en la terminal.{colorama.Style.RESET_ALL}")
     try:
         print(f"Launching Playwright for URL: {URL}")  # Mensaje de depuración
         with sync_playwright() as p:
@@ -69,7 +65,7 @@ def extraer_info(URL: str) -> IOResult[str, extraer_infoError]:
             )  # Asegúrate de que headless=False
             print("Browser launched successfully.")  # Mensaje de depuración
             page = browser.new_page()
-            page.goto(URL)
+            page.goto(URL,timeout=90000)
             print(f"Navigated to URL: {URL}")  # Mensaje de depuración
             page.wait_for_load_state("networkidle")
             content = page.content()
@@ -142,16 +138,14 @@ def access_to_HTML_general(
 
 def print_and_return(result: dict) -> dict:
     global guardar_en_db
-
+    
     print("")  # Línea en blanco para separar
-    print(
-        f"{colorama.Fore.GREEN}{result}{colorama.Style.RESET_ALL}"
-    )  # Mostrar resultado
+    print(f"{colorama.Fore.GREEN}{result}{colorama.Style.RESET_ALL}")  # Mostrar resultado
 
     # Usar la decisión global que ya se tomó
     if guardar_en_db:
         insert_date(result)
-
+    
     return result
 
 
@@ -218,7 +212,7 @@ def extract_object_PLP(
                         re.IGNORECASE,
                     )
                 )
-                else NOT_FOUND
+                else ""
             ),
             "Total_Price": adjust_prices(
                 (

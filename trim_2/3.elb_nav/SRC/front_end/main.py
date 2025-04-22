@@ -20,7 +20,17 @@ import base64
 import re
 from dotenv import load_dotenv
 import os
+from typing import List
 
+# Mapeo de categorías a términos de búsqueda
+CATEGORIAS_MAPPING = {
+    "frutas_verduras": ["fruta", "verdura", "hortaliza", "aguacate", "manzana", "plátano", "tomate", "cebolla", "papa"],
+    "carnicos": ["carne", "res", "cerdo", "pollo", "pechuga", "lomo", "costilla", "hamburguesa", "salchicha"],
+    "pescados": ["pescado", "mariscos", "atún", "salmón", "camarón", "tilapia", "trucha"],
+    "panaderia": ["pan", "pastel", "torta", "galleta", "croissant", "dona", "muffin", "bizcocho"],
+    "dulces_abarrotes": ["dulce", "chocolate", "caramelo", "azúcar", "arroz", "frijol", "pasta", "aceite", "conserva"],
+    "bebidas": ["agua", "jugo", "refresco", "gaseosa", "cerveza", "vino", "leche", "café", "té"]
+}
 # Cargar variables de entorno desde .env
 load_dotenv()
 
@@ -574,32 +584,55 @@ async def detalleproducto(request: Request):  # ✔️ Nombre correcto de la fun
 
 
 @app.get("/categoria", name="categoria")
-async def categoria(request: Request, q: str = "", page: int = Query(1, gt=0), current_user = Depends(require_login)):
+async def categoria(
+    request: Request, 
+    q: str = "", 
+    page: int = Query(1, gt=0), 
+    stores: List[str] = Query(None),
+    categoria_id: str = None,
+    current_user = Depends(require_login)
+):
     """
-    Muestra una lista paginada de productos con opción de búsqueda.
-
-    Args:
-        request: El objeto de solicitud.
-        q: Término de búsqueda opcional.
-        page: Número de página actual.
-
-    Returns:
-        Plantilla con productos filtrados y paginados.
+    Muestra una lista paginada de productos con opción de búsqueda y filtros.
     """
     
     if isinstance(current_user, RedirectResponse):
         print("### DEBUG: categoria - current_user es RedirectResponse, retornando... ###")
         return current_user
     print(f"### DEBUG: categoria - Usuario en /categoria: {current_user.get('email')} ###")
+    
     productos_por_pagina = 38
     skip = (page - 1) * productos_por_pagina
 
-    # Si hay término de búsqueda, filtra
+    # Construir filtro
     filtro = {}
+    
+    # Filtrar por categoría si se especificó
+    if categoria_id in CATEGORIAS_MAPPING:
+        # Crear expresión regular para buscar términos relacionados con la categoría
+        terminos = CATEGORIAS_MAPPING[categoria_id]
+        regex_pattern = "|".join(terminos)
+        filtro["Product_Name"] = {"$regex": regex_pattern, "$options": "i"}
+    
+    # Filtrar por tiendas si se seleccionaron
+    if stores:
+        filtro["Parner"] = {"$in": stores}
+    
+    # Si hay término de búsqueda adicional, añadir al filtro
     if q:
-        filtro = {
-            "Product_Name": {"$regex": re.escape(q), "$options": "i"}
-        }
+        # Si ya hay un filtro de Product_Name, lo combinamos con el término de búsqueda
+        if "Product_Name" in filtro:
+            # Guardamos el filtro original de categoría
+            categoria_regex = filtro["Product_Name"]["$regex"]
+            # Creamos un nuevo filtro que combine ambos criterios
+            filtro["$and"] = [
+                {"Product_Name": {"$regex": categoria_regex, "$options": "i"}},
+                {"Product_Name": {"$regex": re.escape(q), "$options": "i"}}
+            ]
+            # Eliminamos el filtro original para evitar conflictos
+            del filtro["Product_Name"]
+        else:
+            filtro["Product_Name"] = {"$regex": re.escape(q), "$options": "i"}
 
     # Consulta MongoDB con filtro + paginación
     productos = list(collection.find(filtro).skip(skip).limit(productos_por_pagina))
@@ -608,43 +641,62 @@ async def categoria(request: Request, q: str = "", page: int = Query(1, gt=0), c
     total_productos = collection.count_documents(filtro)
     total_paginas = (total_productos + productos_por_pagina - 1) // productos_por_pagina
 
+    # Determinar qué categoría está activa
+    categorias_activas = {
+        "frutas_verduras": categoria_id == "frutas_verduras",
+        "carnicos": categoria_id == "carnicos",
+        "pescados": categoria_id == "pescados",
+        "panaderia": categoria_id == "panaderia",
+        "dulces_abarrotes": categoria_id == "dulces_abarrotes",
+        "bebidas": categoria_id == "bebidas"
+    }
+
+    # Determinar el título de la página según la categoría
+    titulo_pagina = "Productos"
+    if categoria_id:
+        titulo_pagina = categoria_id.replace("_", " ").title()
+
     return templates.TemplateResponse("categorias.html", {
         "request": request,
         "productos": productos,
         "pagina_actual": page,
         "total_paginas": total_paginas,
-        "query": q  # para mantener el valor en el input de búsqueda
+        "query": q,
+        "stores": stores or [],
+        "categoria_actual": categoria_id,
+        "categorias_activas": categorias_activas,
+        "total_productos": total_productos,
+        "titulo_pagina": titulo_pagina
     })
 
+@app.get("/categoria_frutas", name="categoria_frutas")
+async def categoria_frutas(request: Request, q: str = "", page: int = Query(1, gt=0), stores: List[str] = Query(None), current_user = Depends(require_login)):
+    return await categoria(request, q, page, stores, "frutas_verduras", current_user)
+
+@app.get("/categoria_carne", name="categoria_carne")
+async def categoria_carne(request: Request, q: str = "", page: int = Query(1, gt=0), stores: List[str] = Query(None), current_user = Depends(require_login)):
+    return await categoria(request, q, page, stores, "carnicos", current_user)
+
+@app.get("/categoria_pescado", name="categoria_pescado")
+async def categoria_pescado(request: Request, q: str = "", page: int = Query(1, gt=0), stores: List[str] = Query(None), current_user = Depends(require_login)):
+    return await categoria(request, q, page, stores, "pescados", current_user)
+
+@app.get("/categoria_pan", name="categoria_pan")
+async def categoria_pan(request: Request, q: str = "", page: int = Query(1, gt=0), stores: List[str] = Query(None), current_user = Depends(require_login)):
+    return await categoria(request, q, page, stores, "panaderia", current_user)
+
+@app.get("/categoria_dulce", name="categoria_dulce")
+async def categoria_dulce(request: Request, q: str = "", page: int = Query(1, gt=0), stores: List[str] = Query(None), current_user = Depends(require_login)):
+    return await categoria(request, q, page, stores, "dulces_abarrotes", current_user)
+
+@app.get("/categoria_bebida", name="categoria_bebida")
+async def categoria_bebida(request: Request, q: str = "", page: int = Query(1, gt=0), stores: List[str] = Query(None), current_user = Depends(require_login)):
+    return await categoria(request, q, page, stores, "bebidas", current_user)
 
 @app.get("/nosotros", name="nosotros")
 async def nosotros(request: Request):  # ✔️ Nombre correcto de la función
     return templates.TemplateResponse("nosotros.html", {"request": request})
 
-
-@app.get("/categoria_carne", name="categoria_carne")
-async def categoria_carne(request: Request):  # ✔️ Nombre correcto de la función
-    return templates.TemplateResponse("categoria_carne.html", {"request": request})
-
-
-@app.get("/categoria_pescado", name="categoria_pescado")
-async def categoria_pescado(request: Request):  # ✔️ Nombre correcto de la función
-    return templates.TemplateResponse("categoria_pescado.html", {"request": request})
-
-
-@app.get("/categoria_pan", name="categoria_pan")
-async def categoria_pan(request: Request):  # ✔️ Nombre correcto de la función
-    return templates.TemplateResponse("categoria_pan.html", {"request": request})
-
-
-@app.get("/categoria_dulce", name="categoria_dulce")
-async def categoria_dulce(request: Request):  # ✔️ Nombre correcto de la función
-    return templates.TemplateResponse("categoria_dulce.html", {"request": request})
-
-
-@app.get("/categoria_bebida", name="categoria_bebida")
-async def categoria_bebida(request: Request):  # ✔️ Nombre correcto de la función
-    return templates.TemplateResponse("categoria_bebida.html", {"request": request})
 
 @app.exception_handler(StarletteHTTPException)
 async def custom_http_exception_handler(request: Request, exc: StarletteHTTPException):

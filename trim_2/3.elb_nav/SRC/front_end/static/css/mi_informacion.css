@@ -196,8 +196,8 @@
 }
 
 
-/* Botones generales*/
-button {
+ /*Botones generales*/
+/*button {
   border: none;
   padding: 12px 20px;
   font-size: 16px;
@@ -206,7 +206,7 @@ button {
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s ease;
-}
+}*/
 
 /* Botones del perfil */
 .profile-buttons {

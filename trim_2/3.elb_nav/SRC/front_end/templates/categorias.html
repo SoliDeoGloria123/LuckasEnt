@@ -18,10 +18,10 @@
             <span class="ent">ent</span>
         </div>
         <form method="get" action="/categoria" class="search-bar">
-            <input type="text" name="q" value="{{ query }}" autocomplete="off" placeholder="Busca un producto o tienda" >
+            <input type="text" name="q" value="{{ query }}" autocomplete="off" placeholder="Busca un producto o tienda">
             <button type="submit"><i class="fas fa-search"></i></button>
         </form>
-        
+
 
         <nav class="nav-menu">
             <a href="{{ url_for('page') }}">Inicio</a>
@@ -39,27 +39,18 @@
             <li><a class="menu-link" href="#">Ayuda</a></li>
         </ul>
     </nav>
-    <div class="main-container">
+  
+    <div class="main-container"> 
+         <!-- Información de resultados -->
+    {% if total_productos is defined %}
+    <div class="resultados-info">
+        <p>Se encontraron <strong>{{ total_productos }}</strong> productos{% if categoria_actual %} en la categoría
+            <strong>{{ categoria_actual|replace('_', ' ')|title }}</strong>{% endif %}</p>
+    </div>
+    {% endif %}
         <!-- Título de la página -->
         <div class="page-header">
-            <h1 class="letra">Frutas &amp; Verduras</h1>
-            <div class="pagination-controls">
-                <button class="pagination-btn" id="prev-page" {% if pagina_actual==1 %}disabled{% endif %}>
-                    <i class="fas fa-chevron-left"></i></button>
-                </button>
-                {% for i in range(1, total_paginas + 1) %}
-                {% if i == pagina_actual %}
-                <span class="page-number active">{{ i }}</span>
-                {% else %}
-                <span class="page-number">{{ i }}</span>
-                {% endif %}
-                {% endfor %}
-                <span class="page-dots">...</span>
-                <span class="page-number">{{ total_paginas }}</span>
-
-                <button class="pagination-btn" id="next-page" {% if pagina_actual==total_paginas %}disabled{% endif
-                    %}><i class="fas fa-chevron-right"></i></button>
-            </div>
+            <h1 class="letra">{{ titulo_pagina|default('Frutas & Verduras') }}</h1>
         </div>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
@@ -105,6 +96,7 @@
                     });
                 });
             });
+
         </script>
         <!-- Contenedor de contenido -->
         <div class="content-wrapper">
@@ -115,42 +107,48 @@
                     <h3 class="filter-title">Categoría</h3>
                     <div class="filter-divider"></div>
                     <div class="category-list">
-                        <a href="#" class="category-item active">
+                        <a href="{{ url_for('categoria_frutas') }}{% if query %}?q={{ query }}{% endif %}{% if stores %}{% for store in stores %}&stores={{ store }}{% endfor %}{% endif %}"
+                            class="category-item {% if categorias_activas and categorias_activas.frutas_verduras %}active{% endif %}">
                             <div class="category-icon">
                                 <img src="https://static.codia.ai/image/2025-03-11/ca1bb570-b208-481a-8412-28737cba9bd7.png"
                                     alt="Frutas y Verduras" />
                             </div>
                             <span class="category-name">Frutas y Verduras</span>
                         </a>
-                        <a href="{{ url_for('categoria_carne') }}" class="category-item">
+                        <a href="{{ url_for('categoria_carne') }}{% if query %}?q={{ query }}{% endif %}{% if stores %}{% for store in stores %}&stores={{ store }}{% endfor %}{% endif %}"
+                            class="category-item {% if categorias_activas and categorias_activas.carnicos %}active{% endif %}">
                             <div class="category-icon">
                                 <img src="https://static.codia.ai/image/2025-03-11/a08a5d37-05b2-4f7b-90cf-405f096bb842.svg"
                                     alt="Cárnicos" />
                             </div>
                             <span class="category-name">Cárnicos</span>
                         </a>
-                        <a href="{{ url_for('categoria_pescado') }}" class="category-item">
+                        <a href="{{ url_for('categoria_pescado') }}{% if query %}?q={{ query }}{% endif %}{% if stores %}{% for store in stores %}&stores={{ store }}{% endfor %}{% endif %}"
+                            class="category-item {% if categorias_activas and categorias_activas.pescados %}active{% endif %}">
                             <div class="category-icon">
                                 <img src="https://static.codia.ai/image/2025-03-11/8748a356-35f8-4418-99ca-b3a27c1936ad.png"
                                     alt="Pescados" />
                             </div>
                             <span class="category-name">Pescados</span>
                         </a>
-                        <a href="{{ url_for('categoria_pan') }}" class="category-item">
+                        <a href="{{ url_for('categoria_pan') }}{% if query %}?q={{ query }}{% endif %}{% if stores %}{% for store in stores %}&stores={{ store }}{% endfor %}{% endif %}"
+                            class="category-item {% if categorias_activas and categorias_activas.panaderia %}active{% endif %}">
                             <div class="category-icon">
                                 <img src="https://static.codia.ai/image/2025-03-11/3a07efec-fbee-4a67-b961-10c98ccc36e9.png"
                                     alt="Panadería" />
                             </div>
                             <span class="category-name">Panadería</span>
                         </a>
-                        <a href="{{ url_for('categoria_dulce') }}" class="category-item">
+                        <a href="{{ url_for('categoria_dulce') }}{% if query %}?q={{ query }}{% endif %}{% if stores %}{% for store in stores %}&stores={{ store }}{% endfor %}{% endif %}"
+                            class="category-item {% if categorias_activas and categorias_activas.dulces_abarrotes %}active{% endif %}">
                             <div class="category-icon">
                                 <img src="https://static.codia.ai/image/2025-03-11/69cda9e8-204c-4088-bb26-48281fa66fc1.png"
                                     alt="Dulces y Abarrotes" />
                             </div>
                             <span class="category-name">Dulces y Abarrotes</span>
                         </a>
-                        <a href="{{ url_for('categoria_bebida') }}" class="category-item">
+                        <a href="{{ url_for('categoria_bebida') }}{% if query %}?q={{ query }}{% endif %}{% if stores %}{% for store in stores %}&stores={{ store }}{% endfor %}{% endif %}"
+                            class="category-item {% if categorias_activas and categorias_activas.bebidas %}active{% endif %}">
                             <div class="category-icon">
                                 <img src="https://static.codia.ai/image/2025-03-11/734371ac-7366-4129-bf5f-42efaa873bae.png"
                                     alt="Bebidas" />
@@ -164,28 +162,44 @@
                 <div class="filter-section">
                     <h3 class="filter-title">Tiendas</h3>
                     <div class="filter-divider"></div>
-                    <div class="checkbox-list">
-                        <label class="checkbox-item">
-                            <input type="checkbox" class="checkbox-input">
-                            <span class="checkbox-custom"></span>
-                            <span class="checkbox-label">Makro</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" class="checkbox-input">
-                            <span class="checkbox-custom"></span>
-                            <span class="checkbox-label">Éxito</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" class="checkbox-input">
-                            <span class="checkbox-custom"></span>
-                            <span class="checkbox-label">Jumbo</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" class="checkbox-input">
-                            <span class="checkbox-custom"></span>
-                            <span class="checkbox-label">Ara</span>
-                        </label>
-                    </div>
+                    <form method="get" action="/categoria" id="filtro-tiendas-form">
+                        <!-- Mantener otros parámetros -->
+                        <input type="hidden" name="q" value="{{ query }}">
+                        <input type="hidden" name="page" value="1">
+
+                        <div class="checkbox-list">
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="checkbox-input" name="stores" value="Makro" {% if "Makro"
+                                    in stores %}checked{% endif %} onchange="this.form.submit()">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">Makro</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="checkbox-input" name="stores" value="Exito" {% if "Exito"
+                                    in stores %}checked{% endif %} onchange="this.form.submit()">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">Éxito</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="checkbox-input" name="stores" value="Jumbo" {% if "Jumbo"
+                                    in stores %}checked{% endif %} onchange="this.form.submit()">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">Jumbo</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="checkbox-input" name="stores" value="D1" {% if "D1" in
+                                    stores %}checked{% endif %} onchange="this.form.submit()">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">D1</span>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" class="checkbox-input" name="stores" value="Carulla" {%
+                                    if "Carulla" in stores %}checked{% endif %} onchange="this.form.submit()">
+                                <span class="checkbox-custom"></span>
+                                <span class="checkbox-label">Carulla</span>
+                            </label>
+                        </div>
+                    </form>
                 </div>
 
                 <!-- Precio -->
@@ -269,7 +283,10 @@
                         </div>
                         <div class="product-card__content">
                             <h3 class="product-card__title">{{ producto.Product_Name }}</h3>
-                            <p class="product-card__weight">{{ producto.Weight | default('') }}</p> <!--{{ producto.Weight }}-->
+                            <p class="product-card__weight">{{ producto.Weight | default('') }}</p>
+                            <!--{{ producto.Weight }}-->
+                            <p class="product-card__weight">Vendido por : {{ producto.Parner | default('N/A') }}</p>
+                            <!--{{ producto.Weight }}-->
                             <p class="product-card__price">Precio: {{ producto.Total_Price | default('N/A')}}</p>
                             <div class="product-card__actions">
                                 <button class="product-card__btn product-card__btn--primary btn-agregar-lista"
@@ -287,8 +304,66 @@
                 {% endfor %}
             </div>
         </div>
-    </div>
+       <!-- <div class="pagination-controls">
+            <button class="pagination-btn" id="prev-page" {% if pagina_actual==1 %}disabled{% endif %}>
+                <i class="fas fa-chevron-left"></i></button>
+            </button>
+            {% for i in range(1, total_paginas + 1) %}
+            {% if i == pagina_actual %}
+            <span class="page-number active">{{ i }}</span>
+            {% else %}
+            <span class="page-number">{{ i }}</span>
+            {% endif %}
+            {% endfor %}
+            <span class="page-dots">...</span>
+            <span class="page-number">{{ total_paginas }}</span>
 
+            <button class="pagination-btn" id="next-page" {% if pagina_actual==total_paginas %}disabled{% endif %}><i
+                    class="fas fa-chevron-right"></i></button>
+        </div>-->
+        <div class="pagination-controls">
+            <button class="pagination-btn" id="prev-page" {% if pagina_actual==1 %}disabled{% endif %}>
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        
+            {% if total_paginas > 7 %}
+                {% if pagina_actual > 4 %}
+                    <span class="page-number" onclick="window.location.href='/categoria?page=1'">1</span>
+                    <span class="page-dots">...</span>
+                {% endif %}
+        
+                {% set start_page = pagina_actual-3 if pagina_actual-3 > 1 else 1 %}
+                {% set end_page = pagina_actual+3 if pagina_actual+3 < total_paginas else total_paginas %}
+        
+                {% for i in range(start_page, end_page + 1) %}
+                    {% if i == pagina_actual %}
+                        <span class="page-number active">{{ i }}</span>
+                    {% else %}
+                        <span class="page-number" onclick="window.location.href='/categoria?page={{ i }}'">{{ i }}</span>
+                    {% endif %}
+                {% endfor %}
+        
+                {% if pagina_actual < total_paginas-3 %}
+                    <span class="page-dots">...</span>
+                    <span class="page-number" onclick="window.location.href='/categoria?page={{ total_paginas }}'">{{ total_paginas }}</span>
+                {% endif %}
+            
+            {% else %}
+                {% for i in range(1, total_paginas + 1) %}
+                    {% if i == pagina_actual %}
+                        <span class="page-number active">{{ i }}</span>
+                    {% else %}
+                        <span class="page-number" onclick="window.location.href='/categoria?page={{ i }}'">{{ i }}</span>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        
+            <button class="pagination-btn" id="next-page" {% if pagina_actual==total_paginas %}disabled{% endif %}>
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+    </div>
 
     <!-- Mensaje de notificación -->
     <div class="message">
