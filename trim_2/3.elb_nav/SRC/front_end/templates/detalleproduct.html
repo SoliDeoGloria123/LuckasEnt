@@ -16,8 +16,7 @@
         <div class="nav-title">Exploración de Productos</div>
         <div class="navigation">
             <a href="{{ url_for('page') }}" class="nav-link">Inicio</a>
-            <a href="{{ url_for('productlista') }}" class="nav-link">Categorías</a>
-            <a href="#" class="nav-link">Ofertas</a>
+            <a href="{{ url_for('categoria') }}" class="nav-link">Categorías</a>
             <a href="{{ url_for('tulista') }}" class="nav-link">Mi Lista</a>
             <a href="{{ url_for('perfil') }}" class="nav-link profile-link">
                 Mi perfil
@@ -30,17 +29,6 @@
             </div>
         </div>
     </div>
-    <div class="barra-superior">
-        <div class="enlace">
-            <span class="material-symbols-outlined">arrow_back_ios</span>
-            <a href="productos.html" class="texto-productos">Productos</a>
-        </div>
-        <div class="enlace">
-            <span class="material-symbols-outlined">arrow_back_ios</span>
-            <a href="carnicos.html" class="texto-carnicos">Cárnicos</a>
-        </div>
-    </div>
-
     <div class="product-container">
         <div class="product-title">Detalles del producto</div>
     </div>
@@ -63,9 +51,11 @@
                 <div class="product-weight">Vendido por : {{ producto.Parner | default('N/A') }}</div>
                 <div class="product-price">Precio: {{ producto.Total_Price }}</div>
                 <div class="product-buttons">
-                    <button class="primary-button add-to-cart btn-agregar-lista " data-product-id="{{ producto._id }}">
-                        <span>+ Agregar</span>
-                    </button>
+                    <button class="primary-button product-card__btn--primary btn-agregar-lista"
+                    data-product-id="{{ producto._id }}"> <!-- <--- AÑADIDO data-product-id y clase -->
+                    <span class="product-card__btn-icon"></span>
+                    Agregar
+                </button>
                     
                 </div>
             </div>

@@ -22,11 +22,11 @@
         <div class="navigation">
             <a href="{{ url_for('page') }}" class="nav-link">Inicio</a>
             <a href="{{ url_for('categoria') }}" class="nav-link">Categorías</a>
-            <a href="ofertas.html" class="nav-link">Ofertas</a>
-            <a href="mi-lista.html" class="nav-link">Mi Lista</a>
+            <a href="{{ url_for('tulista')}}" class="nav-link">Mi Lista</a>
             <a href="{{ url_for('perfil') }}" class="nav-link profile-link">
                 Mi perfil
             </a>
+            
             <div class="search-container">
                 <input type="text" class="search-input" placeholder="Busca un producto o tienda" />
                 <button class="search-button">
@@ -54,6 +54,11 @@
             <button id="backBtn" class="btn-primary">
                 <span class="btn-primary-text">Volver</span>
             </button>
+            <script>
+                document.getElementById("backBtn").addEventListener("click", function() {
+                  window.history.back(); // Va una página atrás en el historial
+                });
+              </script>
         </div>
 
     </div>
