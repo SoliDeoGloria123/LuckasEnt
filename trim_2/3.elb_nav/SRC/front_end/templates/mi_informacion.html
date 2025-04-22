@@ -64,7 +64,7 @@
                 <button class="delete-btn-no" id="cancelBtn">
                     NO, CLARO QUE NO!
                 </button>
-                <button class="delete-btn-yes" id="confirmDeleteBtn">
+                <button class="delete-btn-yes" id="confirmDeleteBtn" data-email="{{ usuario['correo'] }}">
                     Si, procede a eliminarlo
                 </button>
             </div>
@@ -189,9 +189,31 @@
             })
 
             // Confirmar eliminación y cerrar el alert al hacer clic en "Sí, procede a eliminarlo"
-            confirmDeleteBtn.addEventListener("click", () => {
-                deleteAlertOverlay.style.display = "none"
-                alert("La cuenta ha sido eliminada.") // Cambiar con lógica adicional si es necesario
+            confirmDeleteBtn.addEventListener("click", async () => {
+                deleteAlertOverlay.style.display = "none";
+
+                try {
+                    const response = await fetch("/eliminar_cuenta", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                        },
+                        body: new URLSearchParams({
+                            email: "{{ usuario['correo'] }}", // Pasa el correo del usuario
+                        }),
+                    });
+
+                    if (response.ok) {
+                        alert("La cuenta ha sido eliminada.");
+                        window.location.href = "/registro"; // Redirige al registro
+                    } else {
+                        const errorData = await response.json();
+                        alert(`Error al eliminar la cuenta: ${errorData.detail}`);
+                    }
+                } catch (error) {
+                    console.error("Error al eliminar la cuenta:", error);
+                    alert("Ocurrió un error al intentar eliminar la cuenta.");
+                }
             })
         })
     </script>

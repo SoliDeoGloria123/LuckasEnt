@@ -409,7 +409,10 @@ async def page(request: Request, current_user=Depends(require_login)):
 
 @app.post("/eliminar_cuenta", name="eliminar_cuenta")
 async def eliminar_cuenta(request: Request, email: str = Form(...)):
-    users_collection.delete_one({"correo": email})
+    # Elimina el usuario de la base de datos
+    result = users_collection.delete_one({"correo": email})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Usuario no encontrado")
     return RedirectResponse(url="/registro", status_code=303)
 
 @app.get("/precioproduc", name="precioproduc")
