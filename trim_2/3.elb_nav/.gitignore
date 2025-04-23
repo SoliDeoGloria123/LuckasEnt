@@ -10,3 +10,4 @@ Ent/
 /.vent
 .venv
 .env
+client_secret.json
