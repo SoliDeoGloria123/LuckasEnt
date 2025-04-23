@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
 from flask import Flask, session, redirect, url_for, flash
-from flask_bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt # type: ignore
 from flask_dance.contrib.google import make_google_blueprint, google
 from pymongo import MongoClient
 from fastapi.exceptions import RequestValidationError
@@ -21,6 +21,7 @@ import re
 from dotenv import load_dotenv
 import os
 from typing import List
+from SRC.back_end.ofertas import data_analist_products
 
 # Mapeo de categorías a términos de búsqueda
 CATEGORIAS_MAPPING = {
@@ -31,6 +32,7 @@ CATEGORIAS_MAPPING = {
     "dulces_abarrotes": ["dulce", "chocolate", "caramelo", "azúcar", "arroz", "frijol", "pasta", "aceite", "conserva"],
     "bebidas": ["agua", "jugo", "refresco", "gaseosa", "cerveza", "vino", "leche", "café", "té"]
 }
+
 # Cargar variables de entorno desde .env
 load_dotenv()
 
@@ -582,6 +584,26 @@ async def productlista(request: Request):  # ✔️ Nombre correcto de la funci�
 async def detalleproducto(request: Request):  # ✔️ Nombre correcto de la función
     return templates.TemplateResponse("detalleproduct.html", {"request": request})
 
+
+@app.get("/ofertas", name="ofertas")
+async def ofertas(request: Request, q: str = "", page: int = Query(1, gt=0)):
+    page_size = 10  # Número de productos por página
+    result = data_analist_products(search_query=q, page=page, page_size=page_size)
+    productos = result["productos"]
+    total_productos = result["total_productos"]
+    total_paginas = (total_productos + page_size - 1) // page_size  # Calcular total de páginas
+
+    return templates.TemplateResponse(
+        "ofertas.html",
+        {
+            "request": request,
+            "best_products": productos,
+            "total_productos": total_productos,
+            "pagina_actual": page,
+            "total_paginas": total_paginas,
+            "query": q,
+        },
+    )
 
 @app.get("/categoria", name="categoria")
 async def categoria(

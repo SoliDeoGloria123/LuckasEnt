@@ -12,3 +12,5 @@ Flask==2.2.2
 Flask-Dance
 Werkzeug==2.2.3
 flask-bcrypt
+scikit-learn
+joblib
