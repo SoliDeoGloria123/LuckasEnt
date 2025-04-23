@@ -5,7 +5,7 @@ from pymongo import MongoClient
 from sklearn.cluster import KMeans
 from sklearn.feature_extraction.text import TfidfVectorizer
 import joblib
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler 
 from sklearn.ensemble import RandomForestClassifier
 
 # Cargar variables de entorno
@@ -20,7 +20,7 @@ db = client.LuckasEnt
 collection = db["productos"]
 
 # Ruta para guardar los modelos
-KMEANS_MODEL_PATH = "kmeans_model.pkl"
+KMEANS_MODEL_PATH = "kmeans_model.pkl" #.pkl significa que es un archivo de Python para almacenar objetos de Python
 BEST_OFFER_MODEL_PATH = "best_offer_model.pkl"
 
 # Función para entrenar y guardar el modelo de clustering
