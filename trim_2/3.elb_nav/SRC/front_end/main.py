@@ -195,9 +195,10 @@ async def require_login(request: Request):
 
 # Ruta protegida de ejemplo
 @app.get("/page", name="page")
-async def page(request: Request, current_user=Depends(require_login)):
+async def page (request: Request, current_user=Depends(require_login)):
     print("### DEBUG: Ejecutando ruta /page ###")
     if isinstance(current_user, RedirectResponse):
+        print("### DEBUG: current_user es RedirectResponse, retornando... ###")
         return current_user
     print(f"### DEBUG: Usuario en /page: {current_user.get('email')} ###")
     return templates.TemplateResponse("page.html", {"request": request, "usuario": current_user})
@@ -406,14 +407,7 @@ async def actualizar_perfil(
          pass
     return RedirectResponse(url=request.url_for('cuenta'), status_code=303)
 
-@app.get("/page", name="page")
-async def page(request: Request, current_user=Depends(require_login)):
-    print("### DEBUG: Ejecutando ruta /page ###")
-    if isinstance(current_user, RedirectResponse):
-        print("### DEBUG: current_user es RedirectResponse, retornando... ###")
-        return current_user
-    print(f"### DEBUG: Usuario en /page: {current_user.get('email')} ###")
-    return templates.TemplateResponse("page.html", {"request": request, "usuario": current_user})
+
 
 
 
@@ -425,24 +419,63 @@ async def eliminar_cuenta(request: Request, email: str = Form(...)):
         raise HTTPException(status_code=404, detail="Usuario no encontrado")
     return RedirectResponse(url="/registro", status_code=303)
 
-@app.get("/precioproduc", name="precioproduc")
-async def precioproduc(request: Request):  # ✔️ Nombre correcto de la función
-    return templates.TemplateResponse("productoprecio.html", {"request": request})
+
 
 @app.get("/Tiendas", name="Tiendas")
 async def Tiendas(request: Request):
     usuario = {"nombre": "Luis Felipe"}  # o lo que corresponda según tu app
     return templates.TemplateResponse("Tiendas.html", {"request": request, "usuario": usuario})
 
+@app.get("/precioproduc/{product_id}", name="precioproduc")
+async def precioproduc(request: Request, product_id: str):  # ✔️ Nombre correcto de la función
+    try:
+        producto = collection.find_one({"_id": ObjectId(product_id)})
+        if producto is None:
+            return templates.TemplateResponse("error.html", {"request": request, "mensaje": "Producto no encontrado"})
+    except Exception as e:
+        print(f"Error al buscar producto: {e}")
+        return templates.TemplateResponse("error.html", {"request": request, "mensaje": "ID de producto inválido"})
+    
+    # Pasar los datos del producto al template
+    return templates.TemplateResponse("productoprecio.html", {
+        "request": request,
+        "producto": producto
+    })
 
-@app.get("/ubicacionproduc", name="ubicacionproduc")
-async def ubicacionproduc(request: Request):  # ✔️ Nombre correcto de la función
-    return templates.TemplateResponse("productoubica.html", {"request": request})
+@app.get("/ubicacionproduc/{product_id}", name="ubicacionproduc")
+async def ubicacionproduc(request: Request, product_id: str):
+    # Buscar el producto en la base de datos usando el ID
+    try:
+        producto = collection.find_one({"_id": ObjectId(product_id)})
+        if producto is None:
+            return templates.TemplateResponse("error.html", {"request": request, "mensaje": "Producto no encontrado"})
+    except Exception as e:
+        print(f"Error al buscar producto: {e}")
+        return templates.TemplateResponse("error.html", {"request": request, "mensaje": "ID de producto inválido"})
+    
+    # Pasar los datos del producto al template
+    return templates.TemplateResponse("productoubica.html", {
+        "request": request,
+        "producto": producto
+    })
 
 
-@app.get("/reseñaproduc", name="reseñaproduc")
-async def reseñaproduc(request: Request):  # ✔️ Nombre correcto de la función
-    return templates.TemplateResponse("productoreseña.html", {"request": request})
+@app.get("/reseñaproduc/{product_id}", name="reseñaproduc")
+async def reseñaproduc(request: Request, product_id: str):  # ✔️ Nombre correcto de la función
+    try:  # <- Indentación corregida (4 espacios)
+        producto = collection.find_one({"_id": ObjectId(product_id)})
+        if producto is None:
+            return templates.TemplateResponse("error.html", {"request": request, "mensaje": "Producto no encontrado"})
+    except Exception as e:
+        print(f"Error al buscar producto: {e}")
+        return templates.TemplateResponse("error.html", {"request": request, "mensaje": "ID de producto inválido"})
+    
+    # Pasar los datos del producto al template
+    return templates.TemplateResponse("productoreseña.html", {
+        "request": request,
+        "producto": producto
+    })
+
 
 @app.post("/agregar_a_lista/{product_id}", name="agregar_a_lista")
 async def agregar_a_lista(request: Request, product_id: str, current_user: dict = Depends(require_api_login)):
@@ -578,9 +611,16 @@ async def productlista(request: Request):  # ✔️ Nombre correcto de la funci�
     return templates.TemplateResponse("categorias.html", {"request": request})
 
 
-@app.get("/detalle_producto", name="detalle_producto")
-async def detalleproducto(request: Request):  # ✔️ Nombre correcto de la función
-    return templates.TemplateResponse("detalleproduct.html", {"request": request})
+@app.get("/detalle_producto/{product_id}", name="detalle_producto")
+async def detalle_producto(request: Request, product_id: str):
+    producto = collection.find_one({"_id": ObjectId(product_id)})
+    if producto is None:
+        return templates.TemplateResponse("error.html", {"request": request, "mensaje": "Producto no encontrado"})
+
+    return templates.TemplateResponse("detalleproduct.html", {
+        "request": request,
+        "producto": producto
+    })
 
 
 @app.get("/categoria", name="categoria")

@@ -35,7 +35,6 @@
     <nav class="menu-container">
         <ul class="menu-navigation">
             <li><a class="menu-link" href="{{ url_for('categoria') }}">Categorías</a></li>
-            <li><a class="menu-link" href="#">Ofertas</a></li>
             <li><a class="menu-link" href="{{ url_for('tulista') }}">Mi Lista</a></li>
             <li><a class="menu-link" href="{{ url_for('cuenta') }}#seccion-destino">Favoritos</a></li>
             <li><a class="menu-link" href="#">Ayuda</a></li>
@@ -76,7 +75,7 @@
                     // Agregar un evento de clic a cada botón
                     detalleBtns.forEach(btn => {
                         btn.addEventListener('click', function () {
-                            window.location.href = "{{ url_for('detalle_producto') }}";  // Redirige a Flask
+                            wwindow.location.href = "{{ url_for('detalle_producto', product_id='id_del_producto') }}";  // Redirige a Flask
                         });
                     });
                 });

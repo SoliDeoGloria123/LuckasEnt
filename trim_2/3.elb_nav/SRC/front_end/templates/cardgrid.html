@@ -10,24 +10,28 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2w?family=Bebas+Neue:wght@400&display=swap" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
   <nav class="nav-bar">
-    <a href="{{ url_for('page') }}" class="logo">
-      <span class="luckas bebas-neue-regular">Luckas</span>
-      <span class="ent">ent</span>
-    </a>
-    <div class="search-bar">
-      <input type="text" placeholder="Busca un producto o tienda">
-      <button><i class="fas fa-search"></i></button>
+    <div class="logo">
+        <span class="luckas">Luckas</span>
+        <span class="ent">ent</span>
     </div>
+    <form method="get" action="/categoria" class="search-bar">
+        <input type="text" name="q" value="{{ query }}" autocomplete="off" placeholder="Busca un producto o tienda">
+        <button type="submit"><i class="fas fa-search"></i></button>
+    </form>
+
+
     <nav class="nav-menu">
-      <a href="{{ url_for('home')}}">Inicio</a>
-      <a href="{{ url_for('nosotros')}}">Nosotros</a>
-      <a href="{{ url_for('cuenta') }}">Mi perfil</a>
+        <a href="{{ url_for('page') }}">Inicio</a>
+        <a href="{{ url_for('nosotros')}}">Nosotros</a>
+        <a href="{{ url_for('cuenta') }}">Mi perfil</a>
     </nav>
-  </nav>
+    </div>
+</nav>
   <section>
     <!-- <div class="header">
         <h2>Tu Lista</h2>

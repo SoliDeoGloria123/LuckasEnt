@@ -15,7 +15,7 @@
 
 <body>
     <div class="top-bar">
-        <img class="logo" src="data:image/png;base64,{{ usuario['foto'] | b64encode }}" alt="Foto de perfil" />
+        <img class="logo" src="{{ usuario['foto'] or url_for('static', path='img/default-avatar.png') }}" alt="Foto de perfil" />
         <div class="nav-title">Tiendas</div>
         <div class="navigation">
             <a href="{{ url_for('page') }}" class="nav-link">Inicio</a>
@@ -39,77 +39,71 @@
             <div class="grid">
     
                 <div class="card">
-                    <img src="{{ url_for('static', path='img/OIP.jpg') }}" alt="Makro">
+                    <img src="{{ url_for('static', path='img/makro-tienda.png') }}" alt="Makro">
                     <button>Explorar Tienda</button>
                 </div>
     
                 <div class="card">
-                    <img src="img/jumbo.png" alt="Jumbo">
+                    <img src="{{ url_for('static', path='img/makro-tienda.png') }}" alt="Jumbo">
                     <button>Explorar Tienda</button>
                 </div>
     
                 <div class="card">
-                    <img src="img/isimo.png" alt="Isimo">
+                    <img src="{{ url_for('static', path='img/makro-tienda.png') }}" alt="Isimo">
                     <button>Explorar Tienda</button>
                 </div>
     
                 <div class="card">
-                    <img src="img/exito.png" alt="Éxito">
+                    <img src="{{ url_for('static', path='img/makro-tienda.png') }}" alt="Éxito">
                     <button>Explorar Tienda</button>
                 </div>
     
                 <div class="card">
-                    <img src="img/alkosto.png" alt="Alkosto">
+                    <img src="{{ url_for('static', path='img/makro-tienda.png') }}" alt="Alkosto">
                     <button>Explorar Tienda</button>
                 </div>
     
                 <div class="card">
-                    <img src="img/olimpica.png" alt="Olímpica">
+                    <img src="{{ url_for('static', path='img/makro-tienda.png') }}" alt="Olímpica">
                     <button>Explorar Tienda</button>
                 </div>
     
                 <div class="card">
-                    <img src="img/d1.png" alt="D1">
+                    <img src="{{ url_for('static', path='img/makro-tienda.png') }}" alt="D1">
                     <button>Explorar Tienda</button>
                 </div>
     
                 <div class="card">
-                    <img src="img/metro.png" alt="Metro">
+                    <img src="{{ url_for('static', path='img/makro-tienda.png') }}" alt="Metro">
                     <button>Explorar Tienda</button>
                 </div>
     
                 <div class="card">
-                    <img src="img/zapatoca.png" alt="Zapatoca">
+                    <img src="{{ url_for('static', path='img/makro-tienda.png') }}" alt="Zapatoca">
                     <button>Explorar Tienda</button>
                 </div>
     
                 <div class="card">
-                    <img src="img/mercado.png" alt="Mercado Colsubsidio">
+                    <img src="{{ url_for('static', path='img/makro-tienda.png') }}" alt="Mercado Colsubsidio">
                     <button>Explorar Tienda</button>
                 </div>
     
                 <div class="card">
-                    <img src="img/ara.png" alt="Ara">
+                    <img src="{{ url_for('static', path='img/makro-tienda.png') }}" alt="Ara">
                     <button>Explorar Tienda</button>
                 </div>
     
                 <div class="card">
-                    <img src="img/surtimax.png" alt="Surtimax">
+                    <img src="{{ url_for('static', path='img/makro-tienda.png') }}" alt="Surtimax">
                     <button>Explorar Tienda</button>
                 </div>
     
                 <div class="card">
-                    <img src="img/oxxo.png" alt="OXXO">
+                    <img src="{{ url_for('static', path='img/makro-tienda.png') }}" alt="OXXO">
                     <button>Explorar Tienda</button>
                 </div>
-    
                 <div class="card">
-                    <img src="img/tiendasd1.png" alt="Tiendas D1">
-                    <button>Explorar Tienda</button>
-                </div>
-    
-                <div class="card">
-                    <img src="img/carulla.png" alt="Carulla">
+                    <img src="{{ url_for('static', path='img/makro-tienda.png') }}" alt="Carulla">
                     <button>Explorar Tienda</button>
                 </div>
     

@@ -199,3 +199,4 @@ function showMessage(msg) {
          closeBtn.dataset.listenerAttached = 'true'; // Marca que ya tiene listener
     }
 }
+

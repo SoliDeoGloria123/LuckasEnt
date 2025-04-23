@@ -1,3 +1,119 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+.nav-bar {
+  background: #ffffff;
+  padding: 18px 48px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  position: relative;
+  overflow: hidden;
+  padding-top: 70px;
+  padding-bottom: 56px;
+}
+
+:root {
+  --default-font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
+    "Source Han Sans CN", sans-serif;
+}
+
+.logo {
+  flex-shrink: 0;
+  position: relative;
+  width: 167px;
+  height: 64px;
+  font-size: 0px;
+  z-index: 5;
+}
+
+.luckas {
+  display: block;
+  position: relative;
+  height: 52px;
+  margin: 0 0 0 0;
+  color: #0033ff;
+  font-family: Bebas Neue, var(--default-font-family);
+  font-size: 56px;
+  font-weight: 400;
+  line-height: 52px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 6;
+}
+
+.ent {
+  display: block;
+  position: relative;
+  height: 14px;
+  margin: -2px 0 0 90px;
+  color: #0033ff;
+  font-family: Bebas Neue, var(--default-font-family);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
+  text-align: left;
+  white-space: nowrap;
+  letter-spacing: 0.96px;
+  z-index: 7;
+}
+
+.search-bar {
+  display: flex;
+  flex: 1;
+  max-width: 500px;
+  margin: 0 20px;
+  box-shadow: 0 8.75px 46.25px 0 rgba(0, 0, 0, 0.06);
+  height: 40px;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+}
+
+.search-bar button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #0047ff;
+  color: white;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: #323232;
+  font-weight: 400;
+  line-height: 24px;
+  transition: color 0.3s ease;
+}
+
+.nav-menu a:hover {
+  color: #0033ff;
+  /* Cambia el color al pasar el mouse */
+}
+
 @font-face {
   font-family: 'Bebas Neue';
   src: url('path/to/bebas-neue.woff2') format('woff2'),
@@ -23,105 +139,6 @@
   margin: 10px 0;
   color: #555;
 }
-
-:root {
-  --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
-    "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
-    "Source Han Sans CN", sans-serif;
-}
-
-
-.logo {
-  text-decoration: none;
-  font-family: 'Bebas Neue', sans-serif;
-  position: absolute;
-  /* Fijar el logo en la parte superior izquierda */
-  top: 20px;
-  /* Distancia desde la parte superior */
-  left: 20px;
-  /* Distancia desde la izquierda */
-  width: 167px;
-  height: auto;
-  font-size: 0px;
-  z-index: 10;
-  /* Asegurar que esté sobre otros elementos */
-}
-
-.luckas {
-  display: block;
-  color: #0033ff;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 56px;
-  line-height: 52px;
-  font-weight: 400;
-}
-
-.ent {
-  display: block;
-  color: #0033ff;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.96px;
-  line-height: 14px;
-  font-weight: 400;
-}
-.nav-bar {
-  background: #ffffff;
-  padding: 18px 48px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  height: 70px;
-  position: relative;
-  overflow: hidden;
-}
-.search-bar {
-  display: flex;
-  text-decoration: none;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    width: 100%; /* Asegura que ocupe todo el ancho disponible */
-    margin: 0 auto; /* Centra en caso de que tenga un ancho definido */
-}
-
-.search-bar input {
-  flex: 1; /* Permite que el input ocupe el espacio disponible */
-    padding: 10px; /* Hace el input más cómodo */
-    border: none;
-    border-radius: 40px;
-    outline: none;
-    width: 100%; /* Asegura que el input se expanda correctamente */
-    max-width: 500px; /* Ajusta el ancho máximo para que no sea demasiado grande */
-    text-align: center; /* Centra el texto dentro del input */
-}
-
-.search-bar button {
-  padding: 10px 15px;
-  border: none;
-  background-color: #0047FF;
-  color: white;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-}
-
-.nav-menu {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.nav-menu a {
-  color: rgb(0, 0, 0);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.nav-menu a:hover {
-  text-decoration: underline;
-}
-
 
 .producto-item {
   display: flex;

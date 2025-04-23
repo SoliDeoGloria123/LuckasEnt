@@ -33,21 +33,21 @@
     <nav class="menu-container">
         <ul class="menu-navigation">
             <li><a class="menu-link" href="{{ url_for('categoria') }}">Categorías</a></li>
-            <li><a class="menu-link" href="#">Ofertas</a></li>
             <li><a class="menu-link" href="{{ url_for('tulista') }}">Mi Lista</a></li>
             <li><a class="menu-link" href="{{ url_for('cuenta') }}#seccion-destino">Favoritos</a></li>
             <li><a class="menu-link" href="#">Ayuda</a></li>
         </ul>
     </nav>
-  
-    <div class="main-container"> 
-         <!-- Información de resultados -->
-    {% if total_productos is defined %}
-    <div class="resultados-info">
-        <p>Se encontraron <strong>{{ total_productos }}</strong> productos{% if categoria_actual %} en la categoría
-            <strong>{{ categoria_actual|replace('_', ' ')|title }}</strong>{% endif %}</p>
-    </div>
-    {% endif %}
+
+    <div class="main-container">
+        <!-- Información de resultados -->
+        {% if total_productos is defined %}
+        <div class="resultados-info">
+            <p>Se encontraron <strong>{{ total_productos }}</strong> productos{% if categoria_actual %} en la categoría
+                <strong>{{ categoria_actual|replace('_', ' ')|title }}</strong>{% endif %}
+            </p>
+        </div>
+        {% endif %}
         <!-- Título de la página -->
         <div class="page-header">
             <h1 class="letra">{{ titulo_pagina|default('Frutas & Verduras') }}</h1>
@@ -96,7 +96,16 @@
                     });
                 });
             });
+            document.addEventListener('DOMContentLoaded', function () {
+                const detalleBtns = document.querySelectorAll('.btn-detalles');
 
+                detalleBtns.forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        const productId = this.getAttribute('data-product-id');
+                        window.location.href = `/detalle_producto/${productId}`;  // Redirige a FastAPI con el id correcto
+                    });
+                });
+            });
         </script>
         <!-- Contenedor de contenido -->
         <div class="content-wrapper">
@@ -294,7 +303,11 @@
                                     <span class="product-card__btn-icon"></span>
                                     Agregar
                                 </button>
-                                <button class="product-card__btn product-card__btn--secondary">
+                                <!--<button class="product-card__btn product-card__btn--secondary btn-detalles">
+                                    Ver detalles
+                                </button>-->
+                                <button class="product-card__btn product-card__btn--secondary btn-detalles"
+                                    data-product-id="{{ producto._id }}">
                                     Ver detalles
                                 </button>
                             </div>
@@ -304,7 +317,7 @@
                 {% endfor %}
             </div>
         </div>
-       <!-- <div class="pagination-controls">
+        <!-- <div class="pagination-controls">
             <button class="pagination-btn" id="prev-page" {% if pagina_actual==1 %}disabled{% endif %}>
                 <i class="fas fa-chevron-left"></i></button>
             </button>
@@ -325,44 +338,43 @@
             <button class="pagination-btn" id="prev-page" {% if pagina_actual==1 %}disabled{% endif %}>
                 <i class="fas fa-chevron-left"></i>
             </button>
-        
+
             {% if total_paginas > 7 %}
-                {% if pagina_actual > 4 %}
-                    <span class="page-number" onclick="window.location.href='/categoria?page=1'">1</span>
-                    <span class="page-dots">...</span>
-                {% endif %}
-        
-                {% set start_page = pagina_actual-3 if pagina_actual-3 > 1 else 1 %}
-                {% set end_page = pagina_actual+3 if pagina_actual+3 < total_paginas else total_paginas %}
-        
-                {% for i in range(start_page, end_page + 1) %}
-                    {% if i == pagina_actual %}
-                        <span class="page-number active">{{ i }}</span>
-                    {% else %}
-                        <span class="page-number" onclick="window.location.href='/categoria?page={{ i }}'">{{ i }}</span>
-                    {% endif %}
-                {% endfor %}
-        
-                {% if pagina_actual < total_paginas-3 %}
-                    <span class="page-dots">...</span>
-                    <span class="page-number" onclick="window.location.href='/categoria?page={{ total_paginas }}'">{{ total_paginas }}</span>
-                {% endif %}
-            
-            {% else %}
-                {% for i in range(1, total_paginas + 1) %}
-                    {% if i == pagina_actual %}
-                        <span class="page-number active">{{ i }}</span>
-                    {% else %}
-                        <span class="page-number" onclick="window.location.href='/categoria?page={{ i }}'">{{ i }}</span>
-                    {% endif %}
-                {% endfor %}
+            {% if pagina_actual > 4 %}
+            <span class="page-number" onclick="window.location.href='/categoria?page=1'">1</span>
+            <span class="page-dots">...</span>
             {% endif %}
-        
-            <button class="pagination-btn" id="next-page" {% if pagina_actual==total_paginas %}disabled{% endif %}>
-                <i class="fas fa-chevron-right"></i>
-            </button>
+
+            {% set start_page = pagina_actual-3 if pagina_actual-3 > 1 else 1 %}
+            {% set end_page = pagina_actual+3 if pagina_actual+3 < total_paginas else total_paginas %} {% for i in
+                range(start_page, end_page + 1) %} {% if i==pagina_actual %} <span class="page-number active">{{ i
+                }}</span>
+                {% else %}
+                <span class="page-number" onclick="window.location.href='/categoria?page={{ i }}'">{{ i }}</span>
+                {% endif %}
+                {% endfor %}
+
+                {% if pagina_actual < total_paginas-3 %} <span class="page-dots">...</span>
+                    <span class="page-number" onclick="window.location.href='/categoria?page={{ total_paginas }}'">{{
+                        total_paginas }}</span>
+                    {% endif %}
+
+                    {% else %}
+                    {% for i in range(1, total_paginas + 1) %}
+                    {% if i == pagina_actual %}
+                    <span class="page-number active">{{ i }}</span>
+                    {% else %}
+                    <span class="page-number" onclick="window.location.href='/categoria?page={{ i }}'">{{ i }}</span>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+
+                    <button class="pagination-btn" id="next-page" {% if pagina_actual==total_paginas %}disabled{% endif
+                        %}>
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
         </div>
-        
+
     </div>
 
     <!-- Mensaje de notificación -->

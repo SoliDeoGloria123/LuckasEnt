@@ -268,8 +268,7 @@ body {
   gap: 10px;
 }
 
-.primary-button,
-.secondary-button {
+.primary-button {
   border-radius: 8px;
   padding: 9px 24px;
   flex: 1;
@@ -305,7 +304,7 @@ body {
 }
 
 .available-products-section {
-  flex: 1;
+  flex: -10;
 }
 
 .title {
@@ -319,8 +318,10 @@ body {
 .products-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: 15px;
+  padding: 4px; 
 }
+
 
 .frame-427320300 {
   background: #ffffff;
@@ -334,7 +335,7 @@ body {
   gap: 7px;
   align-items: flex-start;
   justify-content: flex-end;
-  width: 65%;
+  width: 105%;
   position: relative;
   box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.12);
   overflow: hidden;
@@ -575,4 +576,40 @@ body {
 .secondary-button {
   /* Mantén tus estilos originales para estos botones */
   cursor: pointer;
+}
+.message {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #0033ff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s, visibility 0.5s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.message.show {
+  opacity: 1;
+  visibility: visible;
+}
+.close-btn {
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.5);
+  animation: progress 2.5s linear forwards;
 }

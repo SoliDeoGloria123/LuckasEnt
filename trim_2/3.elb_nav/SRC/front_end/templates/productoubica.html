@@ -30,10 +30,9 @@
     </nav>
     <nav class="menu-container">
         <ul class="menu-navigation">
-            <li><a class="menu-link" href="{{ url_for('productlista') }}">Categorías</a></li>
-            <li><a class="menu-link" href="#">Ofertas</a></li>
+            <li><a class="menu-link" href="{{ url_for('categoria') }}">Categorías</a></li>
             <li><a class="menu-link" href="{{ url_for('tulista') }}">Mi Lista</a></li>
-            <li><a class="menu-link" href="#">Favoritos</a></li>
+            <li><a class="menu-link" href="{{ url_for('cuenta') }}#seccion-destino">Favoritos</a></li>
             <li><a class="menu-link" href="#">Ayuda</a></li>
         </ul>
     </nav>
@@ -47,18 +46,18 @@
      <div class="descripcion-producto">
         <div class="producto-imagen">
             <img
-                src="https://images.unsplash.com/photo-1548692972-dd5753b37b9f?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3">
+                src="{{ producto.Imagen }}">
             <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
         </div>
         <div class="producto-info">
-            <h1 class="producto-titulo">Arándanos Pack 120g</h1>
-            <p class="producto-tienda">Makro</p>
+            <h1 class="producto-titulo">{{ producto.Product_Name }}</h1>
+            <p class="producto-tienda">Vendido por : {{ producto.Parner | default('N/A') }}</p>
             <p class="producto-marca">Marca La huerta</p>
 
             <div class="producto-precios">
                 <div class="precio-total">
                     <span class="precio-label">Precio Total</span>
-                    <span class="precio-valor">$17.000</span>
+                    <span class="precio-valor">{{ producto.Total_Price | default('N/A')}}</span>
                 </div>
                 <div class="precio-descuento">
                     <span class="precio-label">Precio con descuento</span>
@@ -85,7 +84,7 @@
             </div>
 
             <div class="producto-botones">
-                <button class="btn-agregar">
+                <button class="btn-agregar btn-agregar-lista" data-product-id="{{ producto._id }}">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="white" />
                     </svg>
@@ -96,11 +95,11 @@
         </div>
     </div>
     <div class="tabs">
-        <a href="#" class="tab">Descripción</a>
-        <a href="{{ url_for('ubicacionproduc') }}" class="tab active ">Ubicación</a>
-        <a href="{{ url_for('precioproduc') }}" class="tab ">Precios</a>
+        <a href="{{ url_for('detalle_producto', product_id=producto._id) }}" class="tab">Descripción</a>
+        <a href="{{ url_for('ubicacionproduc', product_id=producto._id) }}" class="tab active ">Ubicación</a>
+        <a href="{{ url_for('precioproduc', product_id=producto._id) }}" class="tab ">Precios</a>
         <a href="{{ url_for('tienda') }}" class="tab">Tiendas</a>
-        <a href="{{ url_for('reseñaproduc') }}" class="tab ">Reseñas</a>
+        <a href="{{ url_for('reseñaproduc', product_id=producto._id) }}" class="tab ">Reseñas</a>
     </div>
     <div class="map-container">
         <div id="map"></div>
@@ -118,7 +117,12 @@
             .openPopup();
     </script>
 
-
+<div class="message">
+    Producto añadido al carrito
+    <span class="message__close-btn">×</span>
+    <div class="message__progress-bar"></div>
+</div>
+<script src="{{ url_for('static', path='js/categoriasP.js') }}"></script>
 </body>
 
 <footer>
