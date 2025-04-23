@@ -21,6 +21,9 @@ Una vez instalado WSL, es hora de instalar Docker. Si no sabe cómo instalarlo, 
 
 [https://youtu.be/ZO4KWQfUBBc?si=cpTl\_nNCQGxCR9UF](https://youtu.be/ZO4KWQfUBBc?si=cpTl_nNCQGxCR9UF)
 
+Link de Instalación de Docker Desktop Aqui:
+[https://docs.docker.com/get-started/get-docker/](https://docs.docker.com/get-started/get-docker/)
+
 Si no sabe qué es Docker, vea este video:
 
 [https://youtu.be/SMqdC6g6Y2o?si=-Zd1wAyTfCIgRxdx](https://youtu.be/SMqdC6g6Y2o?si=-Zd1wAyTfCIgRxdx)
@@ -76,7 +79,8 @@ Una vez instalado Docker y clonado el repo:
     ```
 
     **OJO AQUÍ:** Debe pedir a los administradores del proyecto las claves (por ejemplo, todo lo que está en minúscula: `your_mongo_uri`) y debe pegar el contenido proporcionado de los admins sin espacios al `=`, sin usar comillas.
-9.  Después de haber instalado WSL, instalado Docker para WSL, clonado el repo en la terminal de WSL, y tenido el archivo `.env` con sus claves, por favor, cree un archivo llamado `client_secret.json`, el cual le permitirá recordar cuáles son los accesos a Google OAuth, así como se ve en el archivo `client_secret_example.json`, y rellene los campos que le piden que empiecen con la palabra `your`. Tendrá que pedirle al admin que le dé credenciales para colocar los datos en ese JSON.
+    
+8.  Después de haber instalado WSL, instalado Docker para WSL, clonado el repo en la terminal de WSL, y tenido el archivo `.env` con sus claves, por favor, cree un archivo llamado `client_secret.json`, el cual le permitirá recordar cuáles son los accesos a Google OAuth, así como se ve en el archivo `client_secret_example.json`, y rellene los campos que le piden que empiecen con la palabra `your`. Tendrá que pedirle al admin que le dé credenciales para colocar los datos en ese JSON.
 
 ## Ejecución del Proyecto
 
