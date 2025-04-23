@@ -27,13 +27,14 @@
             <a href="{{ url_for('page') }}">Inicio</a>
             <a href="{{ url_for('nosotros')}}">Nosotros</a>
             <a href="{{ url_for('cuenta') }}">Mi perfil</a>
+            <a href="{{ url_for('home') }}">Cerrar Sesion</a>
         </nav>
         </div>
     </nav>
     <nav class="menu-container">
         <ul class="menu-navigation">
             <li><a class="menu-link" href="{{ url_for('categoria') }}">Categorías</a></li>
-            <li><a class="menu-link" href="#">Ofertas</a></li>
+            <li><a class="menu-link" href="{{ url_for('ofertas') }}">Ofertas</a></li>
             <li><a class="menu-link" href="{{ url_for('tulista') }}">Mi Lista</a></li>
             <li><a class="menu-link" href="{{ url_for('cuenta') }}#seccion-destino">Favoritos</a></li>
             <li><a class="menu-link" href="#">Ayuda</a></li>
@@ -54,56 +55,81 @@
             <h1 class="letra">{{ titulo_pagina|default('Frutas & Verduras') }}</h1>
         </div>
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const prevBtn = document.getElementById("prev-page");
-                const nextBtn = document.getElementById("next-page");
-                const pageNumbers = document.querySelectorAll(".page-number");
+            // Función mejorada para mantener la ruta actual y todos los parámetros
+           // Almacenar valores de Jinja en variables JavaScript
+           const paginaActual = {{ pagina_actual }};
+           const totalPaginas = {{ total_paginas }};
+            
+            // Función mejorada para mantener la ruta actual y todos los parámetros
+            function navegarAPagina(numeroPagina) {
+                // Obtener la ruta actual (sin parámetros)
+                const rutaActual = window.location.pathname;
+                
+                // Obtener todos los parámetros actuales
+                const url = new URL(window.location.href);
+                
+                // Actualizar el número de página
+                url.searchParams.set('page', numeroPagina);
+                
+                // Navegar manteniendo la ruta actual y los parámetros actualizados
+                window.location.href = rutaActual + url.search;
+            }
 
-                function getCurrentPageIndex() {
-                    return [...pageNumbers].findIndex(p => p.classList.contains("active"));
-                }
-
-                function setActivePage(index) {
-                    pageNumbers.forEach(p => p.classList.remove("active"));
-                    pageNumbers[index].classList.add("active");
-                }
-
-                prevBtn.addEventListener("click", function () {
-                    const currentIndex = getCurrentPageIndex();
-                    if (currentIndex > 0) {
-                        // Get the current active page number
-                        const currentPage = parseInt(pageNumbers[currentIndex].textContent);
-                        // Redirect to the previous page
-                        window.location.href = `/categoria?page=${currentPage - 1}`;
-                    }
-                });
-
-                nextBtn.addEventListener("click", function () {
-                    const currentIndex = getCurrentPageIndex();
-                    if (currentIndex < pageNumbers.length - 1) {
-                        // Get the current active page number
-                        const currentPage = parseInt(pageNumbers[currentIndex].textContent);
-                        // Redirect to the next page
-                        window.location.href = `/categoria?page=${currentPage + 1}`;
-                    }
-                });
-
-                pageNumbers.forEach((btn, index) => {
-                    btn.addEventListener("click", () => {
-                        // Get the page number from the clicked button
-                        const pageNumber = parseInt(btn.textContent);
-                        // Redirect to the selected page
-                        window.location.href = `/categoria?page=${pageNumber}`;
-                    });
-                });
-            });
             document.addEventListener('DOMContentLoaded', function () {
-                const detalleBtns = document.querySelectorAll('.btn-detalles');
+                // Configurar botones de paginación
+                const botonAnterior = document.getElementById("prev-page");
+                const botonSiguiente = document.getElementById("next-page");
+                
+                if (botonAnterior) {
+                    botonAnterior.addEventListener("click", function() {
+                        if (!this.hasAttribute('disabled')) {
+                            navegarAPagina(paginaActual - 1);
+                        }
+                    });
+                }
+                
+                if (botonSiguiente) {
+                    botonSiguiente.addEventListener("click", function() {
+                        if (!this.hasAttribute('disabled')) {
+                            navegarAPagina(paginaActual + 1);
+                        }
+                    });
+                }
 
+                // Configurar los botones de detalles del producto
+                const detalleBtns = document.querySelectorAll('.btn-detalles');
                 detalleBtns.forEach(btn => {
                     btn.addEventListener('click', function () {
                         const productId = this.getAttribute('data-product-id');
-                        window.location.href = `/detalle_producto/${productId}`;  // Redirige a FastAPI con el id correcto
+                        window.location.href = `/detalle_producto/${productId}`;
+                    });
+                });
+                
+                // Configurar los botones de agregar a lista
+                const agregarBtns = document.querySelectorAll('.btn-agregar-lista');
+                agregarBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const productId = this.getAttribute('data-product-id');
+                        fetch(`/agregar_a_lista/${productId}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Mostrar mensaje de éxito
+                            const mensaje = document.querySelector('.message');
+                            if (mensaje) {
+                                mensaje.classList.add('show');
+                                setTimeout(() => {
+                                    mensaje.classList.remove('show');
+                                }, 3000);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
                     });
                 });
             });
@@ -335,7 +361,7 @@
             <button class="pagination-btn" id="next-page" {% if pagina_actual==total_paginas %}disabled{% endif %}><i
                     class="fas fa-chevron-right"></i></button>
         </div>-->
-        <div class="pagination-controls">
+        <!--<div class="pagination-controls">
             <button class="pagination-btn" id="prev-page" {% if pagina_actual==1 %}disabled{% endif %}>
                 <i class="fas fa-chevron-left"></i>
             </button>
@@ -374,6 +400,46 @@
                         %}>
                         <i class="fas fa-chevron-right"></i>
                     </button>
+        </div>-->
+        <div class="pagination-controls">
+            <button class="pagination-btn" id="prev-page" {% if pagina_actual==1 %}disabled{% endif %}>
+                <i class="fas fa-chevron-left"></i>
+            </button>
+
+            {% if total_paginas > 7 %}
+                {% if pagina_actual > 4 %}
+                    <span class="page-number" onclick="navegarAPagina(1)">1</span>
+                    <span class="page-dots">...</span>
+                {% endif %}
+
+                {% set start_page = pagina_actual-3 if pagina_actual-3 > 1 else 1 %}
+                {% set end_page = pagina_actual+3 if pagina_actual+3 < total_paginas else total_paginas %}
+                
+                {% for i in range(start_page, end_page + 1) %}
+                    {% if i == pagina_actual %}
+                        <span class="page-number active">{{ i }}</span>
+                    {% else %}
+                    <span class="page-number" onclick="navegarAPagina({{ i }})">{{ i }}</span>
+                    {% endif %}
+                {% endfor %}
+
+                {% if pagina_actual < total_paginas-3 %}
+                    <span class="page-dots">...</span>
+                    <span class="page-number" onclick="navegarAPagina({{ total_paginas }})">{{ total_paginas }}</span>
+                {% endif %}
+            {% else %}
+                {% for i in range(1, total_paginas + 1) %}
+                    {% if i == pagina_actual %}
+                        <span class="page-number active">{{ i }}</span>
+                    {% else %}
+                    <span class="page-number" onclick="navegarAPagina({{ i }})">{{ i }}</span>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
+            <button class="pagination-btn" id="next-page" {% if pagina_actual==total_paginas %}disabled{% endif %}>
+                <i class="fas fa-chevron-right"></i>
+            </button>
         </div>
 
     </div>

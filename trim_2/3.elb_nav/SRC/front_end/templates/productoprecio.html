@@ -30,13 +30,14 @@
     </div>
   </nav>
 
-    <nav class="menu-container">
-      <ul class="menu-navigation">
-        <li><a class="menu-link" href="{{ url_for('productlista') }}">Categorías</a></li>
-        <li><a class="menu-link" href="{{ url_for('tulista') }}">Mi Lista</a></li>
-        <li><a class="menu-link" href="#">Favoritos</a></li>
-        <li><a class="menu-link" href="#">Ayuda</a></li>
-      </ul>
+  <nav class="menu-container">
+    <ul class="menu-navigation">
+      <li><a class="menu-link" href="{{ url_for('categoria') }}">Categorías</a></li>
+      <li><a class="menu-link" href="{{ url_for('ofertas') }}">Ofertas</a></li>
+      <li><a class="menu-link" href="{{ url_for('tulista') }}">Mi Lista</a></li>
+      <li><a class="menu-link" href="#">Favoritos</a></li>
+      <li><a class="menu-link" href="#">Ayuda</a></li>
+    </ul>
   </nav>
 
   <!-- FontAwesome para íconos -->
@@ -46,57 +47,56 @@
   <!-- FontAwesome para los íconos -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
- <div class="descripcion-producto">
-        <div class="producto-imagen">
-            <img
-                src="{{ producto.Imagen }}">
-            <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
-        </div>
-        <div class="producto-info">
-            <h1 class="producto-titulo">{{ producto.Product_Name }}</h1>
-            <p class="producto-tienda">Vendido por : {{ producto.Parner | default('N/A') }}</p>
-            <p class="producto-marca">Marca La huerta</p>
-
-            <div class="producto-precios">
-                <div class="precio-total">
-                    <span class="precio-label">Precio Total</span>
-                    <span class="precio-valor">{{ producto.Total_Price | default('N/A')}}</span>
-                </div>
-                <div class="precio-descuento">
-                    <span class="precio-label">Precio con descuento</span>
-                    <span class="precio-valor">$13.650</span>
-                </div>
-            </div>
-
-            <div class="producto-rating">
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-                <span class="star">★</span>
-            </div>
-
-            <div class="producto-compartir">
-                <button class="compartir-btn">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
-                            fill="#000" />
-                    </svg>
-                </button>
-            </div>
-
-            <div class="producto-botones">
-                <button class="btn-agregar btn-agregar-lista" data-product-id="{{ producto._id }}">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="white" />
-                    </svg>
-                    Agregar a mi lista
-                </button>
-                <button class="btn-ver-tiendas">Ver en más tiendas</button>
-            </div>
-        </div>
+  <div class="descripcion-producto">
+    <div class="producto-imagen">
+      <img src="{{ producto.Imagen }}">
+      <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
     </div>
+    <div class="producto-info">
+      <h1 class="producto-titulo">{{ producto.Product_Name }}</h1>
+      <p class="producto-tienda">Vendido por : {{ producto.Parner | default('N/A') }}</p>
+      <p class="producto-marca">Marca La huerta</p>
+
+      <div class="producto-precios">
+        <div class="precio-total">
+          <span class="precio-label">Precio Total</span>
+          <span class="precio-valor">{{ producto.Total_Price | default('N/A')}}</span>
+        </div>
+        <div class="precio-descuento">
+          <span class="precio-label">Precio con descuento</span>
+          <span class="precio-valor">$13.650</span>
+        </div>
+      </div>
+
+      <div class="producto-rating">
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+        <span class="star">★</span>
+      </div>
+
+      <div class="producto-compartir">
+        <button class="compartir-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"
+              fill="#000" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="producto-botones">
+        <button class="btn-agregar btn-agregar-lista" data-product-id="{{ producto._id }}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="white" />
+          </svg>
+          Agregar a mi lista
+        </button>
+        <button class="btn-ver-tiendas">Ver en más tiendas</button>
+      </div>
+    </div>
+  </div>
 
   <div class="tabs">
     <a href="{{ url_for('detalle_producto', product_id=producto._id) }}" class="tab">Descripción</a>
@@ -106,140 +106,136 @@
     <a href="{{ url_for('reseñaproduc', product_id=producto._id) }}" class="tab ">Reseñas</a>
   </div>
   <div class="comparador">
-  <h2 class="comparador__titulo">Compara los precios de diferentes tiendas</h2>
-  
-  <div class="selector-tienda">
-    <button class="selector-tienda__btn selector-tienda__btn--prev">
-      <img src="chevron-left0.svg" alt="Anterior">
-    </button>
-    <span class="selector-tienda__nombre">Makro</span>
-    <button class="selector-tienda__btn selector-tienda__btn--next">
-      <img src="chevron-right0.svg" alt="Siguiente">
-    </button>
-  </div>
-  
-  <div class="producto-info">
-    <h3 class="producto-info__nombre">Carne para asar</h3>
-    <p class="producto-info__precio">Precio Actual: $12.300</p>
-    <p class="producto-info__precio-gramo">Precio por gramo: $14</p>
-  </div>
-  
-  <div class="graficos">
-    <div class="grafico">
-      <div class="grafico__contenido">
-        <h4 class="grafico__titulo">Último Año</h4>
-        <p class="grafico__eje-y">Units</p>
-        <img class="grafico__imagen" src="graph0.svg" alt="Gráfico último año">
-        <p class="grafico__eje-x">Regions</p>
-      </div>
+    <h2 class="comparador__titulo">Compara los precios de diferentes tiendas</h2>
+
+    <div class="selector-tienda">
+      <button class="selector-tienda__btn selector-tienda__btn--prev">
+        <img src="chevron-left0.svg" alt="Anterior">
+      </button>
+      <span class="selector-tienda__nombre">Makro</span>
+      <button class="selector-tienda__btn selector-tienda__btn--next">
+        <img src="chevron-right0.svg" alt="Siguiente">
+      </button>
     </div>
-    
-    <div class="grafico">
-      <div class="grafico__contenido">
-        <h4 class="grafico__titulo">Últimos 3 meses</h4>
-        <p class="grafico__eje-y">Revenue</p>
-        <img class="grafico__imagen" src="graph1.svg" alt="Gráfico últimos 3 meses">
-        <p class="grafico__eje-x">Months</p>
-      </div>
+
+    <div class="producto-info">
+      <h3 class="producto-info__nombre">Carne para asar</h3>
+      <p class="producto-info__precio">Precio Actual: $12.300</p>
+      <p class="producto-info__precio-gramo">Precio por gramo: $14</p>
     </div>
-    
-    <div class="grafico">
-      <div class="grafico__contenido">
-        <h4 class="grafico__titulo">Última semana</h4>
-        <p class="grafico__eje-y">Percentage</p>
-        <div class="grafico__circular">
-          <div class="grafico__circular-fondo"></div>
-          <div class="grafico__circular-medio"></div>
-          <div class="grafico__circular-frente"></div>
+
+    <div class="graficos">
+      <div class="grafico">
+        <div class="grafico__contenido">
+          <h4 class="grafico__titulo">Último Año</h4>
+          <p class="grafico__eje-y">Units</p>
+          <img class="grafico__imagen" src="graph0.svg" alt="Gráfico último año">
+          <p class="grafico__eje-x">Regions</p>
         </div>
-        <p class="grafico__eje-x">Units Sold</p>
+      </div>
+
+      <div class="grafico">
+        <div class="grafico__contenido">
+          <h4 class="grafico__titulo">Últimos 3 meses</h4>
+          <p class="grafico__eje-y">Revenue</p>
+          <img class="grafico__imagen" src="graph1.svg" alt="Gráfico últimos 3 meses">
+          <p class="grafico__eje-x">Months</p>
+        </div>
+      </div>
+
+      <div class="grafico">
+        <div class="grafico__contenido">
+          <h4 class="grafico__titulo">Última semana</h4>
+          <p class="grafico__eje-y">Percentage</p>
+          <div class="grafico__circular">
+            <div class="grafico__circular-fondo"></div>
+            <div class="grafico__circular-medio"></div>
+            <div class="grafico__circular-frente"></div>
+          </div>
+          <p class="grafico__eje-x">Units Sold</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="message">
-  Producto añadido al carrito
-  <span class="message__close-btn">×</span>
-  <div class="message__progress-bar"></div>
-</div>
-<script src="{{ url_for('static', path='js/categoriasP.js') }}"></script>
+  <div class="message">
+    Producto añadido al carrito
+    <span class="message__close-btn">×</span>
+    <div class="message__progress-bar"></div>
+  </div>
+  <script src="{{ url_for('static', path='js/categoriasP.js') }}"></script>
 </body>
 <footer>
   <div class="footer">
-      <div class="footer-content">
-          <div class="footer-column">
-              <div class="footer-info">
-                  <div class="footer-heading">Comparte y ahorra en tus compras diarias</div>
-                  <div class="footer-text">
-                      Encuentra los mejores precios en supermercados y toma decisiones
-                      inteligentes para tu hogar.
-                  </div>
-              </div>
-              <div class="footer-actions">
-                  <button class="footer-btn-primary">
-                      <span class="footer-btn-text-primary">Explorar</span>
-                  </button>
+    <div class="footer-content">
+      <div class="footer-column">
+        <div class="footer-info">
+          <div class="footer-heading">Comparte y ahorra en tus compras diarias</div>
+          <div class="footer-text">
+            Encuentra los mejores precios en supermercados y toma decisiones
+            inteligentes para tu hogar.
+          </div>
+        </div>
+        <div class="footer-actions">
+          <button class="footer-btn-primary">
+            <span class="footer-btn-text-primary">Explorar</span>
+          </button>
 
-                  <button class="footer-btn-secondary">
-                      <span class="footer-btn-text-secondary">Ayuda</span>
-                  </button>
-              </div>
-          </div>
-          <div class="footer-links-column">
-              <div class="footer-link-list">
-                  <div class="footer-link-item">
-                      <a href="#" class="footer-link">Inicio</a>
-                  </div>
-                  <div class="footer-link-item">
-                      <a href="#" class="footer-link">Contáctanos</a>
-                  </div>
-                  <div class="footer-link-item">
-                      <a href="#" class="footer-link">Ayuda Online</a>
-                  </div>
-                  <div class="footer-link-item">
-                      <a href="#" class="footer-link">Política de Privacidad</a>
-                  </div>
-                  <div class="footer-link-item">
-                      <a href="#" class="footer-link">Términos de Uso</a>
-                  </div>
-              </div>
-          </div>
+          <button class="footer-btn-secondary">
+            <span class="footer-btn-text-secondary">Ayuda</span>
+          </button>
+        </div>
       </div>
-      <div class="footer-credits">
-          <div class="footer-logo-row">
-              <div class="footer-logo-container">
-                  <img class="footer-logo" src="{{ url_for('static', path='img/lOGO PROYECTO LuckasEnt.png') }}" />
-              </div>
+      <div class="footer-links-column">
+        <div class="footer-link-list">
+          <div class="footer-link-item">
+            <a href="#" class="footer-link">Inicio</a>
           </div>
-          <div class="footer-divider"></div>
-          <div class="footer-bottom-row">
-              <div class="footer-copyright">
-                  © 2024 LuckasEnt. Todos los derechos reservados.
-              </div>
-              <div class="footer-social-links">
-                  <a href="https://facebook.com" target="_blank">
-                      <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}"
-                          alt="Facebook" />
-                  </a>
-                  <a href="https://twitter.com" target="_blank">
-                      <img class="footer-social-icon" src="{{ url_for('static', path='img/X.png') }}" alt="Twitter" />
-                  </a>
-                  <a href="https://instagram.com" target="_blank">
-                      <img class="footer-social-icon" src="{{ url_for('static', path='img/Instagram.png') }}"
-                          alt="Instagram" />
-                  </a>
-                  <a href="https://linkedin.com" target="_blank">
-                      <img class="footer-social-icon" src="{{ url_for('static', path='img/LinkedIn.png') }}"
-                          alt="LinkedIn" />
-                  </a>
-                  <a href="https://youtube.com" target="_blank">
-                      <img class="footer-social-icon" src="{{ url_for('static', path='img/Youtube.png') }}"
-                          alt="YouTube" />
-                  </a>
-              </div>
+          <div class="footer-link-item">
+            <a href="#" class="footer-link">Contáctanos</a>
+          </div>
+          <div class="footer-link-item">
+            <a href="#" class="footer-link">Ayuda Online</a>
+          </div>
+          <div class="footer-link-item">
+            <a href="#" class="footer-link">Política de Privacidad</a>
+          </div>
+          <div class="footer-link-item">
+            <a href="#" class="footer-link">Términos de Uso</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-credits">
+      <div class="footer-logo-row">
+        <div class="footer-logo-container">
+          <img class="footer-logo" src="{{ url_for('static', path='img/lOGO PROYECTO LuckasEnt.png') }}" />
+        </div>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-bottom-row">
+        <div class="footer-copyright">
+          © 2024 LuckasEnt. Todos los derechos reservados.
+        </div>
+        <div class="footer-social-links">
+          <a href="https://facebook.com" target="_blank">
+            <img class="footer-social-icon" src="{{ url_for('static', path='img/Facebook.png') }}" alt="Facebook" />
+          </a>
+          <a href="https://twitter.com" target="_blank">
+            <img class="footer-social-icon" src="{{ url_for('static', path='img/X.png') }}" alt="Twitter" />
+          </a>
+          <a href="https://instagram.com" target="_blank">
+            <img class="footer-social-icon" src="{{ url_for('static', path='img/Instagram.png') }}" alt="Instagram" />
+          </a>
+          <a href="https://linkedin.com" target="_blank">
+            <img class="footer-social-icon" src="{{ url_for('static', path='img/LinkedIn.png') }}" alt="LinkedIn" />
+          </a>
+          <a href="https://youtube.com" target="_blank">
+            <img class="footer-social-icon" src="{{ url_for('static', path='img/Youtube.png') }}" alt="YouTube" />
+          </a>
+        </div>
 
-          </div>
       </div>
+    </div>
   </div>
 </footer>
 

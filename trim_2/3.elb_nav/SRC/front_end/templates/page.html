@@ -35,11 +35,13 @@
     <nav class="menu-container">
         <ul class="menu-navigation">
             <li><a class="menu-link" href="{{ url_for('categoria') }}">Categorías</a></li>
+            <li><a class="menu-link" href="{{ url_for('ofertas') }}">Ofertas</a></li>
             <li><a class="menu-link" href="{{ url_for('tulista') }}">Mi Lista</a></li>
             <li><a class="menu-link" href="{{ url_for('cuenta') }}#seccion-destino">Favoritos</a></li>
             <li><a class="menu-link" href="#">Ayuda</a></li>
         </ul>
     </nav>
+
     <section class="hero">
         <div class="hero-container">
 
@@ -197,7 +199,7 @@
             <!-- Card 1 -->
             <div class="categoria-card">
                 <div class="icono">
-                    <img src="https://cdn-icons-png.flaticon.com/512/415/415733.png" alt="Frutas y Verduras">
+                    <img src="{{ url_for('static', path='img/bicolor_icon_strawberry.png') }}" alt="Frutas y Verduras">
                 </div>
                 <h3>Frutas y Verduras</h3>
                 <p>Descubre las carnes de más alta calidad</p>
@@ -206,7 +208,7 @@
             <!-- Card 2 -->
             <div class="categoria-card">
                 <div class="icono">
-                    <img src="https://cdn-icons-png.flaticon.com/512/135/135763.png" alt="Cárnicos">
+                    <img src="{{ url_for('static', path='img/bicolor_icon_chicken.png') }}" alt="Cárnicos">
                 </div>
                 <h3>Cárnicos</h3>
                 <p>Descubre las carnes de más alta calidad</p>
@@ -215,7 +217,7 @@
             <!-- Card 3 -->
             <div class="categoria-card">
                 <div class="icono">
-                    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Pescados">
+                    <img src="{{ url_for('static', path='img/bicolor_icon_fish.png') }}" alt="Pescados">
                 </div>
                 <h3>Pescados</h3>
                 <p>Descubre las carnes de más alta calidad</p>
@@ -224,7 +226,7 @@
             <!-- Card 4 -->
             <div class="categoria-card">
                 <div class="icono">
-                    <img src="https://cdn-icons-png.flaticon.com/512/415/415711.png" alt="Panadería">
+                    <img src="{{ url_for('static', path='img/bicolor_icon_bread.png') }}" alt="Panadería">
                 </div>
                 <h3>Panadería</h3>
                 <p>Descubre las carnes de más alta calidad</p>
@@ -233,7 +235,7 @@
             <!-- Card 5 -->
             <div class="categoria-card">
                 <div class="icono">
-                    <img src="https://cdn-icons-png.flaticon.com/512/806/806120.png" alt="Dulces y Abarrotes">
+                    <img src="{{ url_for('static', path='img/bicolor_icon_candy.png') }}" alt="Dulces y Abarrotes">
                 </div>
                 <h3>Dulces y Abarrotes</h3>
                 <p>Descubre las carnes de más alta calidad</p>
@@ -242,7 +244,7 @@
             <!-- Card 6 -->
             <div class="categoria-card">
                 <div class="icono">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2917/2917995.png" alt="Bebidas">
+                    <img src="{{ url_for('static', path='img/bicolor_icon_bottle copy.png') }}" alt="Bebidas">
                 </div>
                 <h3>Bebidas</h3>
                 <p>Descubre las carnes de más alta calidad</p>

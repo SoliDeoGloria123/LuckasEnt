@@ -32,8 +32,9 @@
     <nav class="menu-container">
         <ul class="menu-navigation">
             <li><a class="menu-link" href="{{ url_for('categoria') }}">Categorías</a></li>
+            <li><a class="menu-link" href="{{ url_for('ofertas') }}">Ofertas</a></li>
             <li><a class="menu-link" href="{{ url_for('tulista') }}">Mi Lista</a></li>
-            <li><a class="menu-link" href="{{ url_for('cuenta') }}#seccion-destino">Favoritos</a></li>
+            <li><a class="menu-link" href="#">Favoritos</a></li>
             <li><a class="menu-link" href="#">Ayuda</a></li>
         </ul>
     </nav>
@@ -46,8 +47,7 @@
 
     <div class="descripcion-producto">
         <div class="producto-imagen">
-            <img
-                src="{{ producto.Imagen }}">
+            <img src="{{ producto.Imagen }}">
             <button class="product-card__favorite-btn" aria-label="Añadir a favoritos"></button>
         </div>
         <div class="producto-info">

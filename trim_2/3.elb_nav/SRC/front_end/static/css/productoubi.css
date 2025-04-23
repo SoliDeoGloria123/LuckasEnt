@@ -464,6 +464,52 @@ body {
   color: #000;
   transition: all 0.3s ease;
 }
+.product-alert-btn-primary {
+  background: #0033ff;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 240px;
+  position: relative;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-alert-btn-primary:hover {
+  background: #0022cc;
+}
+
+.product-alert-btn-primary-text {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Roboto-Medium", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  position: relative;
+}
+
+.product-alert-vector {
+  flex-shrink: 0;
+  height: 0px;
+  position: absolute;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  overflow: visible;
+}
+
+/* Estilos para los botones de producto (mantenidos del código original) */
+.primary-button,
+.secondary-button {
+  /* Mantén tus estilos originales para estos botones */
+  cursor: pointer;
+}
 .message {
   position: fixed;
   bottom: 20px;
@@ -486,7 +532,6 @@ body {
   opacity: 1;
   visibility: visible;
 }
-
 .close-btn {
   cursor: pointer;
   margin-left: 10px;
