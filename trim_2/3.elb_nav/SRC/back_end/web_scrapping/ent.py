@@ -22,6 +22,7 @@ collection = db["productos"]
 
 def delete_documents():
     try:
+        print("Iniciando limpieza de base de datos...")
         # Eliminar la colección
         db.drop_collection("productos")
         print("Colección 'productos' eliminada.")
@@ -35,6 +36,8 @@ def delete_documents():
 def run_scraping():
     try:
         print("Iniciando scraping...")
+        delete_documents()
+        print("Limpieza completada.")
         #-------------------------------------#
         main_makro()
         print("Scraping de Makro completado.")
@@ -53,10 +56,11 @@ def run_scraping():
         
 def main():
     try:
-        delete_documents()
         scheduler = BlockingScheduler(timezone=timezone("America/Bogota"))  # Configura la zona horaria
-        scheduler.add_job(run_scraping, 'interval', hours=2)
-        print("Programador iniciado. El scraping se ejecutará cada 2 horas.")
+        from datetime import datetime
+        from pytz import timezone
+        scheduler.add_job(run_scraping, 'interval', hours=2, next_run_time=datetime.now(timezone("America/Bogota")))
+        print("Programador iniciado. El scraping se ejecutará ahora y luego cada 2 horas.")
         try:
             scheduler.start()
         except (KeyboardInterrupt, SystemExit):
