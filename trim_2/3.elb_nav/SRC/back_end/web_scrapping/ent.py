@@ -3,7 +3,9 @@ import os
 from dotenv import load_dotenv
 from pymongo import MongoClient
 from apscheduler.schedulers.blocking import BlockingScheduler
-from pytz import timezone
+
+from pytz import timezone as pytz_timezone # Usa un alias para claridad
+from datetime import datetime
 
 from SRC.back_end.web_scrapping.Carulla.index_carulla import main_carulla
 from SRC.back_end.web_scrapping.D1.unite_D1 import main_d1
@@ -56,11 +58,13 @@ def run_scraping():
         
 def main():
     try:
-        scheduler = BlockingScheduler(timezone=timezone("America/Bogota"))  # Configura la zona horaria
-        from datetime import datetime
-        from pytz import timezone
-        scheduler.add_job(run_scraping, 'interval', hours=2, next_run_time=datetime.now(timezone("America/Bogota")))
-        print("Programador iniciado. El scraping se ejecutará ahora y luego cada 2 horas.")
+        bogota_tz_str = "America/Bogota"
+        bogota_tz_obj = pytz_timezone(bogota_tz_str)
+        scheduler = BlockingScheduler(timezone=bogota_tz_str)
+        now_in_bogota = datetime.now(bogota_tz_obj)
+        scheduler.add_job(run_scraping, 'interval', hours=2, next_run_time=now_in_bogota)
+
+        print(f"Programador iniciado. El scraping se ejecutará ahora ({now_in_bogota.strftime('%Y-%m-%d %H:%M:%S %Z%z')}) y luego cada 2 horas.")
         try:
             scheduler.start()
         except (KeyboardInterrupt, SystemExit):

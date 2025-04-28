@@ -4,7 +4,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.frontend
     ports:
       - "5001:5001"
     environment:
@@ -15,7 +15,7 @@ services:
   scraping:
     build:
       context: .
-      dockerfile: Dockerfile.scrapper
+      dockerfile: Dockerfile
     environment:
       - MONGO_URI=${MONGO_URI}
 
