@@ -65,9 +65,9 @@ def extraer_info(URL: str) -> IOResult[str, extraer_infoError]:
             )  # Asegúrate de que headless=False
             print("Browser launched successfully.")  # Mensaje de depuración
             page = browser.new_page()
-            page.goto(URL,timeout=90000)
+            page.goto(URL,timeout=120000)
             print(f"Navigated to URL: {URL}")  # Mensaje de depuración
-            page.wait_for_load_state("networkidle")
+            page.wait_for_load_state("networkidle", timeout=60000)
             content = page.content()
             print("Page content retrieved.")  # Mensaje de depuración
             browser.close()
