@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  #Imagen del Frontend
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+    environment:
+      - OAUTHLIB_INSECURE_TRANSPORT=1
+    depends_on:
+      - scraping
+  #Imagen del Scraper
+  scraping:
+    build:
+      context: .
+      dockerfile: Dockerfile.scrapper
+    environment:
+      - MONGO_URI=${MONGO_URI}
+
+
+#docker-compose build                NOTA: Construye las imagenes de los servicios frontend y scraping
+#docker-compose up -d                NOTA: INICIA los contenedores en segundo plano
+#docker ps                           NOTA: Muestra los contenedores
+#http://localhost:5001/              NOTA: Accede al frontend, Acceder a la URL: http://localhost:5001/
+
+
+#docker-compose up frontend          NOTA: INICIA el contenedor del frontend
+#docker-compose up scraping          NOTA: INICIA el contenedor del scraping
+#docker-compose down                 NOTA: Detiene y elimina los contenedores
+#docker-compose logs frontend        NOTA: Muestra los logs del contenedor del frontend
+#docker-compose logs scraping        NOTA: Muestra los logs del contenedor del scraping

@@ -38,7 +38,7 @@ def unite_index(URLS: Series) -> IOResult[list[str | int | float], unite_indexEr
         return IOFailure(unite_indexError(Error))
 
 
-def main() -> None:
+def main_exito() -> None:
     read_exel_py("SRC/back_end/web_scrapping/Exito/exito_URLs.csv").bind(
         extract_urls
     ).bind(
@@ -46,4 +46,4 @@ def main() -> None:
     )  # Depuración
 
 
-main()
+main_exito()

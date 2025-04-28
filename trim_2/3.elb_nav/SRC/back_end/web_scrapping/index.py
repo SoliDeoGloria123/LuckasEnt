@@ -50,8 +50,8 @@ def extraer_info(URL: str) -> IOResult[str, extraer_infoError]:
     
     # Preguntar al usuario solo una vez antes de iniciar el scraping
     if guardar_en_db is None:
-        opcion = input("¿Desea guardar los datos en la base de datos de MongoDB? (s/n): ").strip().lower()
-        guardar_en_db = (opcion == "s")
+        #opcion = input("¿Desea guardar los datos en la base de datos de MongoDB? (s/n): ").strip().lower()
+        guardar_en_db = True #(opcion == "s")
         
         if guardar_en_db:
             print(f"{colorama.Fore.YELLOW}Se guardarán todos los datos en MongoDB.{colorama.Style.RESET_ALL}")
@@ -61,7 +61,7 @@ def extraer_info(URL: str) -> IOResult[str, extraer_infoError]:
         print(f"Launching Playwright for URL: {URL}")  # Mensaje de depuración
         with sync_playwright() as p:
             browser = p.chromium.launch(
-                headless=False
+                headless=True
             )  # Asegúrate de que headless=False
             print("Browser launched successfully.")  # Mensaje de depuración
             page = browser.new_page()
