@@ -1,39 +1,18 @@
-# Imagen base oficial de Python (versión slim para menos peso)
-FROM python:3.12-slim
+FROM mcr.microsoft.com/playwright/python:v1.50.0-jammy
 
-# Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
-# Copia el requirements.txt primero para aprovechar el cache de Docker en la instalación de dependencias
+# Copiar los requisitos del proyecto
 COPY requirements.txt .
-
-# Actualiza pip antes de instalar dependencias
-RUN pip install --upgrade pip
-
-# Instala dependencias sin cache para evitar imágenes gigantes
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia el resto del código al contenedor (asegúrate que esté en la raíz de tu proyecto)
+# Copiar el código del proyecto
 COPY . .
 
-# Agrega el directorio /app al PYTHONPATH para que Python encuentre bien tus módulos
 ENV PYTHONPATH=/app
-ENV OAUTHLIB_INSECURE_TRANSPORT=1
 
-# Expone el puerto donde corre la app dentro del contenedor
-EXPOSE 5001
+# Comando para ejecutar el scraping
+CMD ["python", "SRC/back_end/web_scrapping/ent.py"]
 
-# Comando para arrancar el server con uvicorn
-CMD ["uvicorn", "SRC.front_end.main:app", "--reload", "--host", "0.0.0.0", "--port", "5001"]
-
-
-
-#https://www.youtube.com/watch?v=DoZZiSxXLJs
-
-#docker build -t luckasent .                                                              NOTA: PARA CREAR LA IMAGEN
-#docker run -p 5001:5001 --network=host luckasent                                         NOTA: PARA VERLO EN EL LOCAL UNA VEZ SIN RECARGAR
-#docker run -p 5001:5001 --network=host -v $(pwd)/SRC:/app/SRC luckasent                  NOTA:LO MISMO QUE EL ANTERIOR SOLO QUE CADA VEZ QUE SE HAGA CAMBIOS EN EL CODIGO SE ACTUALIZA
-#docker run -p 5001:5001 -v $(pwd)/SRC:/app/SRC luckasent
-#docker run -p 5001:5001 -v $(pwd)/SRC:/app/SRC --env-file .env luckasent                 NOTA: SE UTILIZA PARA CARGAR VARIABLES DE ENTORNO EN EL CONTENEDOR
-#docker image rmi -f luckasent                                                            NOTA: se utiliza para eliminar una imagen de Docker de tu sistema
-#uvicorn front_end.main:app --reload
+#docker build -t scraping-service -f Dockerfile.scrapper .     NOTA: Esto es para crear la imagen
+#docker run --env-file .env scraping-service                   NOTA: Esto es para ejecutar la imagen
